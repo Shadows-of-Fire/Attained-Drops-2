@@ -61,14 +61,14 @@ public class BlockBulb extends Block{
 		return getMetaFromState(world.getBlockState(new BlockPos(x, y, z)));
 	}
 	
-	@Override
-	public void getSubBlocks(Item block, CreativeTabs creativeTabs, List<ItemStack> list)
-	{
-		for (int i = 0; i < MobDrops.length; ++i)
-		{
-			list.add(new ItemStack(block, 1, i));
-		}
-	}
+	//@Override
+	//public void getSubBlocks(Item block, CreativeTabs creativeTabs, List<ItemStack> list)
+	//{
+	//	for (int i = 0; i < MobDrops.length; ++i)
+	//	{
+	//		list.add(new ItemStack(block, 1, i));
+	//	}
+	//}
 	
 	@Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
