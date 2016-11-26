@@ -11,6 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -21,9 +22,11 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import shadows.attained.AttainedDrops;
 import shadows.attained.ModRegistry;
 
 public class BlockBulb extends Block{
@@ -33,7 +36,7 @@ public class BlockBulb extends Block{
 			Items.ROTTEN_FLESH, Items.SLIME_BALL };
 	
 	
-	protected BlockBulb()
+	public BlockBulb()
 	{
 		super(Material.PLANTS);
 		setTickRandomly(true);
@@ -41,6 +44,8 @@ public class BlockBulb extends Block{
 		setHardness(0.3F);
 		setSoundType(SoundType.PLANT);
 		setCreativeTab(ModRegistry.Attained);
+		setUnlocalizedName(AttainedDrops.MODID + "bulb");
+		setDefaultState(getStateFromMeta(0));
 		GameRegistry.register(this);
 	}
 	
@@ -138,7 +143,7 @@ public class BlockBulb extends Block{
 	@Override
 	public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state)
 	{
-		if (world.getBlockState(pos.down()) != null && world.getBlockState(pos.down()) == ModRegistry.BlockPlant)
+		if (world.getBlockState(pos.down()) != null && world.getBlockState(pos.down()) == ModRegistry.blockplant)
 		{
 			world.setBlockState(pos.down(), this.getStateFromMeta(7), 2);
 			
@@ -184,6 +189,10 @@ public class BlockBulb extends Block{
 			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, d0, d1, d2, d3, d4, d5);
 			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, d2, d3, d1, d5, d3, d4);
 		}
+	}
+	@SideOnly(Side.CLIENT)
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation("bulb", "inventory"));
 	}
 	
 }

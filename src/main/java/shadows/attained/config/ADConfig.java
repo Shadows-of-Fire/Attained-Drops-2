@@ -14,6 +14,9 @@ public class ADConfig
 
 	private static final String CATEGORY_BLOCKUPDATES = "Block Updates";
 
+	public static int BlockMobPlantUpdate;
+	public static int BlockConcentrateDropUpdate;
+
 	/*
 	 * prints config options get posted to attaineddrops.cfg in here players can
 	 * set options for gameplay, tailoring it to their style

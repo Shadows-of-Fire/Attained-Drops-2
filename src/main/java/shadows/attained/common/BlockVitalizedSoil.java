@@ -7,9 +7,16 @@ import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+import shadows.attained.AttainedDrops;
 import shadows.attained.ModRegistry;
 
 public class BlockVitalizedSoil extends Block{
@@ -22,6 +29,9 @@ public class BlockVitalizedSoil extends Block{
 		setTickRandomly(true);
 		setCreativeTab(ModRegistry.Attained);
 		setSoundType(SoundType.GROUND);
+		setUnlocalizedName(AttainedDrops.MODID + "vitalizedsoil");
+		setDefaultState(getStateFromMeta(0));
+		GameRegistry.register(this);
 	}
 	
 	@Override
@@ -47,7 +57,10 @@ public class BlockVitalizedSoil extends Block{
 			world.setBlockState(pos, Blocks.DIRT.getDefaultState(), 2);
 		}
 	}	
-	
+	@SideOnly(Side.CLIENT)
+	public void initModel() {
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation("vitalizedsoil", "inventory"));
+	}
 	
 	
 	
