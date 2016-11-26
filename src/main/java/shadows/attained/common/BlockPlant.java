@@ -16,8 +16,10 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -37,9 +39,9 @@ public class BlockPlant extends BlockBush implements IGrowable{
 	public BlockPlant(){
 		super(Material.PLANTS);
 		setRegistryName("plant");
-		setUnlocalizedName(AttainedDrops.MODID + "blockplant");
+		setUnlocalizedName(AttainedDrops.MODID + ".blockplant");
 		setHardness(0.2F);
-		setCreativeTab(ModRegistry.Attained);
+	//	setCreativeTab(ModRegistry.Attained);
 		setTickRandomly(true);
 		setSoundType(SoundType.PLANT);
 		GameRegistry.register(this);
@@ -128,6 +130,7 @@ public class BlockPlant extends BlockBush implements IGrowable{
 		super.updateTick(world, pos, state, rand);
 
 		//int meta = getMetaFromState(world.getBlockState(pos));
+		if ((world.getBlockState(pos.down()).getBlock() == ModRegistry.dummysoil)){
 		int soilID = BlockDummySoil.getSoilMeta(world.getBlockState(pos.down()));
 
 		//if (meta < 8)
@@ -151,7 +154,11 @@ public class BlockPlant extends BlockBush implements IGrowable{
 			}
 		}
 	}
-	
+		else{
+			world.setBlockToAir(pos);
+			spawnAsEntity(world, pos, new ItemStack(Items.ACACIA_BOAT));
+		}
+	}
 	
 	@SideOnly(Side.CLIENT)
 	public void initModel() {

@@ -27,7 +27,7 @@ public class BlockVitalizedSoil extends Block {
 		setTickRandomly(true);
 		setCreativeTab(ModRegistry.Attained);
 		setSoundType(SoundType.GROUND);
-		setUnlocalizedName(AttainedDrops.MODID + "vitalizedsoil");
+		setUnlocalizedName(AttainedDrops.MODID + ".vitalizedsoil");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), Integer.valueOf(0)));

@@ -1,5 +1,8 @@
 package shadows.attained.proxy;
 
+import java.util.List;
+
+import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import shadows.attained.ModRegistry;
 
@@ -9,7 +12,7 @@ public class ClientProxy extends CommonProxy {
 	public void preInit(FMLPreInitializationEvent e) {
 		super.preInit(e);
 		ModRegistry.initModels();
-	}
 
+	}
 }
 

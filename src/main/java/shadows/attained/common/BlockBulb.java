@@ -16,8 +16,6 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -25,7 +23,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -50,7 +47,7 @@ public class BlockBulb extends Block{
 		setHardness(0.3F);
 		setSoundType(SoundType.PLANT);
 		setCreativeTab(ModRegistry.Attained);
-		setUnlocalizedName(AttainedDrops.MODID + "bulb");
+		setUnlocalizedName(AttainedDrops.MODID + ".bulb");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
@@ -61,15 +58,15 @@ public class BlockBulb extends Block{
 		return getMetaFromState(world.getBlockState(new BlockPos(x, y, z)));
 	}
 	
-	//@Override
-	//public void getSubBlocks(Item block, CreativeTabs creativeTabs, List<ItemStack> list)
-	//{
-	//	for (int i = 0; i < MobDrops.length; ++i)
-	//	{
-	//		list.add(new ItemStack(block, 1, i));
-	//	}
-	//}
-	
+	@Override
+	public void getSubBlocks(Item block, CreativeTabs creativeTabs, List<ItemStack> list)
+	{
+		for (int i = 0; i < MobDrops.length; ++i)
+		{
+			list.add(new ItemStack(ModRegistry.itembulb, 1, i));
+			list.remove(new ItemStack(block, 1, 0));
+		}
+	}
 	@Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {

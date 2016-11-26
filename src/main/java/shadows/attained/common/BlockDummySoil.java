@@ -1,6 +1,10 @@
 package shadows.attained.common;
 
+import java.util.List;
+
 import javax.annotation.Nullable;
+
+import org.lwjgl.input.Keyboard;
 
 import shadows.attained.util.BulbHelper;
 
@@ -44,7 +48,7 @@ public class BlockDummySoil extends Block {
 		setHardness(0.8F);
 		setCreativeTab(ModRegistry.Attained);
 		setSoundType(SoundType.GROUND);
-		setUnlocalizedName(AttainedDrops.MODID + "dummysoil");
+		setUnlocalizedName(AttainedDrops.MODID + ".dummysoil");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
@@ -154,6 +158,44 @@ public class BlockDummySoil extends Block {
 
 	protected static PropertyInteger getTypeProperty() {
 		return TYPE;
+	}
+	@Override
+	@SideOnly(Side.CLIENT)
+	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation)
+	{
+		if (Keyboard.isKeyDown(Keyboard.KEY_LSHIFT) || Keyboard.isKeyDown(Keyboard.KEY_RSHIFT))
+		{
+			list.add("Right click with enabled drop to enrich");
+			list.add("Enabled Items:");
+			printItems(list);
+		}
+		else
+		{
+			list.add(TextFormatting.GRAY + "Hold Shift");
+		}
+	}
+
+	public static void printItems(List<String> list)
+	{
+		String string = "";
+		for (int i = 0; i < 4; i++)
+		{
+			if (BulbHelper.isDropEnabled(i))
+			{
+				string = string + BlockBulb.MobDrops[i].getItemStackDisplayName(new ItemStack(BlockBulb.MobDrops[i])) + ", ";
+			}
+		}
+		list.add(TextFormatting.GREEN + string);
+		string = "";
+		for (int i = 4; i < BlockBulb.MobDrops.length; i++)
+		{
+			if (BulbHelper.isDropEnabled(i))
+			{
+				string = string + BlockBulb.MobDrops[i].getItemStackDisplayName(new ItemStack(BlockBulb.MobDrops[i])) + ", ";
+			}
+		}
+		list.add(TextFormatting.GREEN + string);
+		return;
 	}
 	
 	
