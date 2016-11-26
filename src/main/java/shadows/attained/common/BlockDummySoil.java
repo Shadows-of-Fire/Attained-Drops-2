@@ -7,6 +7,9 @@ import shadows.attained.util.BulbHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,6 +33,11 @@ import shadows.attained.AttainedDrops;
 import shadows.attained.ModRegistry;
 
 public class BlockDummySoil extends Block {
+	
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 8);
+	
+	
+	
 	public BlockDummySoil(){
 		super(Material.GROUND);
 		setRegistryName("dummysoil");
@@ -37,7 +45,6 @@ public class BlockDummySoil extends Block {
 		setCreativeTab(ModRegistry.Attained);
 		setSoundType(SoundType.GROUND);
 		setUnlocalizedName(AttainedDrops.MODID + "dummysoil");
-		setDefaultState(getStateFromMeta(0));
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
@@ -113,10 +120,44 @@ public class BlockDummySoil extends Block {
 			}
 		}
 	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {
+				TYPE
+		});
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return withType(meta);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return getType(state);
+	}
+
+
+	protected int getType(IBlockState state) {
+		return state.getValue(getTypeProperty()).intValue();
+	}
+
+	public IBlockState withType(int type) {
+		return getDefaultState().withProperty(getTypeProperty(), Integer.valueOf(type));
+	}
+
+	protected PropertyInteger getTypeProperty() {
+		return TYPE;
+	}
+	
+	
+	
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation("dummysoil", "inventory"));
 	}
+	
 	
 
 }

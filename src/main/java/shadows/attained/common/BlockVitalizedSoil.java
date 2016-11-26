@@ -69,9 +69,6 @@ public class BlockVitalizedSoil extends Block {
 		return getAge(state);
 	}
 
-	public int getMaxAge() {
-		return 7;
-	}
 
 	protected int getAge(IBlockState state) {
 		return state.getValue(getAgeProperty()).intValue();
@@ -79,10 +76,6 @@ public class BlockVitalizedSoil extends Block {
 
 	public IBlockState withAge(int age) {
 		return getDefaultState().withProperty(getAgeProperty(), Integer.valueOf(age));
-	}
-
-	public boolean isMaxAge(IBlockState state) {
-		return state.getValue(getAgeProperty()).intValue() >= getMaxAge();
 	}
 
 	protected PropertyInteger getAgeProperty() {

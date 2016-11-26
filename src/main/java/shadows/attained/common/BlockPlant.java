@@ -37,9 +37,9 @@ public class BlockPlant extends BlockBush implements IGrowable{
 		setCreativeTab(ModRegistry.Attained);
 		setTickRandomly(true);
 		setSoundType(SoundType.PLANT);
-		setDefaultState(getStateFromMeta(0));
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		
 	}
 	
 	@Override

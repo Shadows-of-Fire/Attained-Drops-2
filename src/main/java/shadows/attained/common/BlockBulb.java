@@ -46,7 +46,6 @@ public class BlockBulb extends Block{
 		setSoundType(SoundType.PLANT);
 		setCreativeTab(ModRegistry.Attained);
 		setUnlocalizedName(AttainedDrops.MODID + "bulb");
-		setDefaultState(getStateFromMeta(0));
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
