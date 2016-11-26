@@ -13,6 +13,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -38,13 +39,14 @@ public class BlockPlant extends BlockBush implements IGrowable{
 		setSoundType(SoundType.PLANT);
 		setDefaultState(getStateFromMeta(0));
 		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
 	
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-	{
-		return NULL_AABB;
-	}	
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+    {
+        return NULL_AABB;
+    }	
 
 	@Override
     public boolean canPlaceBlockAt(World world, BlockPos pos)
@@ -120,7 +122,7 @@ public class BlockPlant extends BlockBush implements IGrowable{
 
 		if (meta < 8)
 		{
-			if (rand.nextInt(ADConfig.BlockMobPlantUpdate) == 0)
+			if (rand.nextInt(20) == 0)
 			{
 				++meta;
 				world.setBlockState(pos, getStateFromMeta(meta), 2);

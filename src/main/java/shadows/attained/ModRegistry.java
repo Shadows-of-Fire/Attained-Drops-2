@@ -36,7 +36,9 @@ public class ModRegistry {
 	@SideOnly(Side.CLIENT)
 	public static void initModels(){
 	blockbulb.initModel();
-		
+	vitalizedsoil.initModel();
+	dummysoil.initModel();
+	blockplant.initModel();
 		
 	}
 }

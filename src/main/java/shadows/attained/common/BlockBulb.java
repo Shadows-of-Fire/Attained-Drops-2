@@ -16,6 +16,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -47,6 +48,7 @@ public class BlockBulb extends Block{
 		setUnlocalizedName(AttainedDrops.MODID + "bulb");
 		setDefaultState(getStateFromMeta(0));
 		GameRegistry.register(this);
+		GameRegistry.register(new ItemBlock(this), getRegistryName());
 	}
 	
 	public int getDamageValue(World world, int x, int y, int z)
@@ -81,10 +83,10 @@ public class BlockBulb extends Block{
 		return true;
 	}
 	@Override
-	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-	{
-		return NULL_AABB;
-	}	
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
+    {
+        return NULL_AABB;
+    }
 
 	@Override
 	public Item getItemDropped(IBlockState state, Random rand, int fortune)
