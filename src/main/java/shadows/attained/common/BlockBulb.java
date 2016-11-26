@@ -10,10 +10,14 @@ import shadows.attained.util.BulbHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyInteger;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerCapabilities;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -36,6 +40,7 @@ public class BlockBulb extends Block{
 	{ Items.BLAZE_ROD, Items.ENDER_PEARL, Items.GUNPOWDER, Items.BONE, Items.SPIDER_EYE, Items.STRING, Items.GHAST_TEAR,
 			Items.ROTTEN_FLESH, Items.SLIME_BALL };
 	
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 8);
 	
 	public BlockBulb()
 	{
@@ -48,6 +53,7 @@ public class BlockBulb extends Block{
 		setUnlocalizedName(AttainedDrops.MODID + "bulb");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
 	}
 	
 	public int getDamageValue(World world, int x, int y, int z)
@@ -64,23 +70,6 @@ public class BlockBulb extends Block{
 		}
 	}
 	
-	public void onNeighborBlockChange(World world, BlockPos pos, Block block, int fortune)
-	{
-		if (!this.canBlockStay(world, pos))
-		{
-			this.dropBlockAsItem(world, pos, world.getBlockState(pos), fortune);
-			world.setBlockToAir(pos);
-		}
-	}
-	
-	public boolean canBlockStay(World world, BlockPos pos)
-	{
-		if (world.isAirBlock(pos.down()))
-		{
-			return false;
-		}
-		return true;
-	}
 	@Override
     public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos)
     {
@@ -190,6 +179,36 @@ public class BlockBulb extends Block{
 			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, d0, d1, d2, d3, d4, d5);
 			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, d2, d3, d1, d5, d3, d4);
 		}
+	}
+	
+	@Override
+	protected BlockStateContainer createBlockState() {
+		return new BlockStateContainer(this, new IProperty[] {
+				TYPE
+		});
+	}
+
+	@Override
+	public IBlockState getStateFromMeta(int meta) {
+		return withType(meta);
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		return getType(state);
+	}
+
+
+	protected int getType(IBlockState state) {
+		return state.getValue(getTypeProperty()).intValue();
+	}
+
+	public IBlockState withType(int type) {
+		return getDefaultState().withProperty(getTypeProperty(), Integer.valueOf(type));
+	}
+
+	protected PropertyInteger getTypeProperty() {
+		return TYPE;
 	}
 	@SideOnly(Side.CLIENT)
 	public void initModel() {

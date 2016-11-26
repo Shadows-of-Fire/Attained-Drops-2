@@ -34,7 +34,7 @@ import shadows.attained.ModRegistry;
 
 public class BlockDummySoil extends Block {
 	
-	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 8);
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 9);
 	
 	
 	
@@ -47,6 +47,7 @@ public class BlockDummySoil extends Block {
 		setUnlocalizedName(AttainedDrops.MODID + "dummysoil");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
 	}
 	
 	@SuppressWarnings("deprecation")
@@ -137,9 +138,13 @@ public class BlockDummySoil extends Block {
 	public int getMetaFromState(IBlockState state) {
 		return getType(state);
 	}
+	
+	public static int getSoilMeta(IBlockState state){
+		return getType(state);
+	}
 
 
-	protected int getType(IBlockState state) {
+	protected static int getType(IBlockState state) {
 		return state.getValue(getTypeProperty()).intValue();
 	}
 
@@ -147,7 +152,7 @@ public class BlockDummySoil extends Block {
 		return getDefaultState().withProperty(getTypeProperty(), Integer.valueOf(type));
 	}
 
-	protected PropertyInteger getTypeProperty() {
+	protected static PropertyInteger getTypeProperty() {
 		return TYPE;
 	}
 	
