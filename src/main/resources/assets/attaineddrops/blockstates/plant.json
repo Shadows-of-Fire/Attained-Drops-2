@@ -4,6 +4,8 @@
 		"model": "cross"
 	},
 	"variants": {
+		"inventory": [{}],
+		"normal": [{}],
 		"age": {
 			"0": {
 				"textures": {

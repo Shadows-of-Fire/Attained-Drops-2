@@ -38,7 +38,9 @@
 		},
 		"inventory": {
 			"model": "attaineddrops:soil/0"
+		},
+		"normal": {
+			"model": "attaineddrops:soil/0"
 		}
-		
 	}
 }

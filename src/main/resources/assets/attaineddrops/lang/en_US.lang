@@ -1,22 +1,22 @@
 //English Localizations
 
-tile.blockMobDirt.name=Vitalized Soil
+tile.attaineddrops.vitalized.name=Vitalized Soil
 tile.blockMobPlant.name=Mob Drop Plant
-tile.blockConcentrateDrop.name=Vitalized Soil Planter
-tile.blockMobBulb.item.blazeRod.name=Blaze Bulb
-tile.blockMobBulb.item.enderPearl.name=Ender Pearl Bulb
-tile.blockMobBulb.item.bone.name=Bone Bulb
-tile.blockMobBulb.item.slimeball.name=Slimeball Bulb
-tile.blockMobBulb.item.rottenFlesh.name=Blaze Bulb
-tile.blockMobBulb.item.ghastTear.name=Ghast Tear Bulb
-tile.blockMobBulb.item.sulphur.name=Gunpowder Bulb
-tile.blockMobBulb.item.string.name=String Bulb
-tile.blockMobBulb.item.spiderEye.name=Spider Eye Bulb
+tile.attaineddrops.soilcreator.name=Vitalized Soil Planter
+tile.attaineddrops.bulb.item.blazeRod.name=Blaze Bulb
+tile.attaineddrops.bulb.item.enderPearl.name=Ender Pearl Bulb
+tile.attaineddrops.bulb.item.bone.name=Bone Bulb
+tile.attaineddrops.bulb.item.slimeball.name=Slimeball Bulb
+tile.attaineddrops.bulb.item.rottenFlesh.name=Blaze Bulb
+tile.attaineddrops.bulb.item.ghastTear.name=Ghast Tear Bulb
+tile.attaineddrops.bulb.item.sulphur.name=Gunpowder Bulb
+tile.attaineddrops.bulb.item.string.name=String Bulb
+tile.attaineddrops.bulb.item.spiderEye.name=Spider Eye Bulb
 tile.blockxpObelisk.name=Experience Obelisk
 tile.blockxpBall.name=Crystaline Experience
 tile.blockxpObsidian.name=Experienced Infused Obsidian
 
-item.plantSeedUnlocalizedName.name=Mob Drop Plant Seed
+item.attaineddrops.itemseed.name=Mob Drop Plant Seed
 item.lifeEssenceName.name=Life Essence
 
 phrase.AttainedDrops.BlockMobPlantUpdateComment=Random number in 0 - x that a plant update will occur, the higher x, the rarer the occasion
@@ -27,3 +27,5 @@ phrase.AttainedDrops.DirtStart=Vitalized with:
 
 phrase.AttainedDrops.DisabledBulbChat=This item has been disabled
 phrase.AttainedDrops.ShortXPChat=You do not have enough experience to do that
+
+itemGroup.ad=Attained Drops
