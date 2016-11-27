@@ -17,7 +17,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
-import shadows.attained.util.BulbHelper;
 
 public class BlockBulb extends Block {
 
@@ -88,14 +87,9 @@ public class BlockBulb extends Block {
 	public int quantityDropped(IBlockState state, int fortune, Random random) {
 		int DropNumber;
 
-		DropNumber = BulbHelper.staticDropNumber(getMetaFromState(state)) + random.nextInt(BulbHelper.dynamicDropNumber(getMetaFromState(state)));
+		DropNumber = random.nextInt(2);
 
-		if (BulbHelper.canFortuneBulb(getMetaFromState(state)) == true) {
 			return (quantityDroppedWithBonus(fortune, random) + DropNumber);
-		}
-		else {
-			return DropNumber;
-		}
 	}
 
 	@Override
@@ -144,13 +138,13 @@ public class BlockBulb extends Block {
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(World world, BlockPos pos, Random rand) {
 		int dropNumber = getMetaFromState(world.getBlockState(pos));
-		if (BulbHelper.canSpawnParticles(dropNumber) == true) {
+
 			particles(world, pos, dropNumber);
-		}
+		
 	}
 
 	private void particles(World world, BlockPos pos, int dropNumber) {
-		if (world.rand.nextInt(BulbHelper.particleSpawnRate(dropNumber)) == 0) {
+		if (world.rand.nextInt(8) == 0) {
 			double d0 = pos.getX() + world.rand.nextFloat();
 			double d1 = pos.getY() + world.rand.nextFloat();
 			double d2 = pos.getZ() + world.rand.nextFloat();

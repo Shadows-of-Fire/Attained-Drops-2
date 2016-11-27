@@ -2,6 +2,8 @@
 
 tile.attaineddrops.vitalized.name=Vitalized Soil
 tile.blockMobPlant.name=Mob Drop Plant
+tile.attaineddrops.bulb.name=Attained Bulb
+tile.attaineddrops.blockplant.name=Attained Plant
 tile.attaineddrops.soilcreator.name=Vitalized Soil Planter
 tile.attaineddrops.bulb.item.blazeRod.name=Blaze Bulb
 tile.attaineddrops.bulb.item.enderPearl.name=Ender Pearl Bulb
@@ -17,7 +19,7 @@ tile.blockxpBall.name=Crystaline Experience
 tile.blockxpObsidian.name=Experienced Infused Obsidian
 
 item.attaineddrops.itemseed.name=Mob Drop Plant Seed
-item.lifeEssenceName.name=Life Essence
+item.attaineddrops.itemessence.name=Life Essence
 
 phrase.AttainedDrops.BlockMobPlantUpdateComment=Random number in 0 - x that a plant update will occur, the higher x, the rarer the occasion
 phrase.AttainedDrops.BlockMobConcetrateDropComment=Random number in 0 - x that the vitalized soil will spread, the higher x, the rarer the occasion

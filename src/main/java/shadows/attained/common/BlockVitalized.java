@@ -1,6 +1,7 @@
 package shadows.attained.common;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -23,7 +24,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
-import shadows.attained.util.BulbHelper;
 
 public class BlockVitalized extends Block {
 
@@ -56,7 +56,7 @@ public class BlockVitalized extends Block {
 						world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 0.8);
 						if (player.capabilities.isCreativeMode == false) {
 							player.inventory.decrStackSize(player.inventory.currentItem, 1);
-							player.experienceLevel = (xp - BulbHelper.getXPUse(i));
+							player.experienceLevel = (xp - 0);
 						}
 						return true;
 					}
@@ -64,6 +64,7 @@ public class BlockVitalized extends Block {
 			}
 		}
 		else {
+			if (player.inventory.getCurrentItem() == null) {
 			int mx = getMetaFromState(k);
 			if (mx != 0) {
 				player.addChatComponentMessage(new TextComponentString(I18n.format("phrase.AttainedDrops.DirtStart") + TextFormatting.GREEN + " " + I18n.format(BlockBulb.MobDrops[mx - 1].getUnlocalizedName(new ItemStack(BlockBulb.MobDrops[mx - 1])) + ".name")));
@@ -72,32 +73,22 @@ public class BlockVitalized extends Block {
 				player.addChatComponentMessage(new TextComponentString(I18n.format("phrase.AttainedDrops.DirtBlank")));
 			}
 		}
+		}
 		return false;
 	}
 
 	public boolean canPlayerEnrich(World world, BlockPos pos, EntityPlayer player, IBlockState state, int dropNumber, int xp) {
 		if (player.inventory.getCurrentItem().getItem() == BlockBulb.MobDrops[dropNumber]) {
-			if (getMetaFromState(state) != (dropNumber + 1) && BulbHelper.isDropEnabled(dropNumber)) {
-				if (xp >= BulbHelper.getXPUse(dropNumber) || player.capabilities.isCreativeMode) {
+			if (getMetaFromState(state) != (dropNumber + 1)) {
+				if (xp >= 0 || player.capabilities.isCreativeMode) {
 					return true;
 				}
 			}
-			chatHelper(world, pos, player, dropNumber, xp);
 		}
 
 		return false;
 	}
 
-	public static void chatHelper(World world, BlockPos pos, EntityPlayer player, int dropNumber, int xp) {
-		if (world.isRemote) {
-			if (BulbHelper.isDropEnabled(dropNumber) == false) {
-				player.addChatMessage(new TextComponentString(I18n.format("phrase.AttainedDrops.DisabledBulbChat")));
-			}
-			if (xp < BulbHelper.getXPUse(dropNumber)) {
-				player.addChatMessage(new TextComponentString(I18n.format("phrase.AttainedDrops.ShortXPChat")));
-			}
-		}
-	}
 
 	@Override
 	protected BlockStateContainer createBlockState() {
@@ -148,16 +139,16 @@ public class BlockVitalized extends Block {
 	public static void printItems(List<String> list) {
 		String string = "";
 		for (int i = 0; i < 4; i++) {
-			if (BulbHelper.isDropEnabled(i)) {
+
 				string = string + BlockBulb.MobDrops[i].getItemStackDisplayName(new ItemStack(BlockBulb.MobDrops[i])) + ", ";
-			}
+			
 		}
 		list.add(TextFormatting.GREEN + string);
 		string = "";
 		for (int i = 4; i < BlockBulb.MobDrops.length; i++) {
-			if (BulbHelper.isDropEnabled(i)) {
+
 				string = string + BlockBulb.MobDrops[i].getItemStackDisplayName(new ItemStack(BlockBulb.MobDrops[i])) + ", ";
-			}
+			
 		}
 		list.add(TextFormatting.GREEN + string);
 		return;

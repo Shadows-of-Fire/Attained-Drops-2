@@ -14,7 +14,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
-import shadows.attained.util.BulbHelper;
 
 public class BlockPlant extends BlockBush implements IGrowable {
 
@@ -70,6 +69,14 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	@Override
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    {
+        updateTick(worldIn, pos, state, random);
+        updateTick(worldIn, pos, state, random);
+        updateTick(worldIn, pos, state, random);
+    }
+	
+	@Override
 	public boolean canPlaceBlockAt(World world, BlockPos pos) {
 		return world.getBlockState(pos.down()).getBlock() == ModRegistry.vitalized;
 	}
@@ -82,7 +89,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 			if (i < 7) {
 				return true;
 			}
-			else if (i == 7 && BulbHelper.canBonemealBulb(dropNumber) && world.isAirBlock(pos.up())) {
+			else if (i == 7 && world.isAirBlock(pos.up())) {
 				return true;
 			}
 		}

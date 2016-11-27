@@ -34,11 +34,19 @@ public class BlockSoilCreator extends Block {
 	}
 
 	@Override
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    {
+        updateTick(worldIn, pos, state, random);
+        updateTick(worldIn, pos, state, random);
+        updateTick(worldIn, pos, state, random);
+    }
+	
+	@Override
 	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(world, pos, state, rand);
 		int l = getMetaFromState(state);
 
-		if (l < 15 && rand.nextInt(3) == 0) {
+		if (l < 15) {
 			l++;
 			int i = pos.getX() + (rand.nextInt(3) - 1);
 			int k = pos.getZ() + (rand.nextInt(3) - 1);

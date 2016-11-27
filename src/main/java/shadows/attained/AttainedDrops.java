@@ -15,7 +15,7 @@ public class AttainedDrops {
     public static final String MODNAME = "Attained Drops";
     public static final String VERSION = "2.0.0";
 
-    @SidedProxy(clientSide = "shadows.attained.proxy.ClientProxy", serverSide = "shadows.attained.proxy.ServerProxy")
+    @SidedProxy(clientSide = "shadows.attained.proxy.ClientProxy", serverSide = "shadows.attained.proxy.CommonProxy")
     public static CommonProxy proxy;
 	
     @Mod.Instance

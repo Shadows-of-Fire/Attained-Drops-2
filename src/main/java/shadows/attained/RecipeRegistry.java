@@ -10,7 +10,7 @@ public class RecipeRegistry {
 
 	
 	public static void init(){
-		GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemseed, 2), new Object[] {"L  ", "FS ", "  ", 'F', ModRegistry.itemessence, 'L', Items.APPLE, 'S', Items.WHEAT_SEEDS});
+		GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemseed, 2), new Object[] {ModRegistry.itemessence, Items.APPLE, Items.WHEAT_SEEDS});
 		GameRegistry.addShapedRecipe(new ItemStack(ModRegistry.soilcreator), new Object[] {" L ", "FSF", " L ", 'F', ModRegistry.itemseed, 'L', Items.EGG, 'S', Blocks.DIRT});
 	
 	}
