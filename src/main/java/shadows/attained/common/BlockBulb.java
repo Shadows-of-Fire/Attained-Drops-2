@@ -16,6 +16,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -23,6 +24,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -33,6 +35,7 @@ import shadows.attained.ModRegistry;
 
 public class BlockBulb extends Block{
 	
+	private static final AxisAlignedBB BulbBox = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
 	public static Item[] MobDrops =
 	{ Items.BLAZE_ROD, Items.ENDER_PEARL, Items.GUNPOWDER, Items.BONE, Items.SPIDER_EYE, Items.STRING, Items.GHAST_TEAR,
 			Items.ROTTEN_FLESH, Items.SLIME_BALL };
@@ -59,6 +62,12 @@ public class BlockBulb extends Block{
 	}
 	
 	@Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
+    {
+        return BulbBox;
+    }
+	
+	@Override
 	public void getSubBlocks(Item block, CreativeTabs creativeTabs, List<ItemStack> list)
 	{
 		for (int i = 0; i < MobDrops.length; ++i)
@@ -78,6 +87,16 @@ public class BlockBulb extends Block{
 	{
 		int meta = getMetaFromState(state);
 		return MobDrops[meta];
+	}
+	
+	@Override
+	public boolean isOpaqueCube(IBlockState state) {
+		return false;
+	}
+
+	@Override
+	public boolean isFullCube(IBlockState state) {
+		return false;
 	}
 
 	@Override
@@ -136,6 +155,16 @@ public class BlockBulb extends Block{
 			
 		}
 	}
+	
+	@Override
+    public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn)
+    {
+        super.neighborChanged(state, worldIn, pos, blockIn);
+        if (worldIn.getBlockState(pos.down()).getBlock()  != ModRegistry.blockplant){
+        this.dropBlockAsItem(worldIn, pos, state, 0);
+        worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+    }
+    }
 
 	@Override
 	public int tickRate(World world)

@@ -1,0 +1,14 @@
+//Chinese Localizations
+
+tile.blockMobDirt.name=活化土
+tile.blockMobPlant.name=奇异植物
+tile.blockConcentrateDrop.name=营养富集块
+tile.blockMobBulb.name=奇异果实
+
+item.plantSeedUnlocalizedName.name=奇异植物种子
+
+phrase.AttainedDrops.BlockMobPlantUpdateComment=0 - x之间取随机数决定植物是否发生更新,x越大几率就越低
+phrase.AttainedDrops.BlockMobConcetrateDropComment=0 - x之间取随机数决定活化土是否传播,x越大几率就越低
+
+phrase.AttainedDrops.DirtBlank=该活化土尚未设定培育类型
+phrase.AttainedDrops.DirtStart=活化类型:

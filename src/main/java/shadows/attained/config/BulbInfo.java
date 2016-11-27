@@ -16,7 +16,7 @@ public class BulbInfo
 	public static int[] soilUnEnrichDefault =
 	{ 5, 4, 6, 10, 8, 8, 4, 10, 16 };
 	public static boolean EnableSoilResetDefault = true;
-	public static boolean EnableBonemealBulbDefault = false;
+	public static boolean EnableBonemealBulbDefault = true;
 	public static int[] chanceToBonemealDefault =
 	{ 5, 5, 5, 8, 3, 3, 4, 3, 5 };
 	public static int StaticDropDefault = 1;

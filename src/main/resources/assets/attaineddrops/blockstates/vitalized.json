@@ -1,0 +1,44 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+	 "transform": "forge:default-block"
+	 },
+	"variants": {
+		"type": {
+			"0": {
+			"model": "attaineddrops:soil/0"
+			},
+			"1": {
+			"model": "attaineddrops:soil/1"
+			},
+			"2": {
+			"model": "attaineddrops:soil/2"
+			},
+			"3": {
+			"model": "attaineddrops:soil/3"
+			},
+			"4": {
+			"model": "attaineddrops:soil/4"
+			},
+			"5": {
+			"model": "attaineddrops:soil/5"
+			},
+			"6": {
+			"model": "attaineddrops:soil/6"
+			},
+			"7": {
+			"model": "attaineddrops:soil/7"
+			},
+			"8": {
+			"model": "attaineddrops:soil/8"
+			},
+			"9": {
+			"model": "attaineddrops:soil/9"
+			}
+		},
+		"inventory": {
+			"model": "attaineddrops:soil/0"
+		}
+		
+	}
+}

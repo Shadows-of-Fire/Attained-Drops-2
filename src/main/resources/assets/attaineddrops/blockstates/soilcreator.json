@@ -1,0 +1,64 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"textures": {
+			"all": "attaineddrops:blocks/soilcreator"
+		}
+	},
+	"variants": {
+		"age": {
+			"0": {
+			"model": "cube_all"
+			},
+			"1": {
+			"model": "cube_all"
+			},
+			"2": {
+			"model": "cube_all"
+			},
+			"3": {
+			"model": "cube_all"
+			},
+			"4": {
+			"model": "cube_all"
+			},
+			"5": {
+			"model": "cube_all"
+			},
+			"6": {
+			"model": "cube_all"
+			},
+			"7": {
+			"model": "cube_all"
+			},
+			"8": {
+			"model": "cube_all"
+			},
+			"9": {
+			"model": "cube_all"
+			},
+			"10": {
+			"model": "cube_all"
+			},
+			"11": {
+			"model": "cube_all"
+			},
+			"12": {
+			"model": "cube_all"
+			},
+			"13": {
+			"model": "cube_all"
+			},
+			"14": {
+			"model": "cube_all"
+			},
+			"15": {
+			"model": "cube_all"
+			}
+		},
+	
+		"inventory": {
+			"model": "cube_all"
+		}
+	}
+}

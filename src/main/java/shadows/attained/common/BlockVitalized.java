@@ -1,6 +1,7 @@
 package shadows.attained.common;
 
 import java.util.List;
+import java.util.Random;
 
 import javax.annotation.Nullable;
 
@@ -17,6 +18,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -28,6 +30,7 @@ import net.minecraft.util.text.translation.I18n;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextFormatting;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -36,19 +39,19 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops;
 import shadows.attained.ModRegistry;
 
-public class BlockDummySoil extends Block {
+public class BlockVitalized extends Block {
 	
 	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 9);
 	
 	
 	
-	public BlockDummySoil(){
+	public BlockVitalized(){
 		super(Material.GROUND);
-		setRegistryName("dummysoil");
+		setRegistryName("vitalized");
 		setHardness(0.8F);
 		setCreativeTab(ModRegistry.Attained);
 		setSoundType(SoundType.GROUND);
-		setUnlocalizedName(AttainedDrops.MODID + ".dummysoil");
+		setUnlocalizedName(AttainedDrops.MODID + ".vitalized");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
@@ -83,7 +86,7 @@ public class BlockDummySoil extends Block {
 			if (mx != 0)
 			{
 				player.addChatComponentMessage(new TextComponentString(I18n.translateToLocal("phrase.AttainedDrops.DirtStart")
-						+ TextFormatting.GREEN
+						+ TextFormatting.GREEN + " "
 						+ I18n.translateToLocal(BlockBulb.MobDrops[mx - 1].getUnlocalizedNameInefficiently(new ItemStack(
 								BlockBulb.MobDrops[mx - 1])) + ".name")));
 			}
@@ -198,11 +201,17 @@ public class BlockDummySoil extends Block {
 		return;
 	}
 	
-	
+	@Override
+    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune)
+    {
+        List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
+        ret.add(new ItemStack(Blocks.DIRT));
+        return ret;
+    }
 	
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation("dummysoil", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 	
 	

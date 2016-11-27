@@ -16,18 +16,18 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
 
-public class BlockVitalizedSoil extends Block {
+public class BlockSoilCreator extends Block {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
 
-	public BlockVitalizedSoil() {
+	public BlockSoilCreator() {
 		super(Material.GROUND);
-		setRegistryName("vitalizedsoil");
+		setRegistryName("soilcreator");
 		setHardness(0.8F);
 		setTickRandomly(true);
 		setCreativeTab(ModRegistry.Attained);
 		setSoundType(SoundType.GROUND);
-		setUnlocalizedName(AttainedDrops.MODID + ".vitalizedsoil");
+		setUnlocalizedName(AttainedDrops.MODID + ".soilcreator");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
 		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), Integer.valueOf(0)));
@@ -43,7 +43,7 @@ public class BlockVitalizedSoil extends Block {
 			int i = pos.getX() + (rand.nextInt(3) - 1);
 			int k = pos.getZ() + (rand.nextInt(3) - 1);
 			if (world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.DIRT || world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.GRASS) {
-				world.setBlockState(new BlockPos(i, pos.getY(), k), ModRegistry.dummysoil.getDefaultState(), 2);
+				world.setBlockState(new BlockPos(i, pos.getY(), k), ModRegistry.vitalized.getDefaultState(), 2);
 				world.setBlockState(pos, getStateFromMeta(l), 2);
 			}
 		}
@@ -84,7 +84,7 @@ public class BlockVitalizedSoil extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation("vitalizedsoil", "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

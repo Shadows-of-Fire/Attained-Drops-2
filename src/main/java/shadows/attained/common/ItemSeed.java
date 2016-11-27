@@ -40,7 +40,7 @@ public class ItemSeed extends Item
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 
 	{
-		if (world.getBlockState(pos).getBlock() == ModRegistry.dummysoil && world.isAirBlock(pos.up()))
+		if (world.getBlockState(pos).getBlock() == ModRegistry.vitalized && world.isAirBlock(pos.up()))
 		{
 			if (player.canPlayerEdit(pos, facing, stack) && facing == EnumFacing.UP)
 				world.setBlockState(pos.up(), ModRegistry.blockplant.getDefaultState());

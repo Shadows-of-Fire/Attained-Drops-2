@@ -36,9 +36,9 @@ public class AttainedTab extends CreativeTabs{
             			list.add(new ItemStack(ModRegistry.itembulb, 1, i));
             		}
             		
-            		list.add(new ItemStack(ModRegistry.itemsoil));
+            		list.add(new ItemStack(ModRegistry.vitalized));
             		list.add(new ItemStack(ModRegistry.itemseed));
-            		list.add(new ItemStack(ModRegistry.vitalizedsoil));
+            		list.add(new ItemStack(ModRegistry.soilcreator));
 
                 
 
@@ -51,9 +51,9 @@ public class AttainedTab extends CreativeTabs{
 		{
 			list.add(new ItemStack(ModRegistry.itembulb, 1, i));
 		}
-		list.add(new ItemStack(ModRegistry.itemsoil));
+		list.add(new ItemStack(ModRegistry.vitalized));
 		list.add(new ItemStack(ModRegistry.itemseed));
-		list.add(new ItemStack(ModRegistry.vitalizedsoil));
+		list.add(new ItemStack(ModRegistry.soilcreator));
 	}
 
 }

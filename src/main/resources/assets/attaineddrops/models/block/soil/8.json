@@ -1,0 +1,12 @@
+{
+    "parent": "block/cube",
+    "textures": {
+        "particle": "blocks/dirt",
+        "down": "blocks/dirt",
+        "up": "attaineddrops:blocks/soil/8",
+        "north": "blocks/dirt",
+        "east": "blocks/dirt",
+        "south": "blocks/dirt",
+        "west": "blocks/dirt"
+    }
+}

@@ -12,11 +12,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.common.BlockBulb;
-import shadows.attained.common.BlockDummySoil;
+import shadows.attained.common.BlockVitalized;
 import shadows.attained.common.BlockPlant;
-import shadows.attained.common.BlockVitalizedSoil;
+import shadows.attained.common.BlockSoilCreator;
 import shadows.attained.common.ItemBulb;
-import shadows.attained.common.ItemDummySoil;
+
 import shadows.attained.common.ItemSeed;
 import shadows.attained.util.AttainedTab;
 
@@ -31,20 +31,18 @@ public class ModRegistry {
         }
     };
 	public static BlockBulb blockbulb;
-	public static BlockVitalizedSoil vitalizedsoil;
-	public static BlockDummySoil dummysoil;
+	public static BlockSoilCreator soilcreator;
+	public static BlockVitalized vitalized;
 	public static BlockPlant blockplant;
 	public static ItemBulb itembulb;
-	public static ItemDummySoil itemsoil;
 	public static ItemSeed itemseed;
 	
 	public static void init(){
 	blockbulb = new BlockBulb();	
-	vitalizedsoil = new BlockVitalizedSoil();
-	dummysoil = new BlockDummySoil();	
+	soilcreator = new BlockSoilCreator();
+	vitalized = new BlockVitalized();	
 	blockplant = new BlockPlant();	
 	itembulb = new ItemBulb(blockbulb);
-	itemsoil = new ItemDummySoil(dummysoil);	
 	itemseed = new ItemSeed();
 	
 	}
@@ -52,10 +50,9 @@ public class ModRegistry {
 	@SideOnly(Side.CLIENT)
 	public static void initModels(){
 	blockbulb.initModel();
-	vitalizedsoil.initModel();
-	dummysoil.initModel();
+	soilcreator.initModel();
+	vitalized.initModel();
 	blockplant.initModel();
-	itemsoil.initModel();
 	itemseed.initModel();
 	itembulb.initModel();
 		
