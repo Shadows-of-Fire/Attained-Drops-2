@@ -48,15 +48,13 @@ public class BlockVitalized extends Block {
 		}
 		IBlockState k = world.getBlockState(pos);
 		if (!world.isRemote) {
-			int xp = player.experienceLevel;
 			if (player.inventory.getCurrentItem() != null) {
 				for (int i = 0; i < BlockBulb.MobDrops.length; i++) {
-					if (canPlayerEnrich(world, pos, player, k, i, xp) == true) {
+					if (canPlayerEnrich(world, pos, player, k, i) == true) {
 						world.setBlockState(pos, getStateFromMeta(i + 1), 2);
 						world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 0.8);
 						if (player.capabilities.isCreativeMode == false) {
 							player.inventory.decrStackSize(player.inventory.currentItem, 1);
-							player.experienceLevel = (xp - 0);
 						}
 						return true;
 					}
@@ -77,10 +75,10 @@ public class BlockVitalized extends Block {
 		return false;
 	}
 
-	public boolean canPlayerEnrich(World world, BlockPos pos, EntityPlayer player, IBlockState state, int dropNumber, int xp) {
+	public boolean canPlayerEnrich(World world, BlockPos pos, EntityPlayer player, IBlockState state, int dropNumber) {
 		if (player.inventory.getCurrentItem().getItem() == BlockBulb.MobDrops[dropNumber]) {
 			if (getMetaFromState(state) != (dropNumber + 1)) {
-				if (xp >= 0 || player.capabilities.isCreativeMode) {
+				if (player.capabilities.isCreativeMode) {
 					return true;
 				}
 			}
