@@ -33,7 +33,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 		setSoundType(SoundType.PLANT);
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), 0));
 
 	}
 
