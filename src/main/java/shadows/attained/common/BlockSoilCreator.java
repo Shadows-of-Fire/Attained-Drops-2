@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
 
+import javax.annotation.Nonnull;
+
 public class BlockSoilCreator extends Block {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
@@ -30,11 +32,11 @@ public class BlockSoilCreator extends Block {
 		setUnlocalizedName(AttainedDrops.MODID + ".soilcreator");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), 0));
 	}
 
 	@Override
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
+    public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random)
     {
         updateTick(worldIn, pos, state, random);
         updateTick(worldIn, pos, state, random);
@@ -60,13 +62,13 @@ public class BlockSoilCreator extends Block {
 		}
 	}
 
+	@Nonnull
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {
-				AGE
-		});
+		return new BlockStateContainer(this, AGE);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return withAge(meta);
@@ -79,11 +81,11 @@ public class BlockSoilCreator extends Block {
 
 
 	protected int getAge(IBlockState state) {
-		return state.getValue(getAgeProperty()).intValue();
+		return state.getValue(getAgeProperty());
 	}
 
 	public IBlockState withAge(int age) {
-		return getDefaultState().withProperty(getAgeProperty(), Integer.valueOf(age));
+		return getDefaultState().withProperty(getAgeProperty(), age);
 	}
 
 	protected PropertyInteger getAgeProperty() {

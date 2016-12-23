@@ -24,6 +24,8 @@ import shadows.attained.ModRegistry;
 
 import org.lwjgl.input.Keyboard;
 
+import javax.annotation.Nonnull;
+
 
 public class ItemSeed extends Item
 {
@@ -36,6 +38,7 @@ public class ItemSeed extends Item
 		GameRegistry.register(this);
 	}
 
+	@Nonnull
 	@Override
     public EnumActionResult onItemUse(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ)
 

@@ -18,6 +18,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
 
+import javax.annotation.Nonnull;
+
 public class BlockBulb extends Block {
 
 	private static final AxisAlignedBB BulbBox = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
@@ -37,20 +39,21 @@ public class BlockBulb extends Block {
 		setUnlocalizedName(AttainedDrops.MODID + ".bulb");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), 0));
 	}
 
 	public int getDamageValue(World world, int x, int y, int z) {
 		return getMetaFromState(world.getBlockState(new BlockPos(x, y, z)));
 	}
 
+	@Nonnull
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return BulbBox;
 	}
 
 	@Override
-	public void getSubBlocks(Item block, CreativeTabs creativeTabs, List<ItemStack> list) {
+	public void getSubBlocks(@Nonnull Item block, CreativeTabs creativeTabs, List<ItemStack> list) {
 		for (int i = 0; i < MobDrops.length; ++i) {
 			list.add(new ItemStack(ModRegistry.itembulb, 1, i));
 			list.remove(new ItemStack(block, 1, 0));
@@ -58,7 +61,7 @@ public class BlockBulb extends Block {
 	}
 
 	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, World worldIn, BlockPos pos) {
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos) {
 		return NULL_AABB;
 	}
 
@@ -84,7 +87,7 @@ public class BlockBulb extends Block {
 	}
 
 	@Override
-	public int quantityDropped(IBlockState state, int fortune, Random random) {
+	public int quantityDropped(IBlockState state, int fortune, @Nonnull Random random) {
 		int DropNumber;
 
 		DropNumber = random.nextInt(2);
@@ -93,7 +96,7 @@ public class BlockBulb extends Block {
 	}
 
 	@Override
-	public int quantityDroppedWithBonus(int fortune, Random rand) {
+	public int quantityDroppedWithBonus(int fortune, @Nonnull Random rand) {
 		if (fortune > 0 && Item.getItemFromBlock(this) != getItemDropped(getDefaultState(), rand, fortune)) {
 			int j = rand.nextInt(fortune + 2) - 1;
 
@@ -109,7 +112,7 @@ public class BlockBulb extends Block {
 	}
 
 	@Override
-	public boolean canPlaceBlockAt(World world, BlockPos pos) {
+	public boolean canPlaceBlockAt(World world, @Nonnull BlockPos pos) {
 		return world.getBlockState(pos).getBlock().isReplaceable(world, pos) && !world.isAirBlock(pos.down(1));
 	}
 
@@ -166,13 +169,13 @@ public class BlockBulb extends Block {
 		}
 	}
 
+	@Nonnull
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {
-				TYPE
-		});
+		return new BlockStateContainer(this, TYPE);
 	}
 
+	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return withType(meta);
@@ -184,11 +187,11 @@ public class BlockBulb extends Block {
 	}
 
 	protected int getType(IBlockState state) {
-		return state.getValue(getTypeProperty()).intValue();
+		return state.getValue(getTypeProperty());
 	}
 
 	public IBlockState withType(int type) {
-		return getDefaultState().withProperty(getTypeProperty(), Integer.valueOf(type));
+		return getDefaultState().withProperty(getTypeProperty(), type);
 	}
 
 	protected PropertyInteger getTypeProperty() {

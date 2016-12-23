@@ -1,14 +1,6 @@
 package shadows.attained;
 
-import java.util.List;
-
-import net.minecraft.block.BlockDoublePlant;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.common.BlockBulb;
@@ -20,11 +12,14 @@ import shadows.attained.common.ItemEssence;
 import shadows.attained.common.ItemSeed;
 import shadows.attained.util.AttainedTab;
 
+import javax.annotation.Nonnull;
+
 public class ModRegistry {
 	
     public static final AttainedTab Attained = new AttainedTab("ad")
     {
-        @SideOnly(Side.CLIENT)
+			@Nonnull
+		 @SideOnly(Side.CLIENT)
         public Item getTabIconItem()
         {
             return itemseed;
