@@ -27,7 +27,7 @@ import shadows.attained.*;
 
 public class BlockVitalized extends Block {
 
-	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 9);
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 10);
 
 	public BlockVitalized() {
 		super(Material.GROUND);

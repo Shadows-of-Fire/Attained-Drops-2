@@ -22,10 +22,10 @@ public class BlockBulb extends Block {
 
 	private static final AxisAlignedBB BulbBox = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
 	public static Item[] MobDrops = {
-			Items.BLAZE_ROD, Items.ENDER_PEARL, Items.GUNPOWDER, Items.BONE, Items.SPIDER_EYE, Items.STRING, Items.GHAST_TEAR, Items.ROTTEN_FLESH, Items.SLIME_BALL
+			Items.BLAZE_ROD, Items.ENDER_PEARL, Items.GUNPOWDER, Items.BONE, Items.SPIDER_EYE, Items.STRING, Items.GHAST_TEAR, Items.ROTTEN_FLESH, Items.SLIME_BALL, Items.PRISMARINE_SHARD
 	};
 
-	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 8);
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 9);
 
 	public BlockBulb() {
 		super(Material.PLANTS);

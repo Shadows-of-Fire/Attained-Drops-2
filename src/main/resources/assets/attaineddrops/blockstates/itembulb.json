@@ -31,6 +31,9 @@
 			},
 			"8": {
 			"model": "attaineddrops:bulb/8"
+			},
+			"9": {
+			"model": "attaineddrops:bulb/9"
 			}
 		},
 		"inventory": [{}],
