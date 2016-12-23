@@ -62,9 +62,7 @@ public class BlockSoilCreator extends Block {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {
-				AGE
-		});
+		return new BlockStateContainer(this, AGE);
 	}
 
 	@Override

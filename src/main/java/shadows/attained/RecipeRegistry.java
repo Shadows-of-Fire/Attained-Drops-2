@@ -8,10 +8,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class RecipeRegistry {
 
-	
+
 	public static void init(){
-		GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemseed, 2), new Object[] {ModRegistry.itemessence, Items.APPLE, Items.WHEAT_SEEDS});
-		GameRegistry.addShapedRecipe(new ItemStack(ModRegistry.soilcreator), new Object[] {" L ", "FSF", " L ", 'F', ModRegistry.itemseed, 'L', Items.EGG, 'S', Blocks.DIRT});
-	
+		GameRegistry.addShapelessRecipe(new ItemStack(ModRegistry.itemseed, 2), ModRegistry.itemessence, Items.APPLE, Items.WHEAT_SEEDS);
+		GameRegistry.addShapedRecipe(new ItemStack(ModRegistry.soilcreator), " L ", "FSF", " L ", 'F', ModRegistry.itemseed, 'L', Items.EGG, 'S', Blocks.DIRT);
+
 	}
 }

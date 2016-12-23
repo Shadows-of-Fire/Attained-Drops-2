@@ -201,9 +201,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 
 	@Override
 	protected BlockStateContainer createBlockState() {
-		return new BlockStateContainer(this, new IProperty[] {
-				AGE
-		});
+		return new BlockStateContainer(this, AGE);
 	}
 
 	protected PropertyInteger getAgeProperty() {
