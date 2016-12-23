@@ -25,7 +25,7 @@ public class BlockBulb extends Block {
 			Items.BLAZE_ROD, Items.ENDER_PEARL, Items.GUNPOWDER, Items.BONE, Items.SPIDER_EYE, Items.STRING, Items.GHAST_TEAR, Items.ROTTEN_FLESH, Items.SLIME_BALL, Items.PRISMARINE_SHARD
 	};
 
-	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 9);
+	public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, (MobDrops.length - 1));
 
 	public BlockBulb() {
 		super(Material.PLANTS);

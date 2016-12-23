@@ -36,7 +36,7 @@ import java.util.List;
 
 public class BlockVitalized extends Block {
 
-  public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, 10);
+  public static final PropertyInteger TYPE = PropertyInteger.create("type", 0, BlockBulb.MobDrops.length);
 
   public BlockVitalized() {
     super(Material.GROUND);
