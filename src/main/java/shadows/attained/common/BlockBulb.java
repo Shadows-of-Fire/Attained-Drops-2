@@ -37,7 +37,7 @@ public class BlockBulb extends Block {
 		setUnlocalizedName(AttainedDrops.MODID + ".bulb");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(getTypeProperty(), 0));
 	}
 
 	public int getDamageValue(World world, int x, int y, int z) {
