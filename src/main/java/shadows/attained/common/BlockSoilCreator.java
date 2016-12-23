@@ -30,7 +30,7 @@ public class BlockSoilCreator extends Block {
 		setUnlocalizedName(AttainedDrops.MODID + ".soilcreator");
 		GameRegistry.register(this);
 		GameRegistry.register(new ItemBlock(this), getRegistryName());
-		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), Integer.valueOf(0)));
+		setDefaultState(blockState.getBaseState().withProperty(getAgeProperty(), 0));
 	}
 
 	@Override
@@ -79,11 +79,11 @@ public class BlockSoilCreator extends Block {
 
 
 	protected int getAge(IBlockState state) {
-		return state.getValue(getAgeProperty()).intValue();
+		return state.getValue(getAgeProperty());
 	}
 
 	public IBlockState withAge(int age) {
-		return getDefaultState().withProperty(getAgeProperty(), Integer.valueOf(age));
+		return getDefaultState().withProperty(getAgeProperty(), age);
 	}
 
 	protected PropertyInteger getAgeProperty() {

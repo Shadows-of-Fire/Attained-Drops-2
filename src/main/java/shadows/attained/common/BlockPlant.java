@@ -37,7 +37,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-		return CROPS_AABB[state.getValue(getAgeProperty()).intValue()];
+		return CROPS_AABB[state.getValue(getAgeProperty())];
 	}
 
 	public Item getSeed() {
@@ -215,15 +215,15 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	protected int getAge(IBlockState state) {
-		return state.getValue(getAgeProperty()).intValue();
+		return state.getValue(getAgeProperty());
 	}
 
 	public IBlockState withAge(int age) {
-		return getDefaultState().withProperty(getAgeProperty(), Integer.valueOf(age));
+		return getDefaultState().withProperty(getAgeProperty(), age);
 	}
 
 	public boolean isMaxAge(IBlockState state) {
-		return state.getValue(getAgeProperty()).intValue() >= getMaxAge();
+		return state.getValue(getAgeProperty()) >= getMaxAge();
 	}
 
 	@SideOnly(Side.CLIENT)

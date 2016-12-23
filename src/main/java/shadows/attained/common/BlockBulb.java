@@ -184,11 +184,11 @@ public class BlockBulb extends Block {
 	}
 
 	protected int getType(IBlockState state) {
-		return state.getValue(getTypeProperty()).intValue();
+		return state.getValue(getTypeProperty());
 	}
 
 	public IBlockState withType(int type) {
-		return getDefaultState().withProperty(getTypeProperty(), Integer.valueOf(type));
+		return getDefaultState().withProperty(getTypeProperty(), type);
 	}
 
 	protected PropertyInteger getTypeProperty() {
