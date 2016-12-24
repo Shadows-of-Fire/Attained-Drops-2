@@ -35,7 +35,6 @@ public class BlockPlant extends BlockBush implements IGrowable {
 
 	}
 
-
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return CROPS_AABB[state.getValue(getAgeProperty())];
@@ -50,7 +49,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public boolean canUseBonemeal( World worldIn,  Random rand,  BlockPos pos,  IBlockState state) {
+	public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
 		return true;
 	}
 
@@ -71,7 +70,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	@Override
-    public void randomTick( World worldIn,  BlockPos pos,  IBlockState state,  Random random)
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
     {
         updateTick(worldIn, pos, state, random);
         updateTick(worldIn, pos, state, random);
@@ -84,7 +83,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public boolean canGrow( World world,  BlockPos pos,  IBlockState state, boolean bool) {
+	public boolean canGrow(World world, BlockPos pos, IBlockState state, boolean bool) {
 		if (world.getBlockState(pos.down()).getBlock() == ModRegistry.vitalized) {
 			int i = getAge(world.getBlockState(pos));
 			int dropNumber = (BlockVitalized.getSoilMeta(world.getBlockState(pos.down())) - 1);
@@ -106,7 +105,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void grow( World world,  Random rand,  BlockPos pos,  IBlockState state) {
+	public void grow(World world, Random rand, BlockPos pos, IBlockState state) {
 		if (world.getBlockState(pos.down()).getBlock() == ModRegistry.vitalized) {
 			growBlock(world, pos);
 		}
@@ -140,7 +139,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	}
 
 	@Override
-	public void updateTick( World world,  BlockPos pos,  IBlockState state, Random rand) {
+	public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
 		super.updateTick(world, pos, state, rand);
 		int meta = getAge(world.getBlockState(pos));
 		if (world.getBlockState(pos.down()).getBlock() == ModRegistry.vitalized) {
@@ -188,7 +187,6 @@ public class BlockPlant extends BlockBush implements IGrowable {
 		return state.getBlock() == ModRegistry.vitalized;
 	}
 
-
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return withAge(meta);
@@ -201,7 +199,6 @@ public class BlockPlant extends BlockBush implements IGrowable {
 	public int getMetaFromState(IBlockState state) {
 		return getAge(state);
 	}
-
 
 	@Override
 	protected BlockStateContainer createBlockState() {

@@ -27,7 +27,7 @@ public class AttainedTab extends CreativeTabs{
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public void displayAllRelevantItems( List<ItemStack> list)
+    public void displayAllRelevantItems(List<ItemStack> list)
     {
 
 

@@ -24,7 +24,7 @@ public class ItemBulb extends ItemBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems( Item item,  CreativeTabs tab,  List<ItemStack> list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < BlockBulb.MobDrops.length; ++i) {
 			list.add(new ItemStack(ModRegistry.itembulb, 1, i));
 		}
@@ -34,7 +34,6 @@ public class ItemBulb extends ItemBlock {
 	public int getMetadata(int Meta) {
 		return Meta;
 	}
-
 
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {

@@ -44,7 +44,6 @@ public class BlockBulb extends Block {
 		return getMetaFromState(world.getBlockState(new BlockPos(x, y, z)));
 	}
 
-
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
 		return BulbBox;
@@ -167,12 +166,10 @@ public class BlockBulb extends Block {
 		}
 	}
 
-
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, TYPE);
 	}
-
 
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
