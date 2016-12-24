@@ -10,8 +10,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.ModRegistry;
 import shadows.attained.common.BlockBulb;
 
-import javax.annotation.Nonnull;
-
 public class AttainedTab extends CreativeTabs{
 
 
@@ -20,7 +18,7 @@ public class AttainedTab extends CreativeTabs{
 		super("ad");
 
 	}
-	@Nonnull
+
 	@SideOnly(Side.CLIENT) @Override
         public Item getTabIconItem()
         {
@@ -29,7 +27,7 @@ public class AttainedTab extends CreativeTabs{
 	
 	@Override
     @SideOnly(Side.CLIENT)
-    public void displayAllRelevantItems(@Nonnull List<ItemStack> list)
+    public void displayAllRelevantItems( List<ItemStack> list)
     {
 
 
