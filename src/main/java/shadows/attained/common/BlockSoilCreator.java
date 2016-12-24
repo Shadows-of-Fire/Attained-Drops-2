@@ -16,8 +16,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
 
-import javax.annotation.Nonnull;
-
 public class BlockSoilCreator extends Block {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 15);
@@ -36,11 +34,7 @@ public class BlockSoilCreator extends Block {
 	}
 
 	@Override
-<<<<<<< HEAD
-    public void randomTick( World worldIn,  BlockPos pos,  IBlockState state,  Random random)
-=======
-    public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random)
->>>>>>> upstream/master
+    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random)
     {
         updateTick(worldIn, pos, state, random);
         updateTick(worldIn, pos, state, random);
@@ -66,21 +60,11 @@ public class BlockSoilCreator extends Block {
 		}
 	}
 
-<<<<<<< HEAD
-
-=======
-	@Nonnull
->>>>>>> upstream/master
 	@Override
 	protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, AGE);
 	}
 
-<<<<<<< HEAD
-
-=======
-	@Nonnull
->>>>>>> upstream/master
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return withAge(meta);
