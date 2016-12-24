@@ -30,7 +30,6 @@ import org.lwjgl.input.Keyboard;
 import shadows.attained.AttainedDrops;
 import shadows.attained.ModRegistry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -95,13 +94,13 @@ public class BlockVitalized extends Block {
     return false;
   }
 
-  @Nonnull
+
   @Override
   protected BlockStateContainer createBlockState() {
     return new BlockStateContainer(this, TYPE);
   }
 
-  @Nonnull
+
   @Override
   public IBlockState getStateFromMeta(int meta) {
     return withType(meta);
@@ -157,9 +156,9 @@ public class BlockVitalized extends Block {
     list.add(TextFormatting.GREEN + string);
   }
 
-  @Nonnull
+
   @Override
-  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
+  public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos,  IBlockState state, int fortune) {
     List<ItemStack> ret = new java.util.ArrayList<ItemStack>();
     ret.add(new ItemStack(Blocks.DIRT));
     return ret;

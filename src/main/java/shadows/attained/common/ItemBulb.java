@@ -11,8 +11,6 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.*;
 import shadows.attained.*;
 
-import javax.annotation.Nonnull;
-
 public class ItemBulb extends ItemBlock {
 
 	public ItemBulb(Block block) {
@@ -26,7 +24,7 @@ public class ItemBulb extends ItemBlock {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void getSubItems(@Nonnull Item item, @Nonnull CreativeTabs tab, @Nonnull List<ItemStack> list) {
+	public void getSubItems(Item item, CreativeTabs tab, List<ItemStack> list) {
 		for (int i = 0; i < BlockBulb.MobDrops.length; ++i) {
 			list.add(new ItemStack(ModRegistry.itembulb, 1, i));
 		}
@@ -37,7 +35,6 @@ public class ItemBulb extends ItemBlock {
 		return Meta;
 	}
 
-	@Nonnull
 	@Override
 	public String getUnlocalizedName(ItemStack itemstack) {
 		int meta = itemstack.getItemDamage();

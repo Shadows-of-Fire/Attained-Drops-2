@@ -12,13 +12,11 @@ import shadows.attained.common.ItemEssence;
 import shadows.attained.common.ItemSeed;
 import shadows.attained.util.AttainedTab;
 
-import javax.annotation.Nonnull;
-
 public class ModRegistry {
 	
     public static final AttainedTab Attained = new AttainedTab("ad")
     {
-			@Nonnull
+
 		 @SideOnly(Side.CLIENT)
         public Item getTabIconItem()
         {
