@@ -146,12 +146,12 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 				if (rand.nextInt(5) == 0) {
 					++meta;
 					setAge(world, pos, meta);
-					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(), pos.getY(), pos.getZ()), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(), pos.getY(), pos.getZ(), 4, (double) meta / 100), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				}
 			}
 			if (meta == 7) {
 				if ((rand.nextInt(5) == 0) && world.isAirBlock(pos.up())) {
-					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(), pos.getY(), pos.getZ()), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(), pos.getY(), pos.getZ(), 4, 0.5), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 					world.setBlockState(pos.up(), AD2Util.getBulbState(AD2Util.getBulbFromSoil(AD2Util.getSoilFromBlock(downBlock))), 2);
 					if (rand.nextInt(15) == 0) {
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState(), 2);

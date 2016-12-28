@@ -14,15 +14,19 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.init.ModConfig;
 import shadows.attained.init.ModGlobals;
+import shadows.attained.init.ModNetworkHandler;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.network.PacketSpawnParticle;
 
 public class BlockSoilCreator extends Block {
 
@@ -65,6 +69,9 @@ public class BlockSoilCreator extends Block {
 			if (world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.DIRT || world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.GRASS) {
 				world.setBlockState(new BlockPos(i, pos.getY(), k), ModRegistry.VITALIZED_BASE.getDefaultState(), 2);
 				world.setBlockState(pos, getStateFromMeta(l), 2);
+				if (!world.isRemote) {
+					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), i, pos.getY(), k, 3, 0.5), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+				}
 			}
 		}
 		if (l == 15) {

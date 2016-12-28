@@ -223,4 +223,12 @@ public class AD2Util {
 		return Loader.isModLoaded(modid);
 	}
 
+	public static ItemStack getSoilStack(IVitalizedSoil soil) {
+		return new ItemStack(getBlockFromSoil(soil));
+	}
+
+	public static ItemStack getBulbStack(IBulb bulb) {
+		return new ItemStack(getBlockFromBulb(bulb));
+	}
+
 }

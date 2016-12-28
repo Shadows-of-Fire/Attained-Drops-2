@@ -32,5 +32,11 @@ tooltip.attaineddrops.enableditems=%sApplicable Items:
 phrase.attaineddrops.dirtblank=This Vitalized Soil has not been enriched yet
 phrase.attaineddrops.dirtstart=Vitalized with:
 
+//JEI
+jei.attaineddrops.desc.essence=Dropped by mobs and used in crafting Mob Drop Plant Seeds
+jei.attaineddrops.desc.vitalized=Right-click with an applicable item to enrich vitalized soil with that item.
+jei.attaineddrops.desc.seed=Right-click on an Enriched Vitalized Soil block to start the plant growth process
+jei.attaineddrops.desc.planter=Place this block adjacent to dirt blocks to convert them to Vitilzed Soil
+
 //Creative Tab Label
 itemGroup.attaineddrops=Attained Drops 2

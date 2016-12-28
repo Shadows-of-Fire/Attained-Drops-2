@@ -18,16 +18,23 @@ import shadows.attained.AttainedDrops;
 public class PacketSpawnParticle implements IMessage {
 
 	public EnumParticleTypes particle;
-	public int x, y, z;
+	public int x, y, z, numParticles;
+	public double yLevel;
 
 	public PacketSpawnParticle() {
 	}
 
 	public PacketSpawnParticle(int particlIndex, int posX, int posY, int posZ) {
+		this(particlIndex, posX, posY, posZ, 1, 0);
+	}
+
+	public PacketSpawnParticle(int particlIndex, int posX, int posY, int posZ, int numParticlesIn, double yLevelIn) {
 		particle = EnumParticleTypes.getParticleFromId(particlIndex);
 		x = posX;
 		y = posY;
 		z = posZ;
+		numParticles = numParticlesIn;
+		yLevel = yLevelIn;
 	}
 
 	@Override
@@ -36,6 +43,8 @@ public class PacketSpawnParticle implements IMessage {
 		x = buf.readInt();
 		y = buf.readInt();
 		z = buf.readInt();
+		numParticles = buf.readInt();
+		yLevel = buf.readDouble();
 	}
 
 	@Override
@@ -44,6 +53,8 @@ public class PacketSpawnParticle implements IMessage {
 		buf.writeInt(x);
 		buf.writeInt(y);
 		buf.writeInt(z);
+		buf.writeInt(numParticles);
+		buf.writeDouble(yLevel);
 	}
 
 	public static class Handler implements IMessageHandler<PacketSpawnParticle, IMessage> {
@@ -66,12 +77,14 @@ public class PacketSpawnParticle implements IMessage {
 				double posX = message.x;
 				double posY = message.y;
 				double posZ = message.z;
-				int r1 = rand.nextInt(2);
-				int r2 = rand.nextInt(2);
-				double x = posX + (r1 == 0 ? rand.nextDouble() / 10 : -(rand.nextDouble() / 10));
-				double y = posY + rand.nextDouble() + 0.5;
-				double z = posZ + (r2 == 0 ? rand.nextDouble() / 10 : -(rand.nextDouble() / 10));
-				world.spawnParticle(message.particle, x + 0.6, y, z + 0.6, 0.0, 0.0, 0.0, new int[0]);
+				for (int i = 0; i < message.numParticles; i++) {
+					int r1 = rand.nextInt(2);
+					int r2 = rand.nextInt(2);
+					double x = posX + (r1 == 0 ? rand.nextDouble() / 10 : -(rand.nextDouble() / 10));
+					double y = posY + rand.nextDouble() + 0.5;
+					double z = posZ + (r2 == 0 ? rand.nextDouble() / 10 : -(rand.nextDouble() / 10));
+					world.spawnParticle(message.particle, x + 0.6, y + message.yLevel, z + 0.6, 0.0, 0.0, 0.0, new int[0]);
+				}
 			}
 		}
 	}

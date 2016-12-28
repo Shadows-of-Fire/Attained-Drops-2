@@ -35,11 +35,16 @@ repositories {
 
 		url "http://mobiusstrip.eu/maven"
 	}
+	maven {
+		name = "progwml6"
+		url = "http://dvs1.progwml6.com/files/maven"
+	}
 }
 
 dependencies {
 	deobfCompile "mcp.mobius.waila:Waila:1.7.0-B3_1.9.4"
 	deobfCompile "mcjty.theoneprobe:TheOneProbe:1.10-1.2.0-40"
+	deobfCompile "mezz.jei:jei_1.10.2:+"
 }
 
 processResources
