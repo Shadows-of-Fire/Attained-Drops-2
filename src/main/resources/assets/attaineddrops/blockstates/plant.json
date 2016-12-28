@@ -4,8 +4,16 @@
 		"model": "cross"
 	},
 	"variants": {
-		"inventory": [{}],
-		"normal": [{}],
+		"inventory": [{
+			"textures": {
+				"cross": "attaineddrops:blocks/plant/7"
+			}
+		}],
+		"normal": [{
+			"textures": {
+				"cross": "attaineddrops:blocks/plant/7"
+			}
+		}],
 		"age": {
 			"0": {
 				"textures": {

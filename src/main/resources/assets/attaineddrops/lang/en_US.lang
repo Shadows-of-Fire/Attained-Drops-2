@@ -1,34 +1,36 @@
 //English Localizations
 
-tile.attaineddrops.vitalized.name=Vitalized Soil
-tile.blockMobPlant.name=Mob Drop Plant
+//Blocks
+tile.attaineddrops.vitalized.base.name=Unenriched Vitalized Soil 
+tile.attaineddrops.vitalized.enriched.name=Enriched Vitalized Soil
 tile.attaineddrops.bulb.name=Attained Bulb
 tile.attaineddrops.blockplant.name=Attained Plant
 tile.attaineddrops.soilcreator.name=Vitalized Soil Planter
-tile.attaineddrops.bulb.item.blazeRod.name=Blaze Bulb
-tile.attaineddrops.bulb.item.enderPearl.name=Ender Pearl Bulb
-tile.attaineddrops.bulb.item.bone.name=Bone Bulb
-tile.attaineddrops.bulb.item.slimeball.name=Slimeball Bulb
-tile.attaineddrops.bulb.item.rottenFlesh.name=Rotten Flesh Bulb
-tile.attaineddrops.bulb.item.ghastTear.name=Ghast Tear Bulb
-tile.attaineddrops.bulb.item.sulphur.name=Gunpowder Bulb
-tile.attaineddrops.bulb.item.string.name=String Bulb
-tile.attaineddrops.bulb.item.spiderEye.name=Spider Eye Bulb
-tile.attaineddrops.bulb.item.prismarineShard.name=Prismarine Shard Bulb
-tile.blockxpObelisk.name=Experience Obelisk
-tile.blockxpBall.name=Crystaline Experience
-tile.blockxpObsidian.name=Experienced Infused Obsidian
+tile.attaineddrops.bulb.blaze.name=Blaze Bulb
+tile.attaineddrops.bulb.enderpearl.name=Ender Pearl Bulb
+tile.attaineddrops.bulb.bone.name=Bone Bulb
+tile.attaineddrops.bulb.slimeball.name=Slimeball Bulb
+tile.attaineddrops.bulb.rottenflesh.name=Rotten Flesh Bulb
+tile.attaineddrops.bulb.ghasttear.name=Ghast Tear Bulb
+tile.attaineddrops.bulb.gunpowder.name=Gunpowder Bulb
+tile.attaineddrops.bulb.string.name=String Bulb
+tile.attaineddrops.bulb.spidereye.name=Spider Eye Bulb
+tile.attaineddrops.bulb.prismarine.name=Prismarine Shard Bulb
+tile.attaineddrops.bulb.witherskull.name=Wither Skull Bulb
 
+//Items
 item.attaineddrops.itemseed.name=Mob Drop Plant Seed
 item.attaineddrops.itemessence.name=Life Essence
 
-phrase.AttainedDrops.BlockMobPlantUpdateComment=Random number in 0 - x that a plant update will occur, the higher x, the rarer the occasion
-phrase.AttainedDrops.BlockMobConcetrateDropComment=Random number in 0 - x that the vitalized soil will spread, the higher x, the rarer the occasion
+//Tooltips
+tooltip.attaineddrops.holdshift=Hold %s
+tooltip.attaineddrops.plantvitalized=Plant on enriched vitalized soil
+tooltip.attaineddrops.enrichedwith=Enriched with %s
+tooltip.attaineddrops.enableditems=%sApplicable Items:
 
-phrase.AttainedDrops.DirtBlank=This Vitalized Soil has not been enriched yet
-phrase.AttainedDrops.DirtStart=Vitalized with:
+//Misc
+phrase.attaineddrops.dirtblank=This Vitalized Soil has not been enriched yet
+phrase.attaineddrops.dirtstart=Vitalized with:
 
-phrase.AttainedDrops.DisabledBulbChat=This item has been disabled
-phrase.AttainedDrops.ShortXPChat=You do not have enough experience to do that
-
-itemGroup.ad=Attained Drops
+//Creative Tab Label
+itemGroup.attaineddrops=Attained Drops 2
