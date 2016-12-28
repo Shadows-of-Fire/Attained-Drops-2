@@ -71,14 +71,6 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 		return CROPS_AABB[state.getValue(AGE)];
 	}
 
-	public Item getSeed() {
-		return ModRegistry.ITEM_SEED;
-	}
-
-	public Item getCrop() {
-		return null;
-	}
-
 	@Override
 	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		return ConfigOptions.CAN_BONEMEAL;
@@ -90,7 +82,7 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 		List<ItemStack> ret = super.getDrops(world, pos, state, fortune);
 		ret.clear();
 		if (Math.random() >= 0.3) {
-			ret.add(new ItemStack(getSeed()));
+			ret.add(new ItemStack(ModRegistry.ITEM_SEED));
 		}
 		return ret;
 	}

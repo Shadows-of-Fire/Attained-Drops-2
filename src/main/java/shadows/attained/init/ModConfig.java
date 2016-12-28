@@ -24,7 +24,7 @@ public class ModConfig {
 		}
 
 		ConfigOptions.VAPOUR_MODE = CONFIG.getBoolean("VapourMode", DEF_CAT, false, "Mimic original AD recipes and items/blocks");
-		ConfigOptions.SOIL_CREATOR_DIAMETER = CONFIG.getInt("Dimater of effective area (must be odd number)", DEF_CAT, 3, 3, 9, "");
+		ConfigOptions.SOIL_CREATOR_DIAMETER = CONFIG.getInt("SoilCreatorDiameter", DEF_CAT, 3, 3, 9, "Dimater of effective area (must be odd number)");
 		ConfigOptions.CAN_BONEMEAL = CONFIG.getBoolean("AllowBonemeal", DEF_CAT, true, "Allow plants to be bonemealed");
 
 		if (CONFIG.hasChanged()) {
