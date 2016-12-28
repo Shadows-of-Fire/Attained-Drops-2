@@ -85,7 +85,6 @@ public class AD2Util {
 
 	public static void generateList(List<String> list) {
 		List<String> nameList = AD2Util.getApplicableItemNames();
-		list.add("");
 		list.add(I18n.format("tooltip.attaineddrops.enableditems", TextFormatting.ITALIC + "" + TextFormatting.UNDERLINE));
 		for (String line : nameList) {
 			list.add(line);
