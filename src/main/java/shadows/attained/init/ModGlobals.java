@@ -15,4 +15,6 @@ public class ModGlobals {
 	public static final String MODID_WAILA = "Waila";
 	public static final String MODID_TOP = "theoneprobe";
 
+	public static final String DEPENDENCIES = "after:" + MODID_WAILA + ";after:" + MODID_TOP;
+
 }

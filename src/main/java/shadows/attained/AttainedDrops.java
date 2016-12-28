@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import shadows.attained.init.ModGlobals;
 import shadows.attained.proxy.CommonProxy;
 
-@Mod(modid = ModGlobals.MODID, version = ModGlobals.VERSION, name = ModGlobals.MODNAME)
+@Mod(modid = ModGlobals.MODID, version = ModGlobals.VERSION, name = ModGlobals.MODNAME, dependencies = ModGlobals.DEPENDENCIES)
 public class AttainedDrops {
 
 	@SidedProxy(clientSide = ModGlobals.CLIENT_PROXY, serverSide = ModGlobals.COMMON_PROXY)
