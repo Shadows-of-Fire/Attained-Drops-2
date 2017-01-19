@@ -1,9 +1,9 @@
 {
     "__comment": "Model generated using MrCrayfish's Model Creator (http://mrcrayfish.com/modelcreator/)",
     "textures": {
-        "0": "attaineddrops:blocks/bulbs/blockMobBulbSide6",
-        "1": "attaineddrops:blocks/bulbs/blockMobBulbTop6",
-		"particle": "attaineddrops:blocks/bulbs/blockMobBulbSide6"
+        "0": "attaineddrops:blocks/bulbs/side6",
+        "1": "attaineddrops:blocks/bulbs/top6",
+		"particle": "attaineddrops:blocks/bulbs/side6"
     },
     "elements": [
         {

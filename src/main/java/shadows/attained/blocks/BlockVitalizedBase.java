@@ -19,6 +19,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -69,7 +70,7 @@ public class BlockVitalizedBase extends Block implements IVitalizedSoil, ITOPInf
 		}
 		if (!world.isRemote) {
 			ItemStack heldItem = player.getHeldItemMainhand();
-			if (heldItem != null) {
+			if (heldItem != ItemStack.EMPTY) {
 				if (canPlayerEnrich(player, state)) {
 					world.setBlockState(pos, AD2Util.getBlockFromSoil(AD2Util.getSoilFromItem(heldItem)).getDefaultState(), 2);
 					world.playSound((EntityPlayer) null, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 0.8);
@@ -81,7 +82,7 @@ public class BlockVitalizedBase extends Block implements IVitalizedSoil, ITOPInf
 			}
 		}
 		else {
-			if (player.inventory.getCurrentItem() == null) {
+			if (player.getHeldItemMainhand() == ItemStack.EMPTY) {
 				if (getBulb() != null) {
 					player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops.dirtstart") + getBulb().getTextColor() + " " + AD2Util.getBulbDrop(getBulb()).getDisplayName()));
 				}
