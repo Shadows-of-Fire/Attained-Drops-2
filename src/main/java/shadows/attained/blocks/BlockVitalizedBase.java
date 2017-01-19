@@ -63,11 +63,12 @@ public class BlockVitalizedBase extends Block implements IVitalizedSoil, ITOPInf
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, @Nullable ItemStack heldItem, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
 		if (hand != EnumHand.MAIN_HAND) {
 			return false;
 		}
 		if (!world.isRemote) {
+			ItemStack heldItem = player.getHeldItemMainhand();
 			if (heldItem != null) {
 				if (canPlayerEnrich(player, state)) {
 					world.setBlockState(pos, AD2Util.getBlockFromSoil(AD2Util.getSoilFromItem(heldItem)).getDefaultState(), 2);
@@ -82,10 +83,10 @@ public class BlockVitalizedBase extends Block implements IVitalizedSoil, ITOPInf
 		else {
 			if (player.inventory.getCurrentItem() == null) {
 				if (getBulb() != null) {
-					player.addChatComponentMessage(new TextComponentString(I18n.format("phrase.attaineddrops.dirtstart") + getBulb().getTextColor() + " " + AD2Util.getBulbDrop(getBulb()).getDisplayName()));
+					player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops.dirtstart") + getBulb().getTextColor() + " " + AD2Util.getBulbDrop(getBulb()).getDisplayName()));
 				}
 				else {
-					player.addChatComponentMessage(new TextComponentString(I18n.format("phrase.attaineddrops.dirtblank")));
+					player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops.dirtblank")));
 				}
 			}
 		}

@@ -1,10 +1,8 @@
 package shadows.attained.init;
 
-import java.util.List;
-
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.api.IBulb;
@@ -22,13 +20,13 @@ public class ModCreativeTab extends CreativeTabs {
 
 	@SideOnly(Side.CLIENT)
 	@Override
-	public Item getTabIconItem() {
-		return ModRegistry.ITEM_SEED;
+	public ItemStack getTabIconItem() {
+		return new ItemStack(ModRegistry.ITEM_SEED);
 	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void displayAllRelevantItems(List<ItemStack> list) {
+	public void displayAllRelevantItems(NonNullList<ItemStack> list) {
 		list.add(new ItemStack(ModRegistry.BLOCK_SOILCREATOR));
 		list.add(new ItemStack(ModRegistry.VITALIZED_BASE));
 		list.add(new ItemStack(ModRegistry.BLOCK_PLANT));

@@ -1,5 +1,6 @@
 package shadows.attained.blocks;
 
+import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
@@ -63,11 +64,13 @@ public class BlockBulbBase extends Block implements IBulb {
 		return new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
 	}
 
-	@Override
-	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull World worldIn, @Nonnull BlockPos pos) {
-		return NULL_AABB;
-	}
-
+    @Override
+    @Nullable
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
+    {
+    		return NULL_AABB;
+    }
+		
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
@@ -104,12 +107,12 @@ public class BlockBulbBase extends Block implements IBulb {
 		double d0 = world.rand.nextFloat() * 0.5F + 0.25D;
 		double d1 = world.rand.nextFloat() * 0.5F + 0.25D;
 		double d2 = world.rand.nextFloat() * 0.5F + 0.25D;
-		ItemStack drop = AD2Util.getBulbDrop(this);
+		Item drop = AD2Util.getBulbDrop(this).getItem();
 		int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-		drop.stackSize = quantityDropped(state, fortuneLevel, world.rand);
-		EntityItem entityitem = new EntityItem(world, pos.getX() + d0, pos.getY() + d1, pos.getZ() + d2, drop);
+		ItemStack drops = new ItemStack(drop, quantityDropped(state, fortuneLevel, world.rand));
+		EntityItem entityitem = new EntityItem(world, pos.getX() + d0, pos.getY() + d1, pos.getZ() + d2, drops);
 		entityitem.setDefaultPickupDelay();
-		world.spawnEntityInWorld(entityitem);
+		world.spawnEntity(entityitem);
 	}
 
 	@Override
@@ -126,8 +129,8 @@ public class BlockBulbBase extends Block implements IBulb {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn) {
-		super.neighborChanged(state, worldIn, pos, blockIn);
+	public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
+		super.neighborChanged(state, worldIn, pos, blockIn, fromPos);
 		if (worldIn.getBlockState(pos.down()).getBlock() != ModRegistry.BLOCK_PLANT) {
 			worldIn.setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
 		}

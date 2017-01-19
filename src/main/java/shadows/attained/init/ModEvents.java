@@ -20,10 +20,10 @@ public class ModEvents {
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
 		if (event.getEntity() instanceof IMob) {
-			int rand = event.getEntity().worldObj.rand.nextInt(3);
+			int rand = event.getEntity().world.rand.nextInt(3);
 			if (rand == 0) {
 				ItemStack dropItem = new ItemStack(ModRegistry.ITEM_ESSENCE, 1);
-				EntityItem drop = new EntityItem(event.getEntity().worldObj, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, dropItem);
+				EntityItem drop = new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, dropItem);
 				event.getDrops().add(drop);
 			}
 		}
