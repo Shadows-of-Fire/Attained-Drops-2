@@ -41,9 +41,17 @@ public class AD2Util {
 	}
 
 	/**
-	 * @param bulb - Your implementation of {@link shadows.attained.api.IBulb IBulb} - recommended to extend BlockBulb and pass in your modid. You will then not need to register your blocks with Minecraft as AD2 will take care of this for you.
-	 * @param soil - Your implementation of {@link shadows.attained.api.IVitalizedSoil IVitalizedSoil}
-	 * @param drop - The item your plant will drop in the form of an {@link net.minecraft.item.ItemStack ItemStack}
+	 * @param bulb
+	 *            - Your implementation of {@link shadows.attained.api.IBulb
+	 *            IBulb} - recommended to extend BlockBulb and pass in your
+	 *            modid. You will then not need to register your blocks with
+	 *            Minecraft as AD2 will take care of this for you.
+	 * @param soil
+	 *            - Your implementation of
+	 *            {@link shadows.attained.api.IVitalizedSoil IVitalizedSoil}
+	 * @param drop
+	 *            - The item your plant will drop in the form of an
+	 *            {@link net.minecraft.item.ItemStack ItemStack}
 	 */
 	public static void registerAD2(IBulb bulb, IVitalizedSoil soil, ItemStack drop) {
 		registerBulb(bulb, soil);
@@ -85,7 +93,8 @@ public class AD2Util {
 
 	public static void generateList(List<String> list) {
 		List<String> nameList = AD2Util.getApplicableItemNames();
-		list.add(I18n.format("tooltip.attaineddrops.enableditems", TextFormatting.ITALIC + "" + TextFormatting.UNDERLINE));
+		list.add(I18n.format("tooltip.attaineddrops.enableditems",
+				TextFormatting.ITALIC + "" + TextFormatting.UNDERLINE));
 		for (String line : nameList) {
 			list.add(line);
 		}
@@ -113,8 +122,7 @@ public class AD2Util {
 				if (isSoilEnriched(soil)) {
 					return getSoils().get(soil);
 				}
-			}
-			else if (isBulb(upBlock)) {
+			} else if (isBulb(upBlock)) {
 				IBulb bulb = getBulbFromBlock(upBlock);
 				return bulb;
 			}

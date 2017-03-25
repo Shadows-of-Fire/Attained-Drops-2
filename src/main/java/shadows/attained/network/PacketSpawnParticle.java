@@ -83,7 +83,8 @@ public class PacketSpawnParticle implements IMessage {
 					double x = posX + (r1 == 0 ? rand.nextDouble() / 10 : -(rand.nextDouble() / 10));
 					double y = posY + rand.nextDouble() + 0.5;
 					double z = posZ + (r2 == 0 ? rand.nextDouble() / 10 : -(rand.nextDouble() / 10));
-					world.spawnParticle(message.particle, x + 0.6, y + message.yLevel, z + 0.6, 0.0, 0.0, 0.0, new int[0]);
+					world.spawnParticle(message.particle, x + 0.6, y + message.yLevel, z + 0.6, 0.0, 0.0, 0.0,
+							new int[0]);
 				}
 			}
 		}

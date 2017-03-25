@@ -60,7 +60,8 @@ public class WAILA {
 		}
 
 		@Override
-		public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+		public List<String> getWailaHead(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+				IWailaConfigHandler config) {
 			currenttip = Lists.newArrayList();
 			if (accessor.getBlock() != null) {
 				BlockPos pos = accessor.getPosition();
@@ -70,20 +71,19 @@ public class WAILA {
 				if (AD2Util.isPlant(block)) {
 					if (AD2Util.getBulbFromPlant(world, pos) != null) {
 						IBulb bulb = AD2Util.getBulbFromPlant(world, pos);
-						currenttip.add(bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName() + " Plant");
+						currenttip
+								.add(bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName() + " Plant");
 					}
-				}
-				else if (AD2Util.isBulb(block)) {
+				} else if (AD2Util.isBulb(block)) {
 					IBulb bulb = AD2Util.getBulbFromBlock(block);
 					currenttip.add(bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName() + " Bulb");
-				}
-				else if (AD2Util.isSoil(block)) {
+				} else if (AD2Util.isSoil(block)) {
 					IVitalizedSoil soil = AD2Util.getSoilFromBlock(block);
 					if (AD2Util.isSoilEnriched(soil)) {
 						IBulb bulb = AD2Util.getBulbFromSoil(soil);
-						currenttip.add(bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName() + " " + new ItemStack(block).getDisplayName());
-					}
-					else {
+						currenttip.add(bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName() + " "
+								+ new ItemStack(block).getDisplayName());
+					} else {
 						currenttip.add(TextFormatting.WHITE + "" + new ItemStack(block).getDisplayName());
 					}
 				}
@@ -92,7 +92,8 @@ public class WAILA {
 		}
 
 		@Override
-		public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+		public List<String> getWailaBody(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+				IWailaConfigHandler config) {
 			if (accessor.getBlock() != null) {
 				BlockPos pos = accessor.getPosition();
 				World world = accessor.getWorld();
@@ -106,10 +107,10 @@ public class WAILA {
 				if (AD2Util.isSoil(block)) {
 					IVitalizedSoil soil = AD2Util.getSoilFromBlock(block);
 					if (!AD2Util.isSoilEnriched(soil)) {
-						if (accessor.getPlayer().isSneaking() || Keyboard.isKeyDown(AD2Util.getSneakKey().getKeyCode())) {
+						if (accessor.getPlayer().isSneaking()
+								|| Keyboard.isKeyDown(AD2Util.getSneakKey().getKeyCode())) {
 							AD2Util.generateList(currenttip);
-						}
-						else {
+						} else {
 							currenttip.add(AD2Util.getSneakString());
 						}
 					}
@@ -119,13 +120,15 @@ public class WAILA {
 		}
 
 		@Override
-		public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
+		public List<String> getWailaTail(ItemStack itemStack, List<String> currenttip, IWailaDataAccessor accessor,
+				IWailaConfigHandler config) {
 			// TODO Auto-generated method stub
 			return null;
 		}
 
 		@Override
-		public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
+		public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world,
+				BlockPos pos) {
 			// TODO Auto-generated method stub
 			return null;
 		}

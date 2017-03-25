@@ -23,7 +23,8 @@ public class ModEvents {
 			int rand = event.getEntity().world.rand.nextInt(3);
 			if (rand == 0) {
 				ItemStack dropItem = new ItemStack(ModRegistry.ITEM_ESSENCE, 1);
-				EntityItem drop = new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, dropItem);
+				EntityItem drop = new EntityItem(event.getEntity().world, event.getEntity().posX,
+						event.getEntity().posY, event.getEntity().posZ, dropItem);
 				event.getDrops().add(drop);
 			}
 		}

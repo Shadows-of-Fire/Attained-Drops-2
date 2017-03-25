@@ -12,5 +12,6 @@ import net.minecraft.world.World;
  *
  */
 public interface ITOPInfoProvider {
-	void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data);
+	void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState,
+			IProbeHitData data);
 }

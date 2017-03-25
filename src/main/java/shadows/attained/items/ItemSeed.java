@@ -40,14 +40,17 @@ public class ItemSeed extends Item {
 
 	@Nonnull
 	@Override
-    public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ){
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
+			float hitX, float hitY, float hitZ) {
 		Block block = world.getBlockState(pos).getBlock();
-		if (AD2Util.isSoil(block) && AD2Util.isSoilEnriched(AD2Util.getSoilFromBlock(block)) && world.isAirBlock(pos.up())) {
+		if (AD2Util.isSoil(block) && AD2Util.isSoilEnriched(AD2Util.getSoilFromBlock(block))
+				&& world.isAirBlock(pos.up())) {
 			ItemStack stack = player.getHeldItem(hand);
 			if (player.canPlayerEdit(pos, facing, stack) && facing == EnumFacing.UP) {
 				world.setBlockState(pos.up(), ModRegistry.BLOCK_PLANT.getDefaultState());
 				stack.shrink(1);
-				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 1.0);
+				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6,
+						(float) 1.0);
 			}
 			return EnumActionResult.SUCCESS;
 		}
@@ -60,8 +63,7 @@ public class ItemSeed extends Item {
 		KeyBinding sneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
 		if (player.isSneaking() || Keyboard.isKeyDown(sneak.getKeyCode())) {
 			list.add(I18n.format("tooltip.attaineddrops.plantvitalized"));
-		}
-		else {
+		} else {
 			list.add(I18n.format("tooltip.attaineddrops.holdshift", sneak.getDisplayName()));
 		}
 	}

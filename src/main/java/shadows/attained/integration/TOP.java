@@ -27,7 +27,8 @@ public class TOP {
 			return;
 		}
 		registered = true;
-		FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe", "shadows.attained.integration.TOP$GetTheOneProbe");
+		FMLInterModComms.sendFunctionMessage("theoneprobe", "getTheOneProbe",
+				"shadows.attained.integration.TOP$GetTheOneProbe");
 	}
 
 	public static class GetTheOneProbe implements com.google.common.base.Function<ITheOneProbe, Void> {
@@ -45,7 +46,8 @@ public class TOP {
 				}
 
 				@Override
-				public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+				public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+						IBlockState blockState, IProbeHitData data) {
 					Block block = blockState.getBlock();
 					if (block instanceof ITOPInfoProvider) {
 						ITOPInfoProvider provider = (ITOPInfoProvider) block;

@@ -45,8 +45,14 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] {
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D)
-	};
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D),
+			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D) };
 
 	public BlockPlant() {
 		setRegistryName("plant");
@@ -72,7 +78,8 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 	}
 
 	@Override
-	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos,
+			@Nonnull IBlockState state) {
 		return ConfigOptions.CAN_BONEMEAL;
 	}
 
@@ -93,7 +100,8 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 	}
 
 	@Override
-	public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random) {
+	public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state,
+			@Nonnull Random random) {
 		updateTick(worldIn, pos, state, random);
 	}
 
@@ -108,8 +116,7 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 			int age = getAge(world.getBlockState(pos));
 			if (age < getMaxAge()) {
 				return true;
-			}
-			else if (age == getMaxAge() && world.isAirBlock(pos.up())) {
+			} else if (age == getMaxAge() && world.isAirBlock(pos.up())) {
 				return true;
 			}
 		}
@@ -146,13 +153,20 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 				if (rand.nextInt(5) == 0) {
 					++meta;
 					setAge(world, pos, meta);
-					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(), pos.getY(), pos.getZ(), 4, (double) meta / 100), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+					ModNetworkHandler.getInstance().sendToAllAround(
+							new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(),
+									pos.getY(), pos.getZ(), 4, (double) meta / 100),
+							new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				}
 			}
 			if (meta == 7) {
 				if ((rand.nextInt(5) == 0) && world.isAirBlock(pos.up())) {
-					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(), pos.getY(), pos.getZ(), 4, 0.5), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
-					world.setBlockState(pos.up(), AD2Util.getBulbState(AD2Util.getBulbFromSoil(AD2Util.getSoilFromBlock(downBlock))), 2);
+					ModNetworkHandler.getInstance().sendToAllAround(
+							new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), pos.getX(),
+									pos.getY(), pos.getZ(), 4, 0.5),
+							new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+					world.setBlockState(pos.up(),
+							AD2Util.getBulbState(AD2Util.getBulbFromSoil(AD2Util.getSoilFromBlock(downBlock))), 2);
 					if (rand.nextInt(15) == 0) {
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState(), 2);
 					}
@@ -206,13 +220,16 @@ public class BlockPlant extends BlockBush implements IGrowable, ITOPInfoProvider
 
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
+				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 	@Override
-	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world, IBlockState blockState, IProbeHitData data) {
+	public void addProbeInfo(ProbeMode mode, IProbeInfo probeInfo, EntityPlayer player, World world,
+			IBlockState blockState, IProbeHitData data) {
 		IBulb bulb = AD2Util.getBulbFromPlant(world, data.getPos());
-		probeInfo.horizontal().text("     Type: " + bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName());
+		probeInfo.horizontal()
+				.text("     Type: " + bulb.getTextColor() + "" + AD2Util.getBulbDrop(bulb).getDisplayName());
 		probeInfo.horizontal().text("     Growth: " + AD2Util.getPlantGrowthPercent(blockState) + "%");
 	}
 

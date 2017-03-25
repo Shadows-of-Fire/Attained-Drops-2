@@ -46,7 +46,8 @@ public class BlockSoilCreator extends Block {
 	}
 
 	@Override
-	public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random) {
+	public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state,
+			@Nonnull Random random) {
 		updateTick(worldIn, pos, state, random);
 		updateTick(worldIn, pos, state, random);
 		updateTick(worldIn, pos, state, random);
@@ -66,11 +67,15 @@ public class BlockSoilCreator extends Block {
 			int maxZ = minZ + diameter;
 			int i = rand.nextInt(maxX - minX) + minX;
 			int k = rand.nextInt(maxZ - minZ) + minZ;
-			if (world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.DIRT || world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.GRASS) {
+			if (world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.DIRT
+					|| world.getBlockState(new BlockPos(i, pos.getY(), k)).getBlock() == Blocks.GRASS) {
 				world.setBlockState(new BlockPos(i, pos.getY(), k), ModRegistry.VITALIZED_BASE.getDefaultState(), 2);
 				world.setBlockState(pos, getStateFromMeta(l), 2);
 				if (!world.isRemote) {
-					ModNetworkHandler.getInstance().sendToAllAround(new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), i, pos.getY(), k, 3, 0.5), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+					ModNetworkHandler.getInstance().sendToAllAround(
+							new PacketSpawnParticle(EnumParticleTypes.VILLAGER_HAPPY.getParticleID(), i, pos.getY(), k,
+									3, 0.5),
+							new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				}
 			}
 		}
@@ -110,7 +115,8 @@ public class BlockSoilCreator extends Block {
 
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
+				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

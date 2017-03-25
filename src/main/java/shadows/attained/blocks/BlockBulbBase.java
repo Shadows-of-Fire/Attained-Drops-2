@@ -1,6 +1,5 @@
 package shadows.attained.blocks;
 
-import java.util.List;
 import java.util.Random;
 
 import javax.annotation.Nonnull;
@@ -64,13 +63,12 @@ public class BlockBulbBase extends Block implements IBulb {
 		return new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
 	}
 
-    @Override
-    @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos)
-    {
-    		return NULL_AABB;
-    }
-		
+	@Override
+	@Nullable
+	public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+		return NULL_AABB;
+	}
+
 	@Override
 	public boolean isOpaqueCube(IBlockState state) {
 		return false;
@@ -103,7 +101,8 @@ public class BlockBulbBase extends Block implements IBulb {
 	}
 
 	@Override
-	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, @Nullable ItemStack stack) {
+	public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te,
+			@Nullable ItemStack stack) {
 		double d0 = world.rand.nextFloat() * 0.5F + 0.25D;
 		double d1 = world.rand.nextFloat() * 0.5F + 0.25D;
 		double d2 = world.rand.nextFloat() * 0.5F + 0.25D;
@@ -117,10 +116,12 @@ public class BlockBulbBase extends Block implements IBulb {
 
 	@Override
 	public void onBlockDestroyedByPlayer(World world, BlockPos pos, IBlockState state) {
-		if (world.getBlockState(pos.down()) != null && world.getBlockState(pos.down()).getBlock() == ModRegistry.BLOCK_PLANT) {
+		if (world.getBlockState(pos.down()) != null
+				&& world.getBlockState(pos.down()).getBlock() == ModRegistry.BLOCK_PLANT) {
 			Block block2Below = world.getBlockState(pos.offset(EnumFacing.DOWN, 2)).getBlock();
 			if (AD2Util.isSoil(block2Below) && AD2Util.isSoilEnriched(AD2Util.getSoilFromBlock(block2Below))) {
-				world.setBlockState(pos.down(), ((BlockPlant) world.getBlockState(pos.down()).getBlock()).getStateFromMeta(7), 2);
+				world.setBlockState(pos.down(),
+						((BlockPlant) world.getBlockState(pos.down()).getBlock()).getStateFromMeta(7), 2);
 				return;
 			}
 		}
@@ -143,7 +144,8 @@ public class BlockBulbBase extends Block implements IBulb {
 
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
+				new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 	public void setTextColor(TextFormatting color) {
