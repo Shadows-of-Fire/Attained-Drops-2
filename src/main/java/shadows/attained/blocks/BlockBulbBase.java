@@ -107,8 +107,9 @@ public class BlockBulbBase extends Block implements IBulb {
 		double d1 = world.rand.nextFloat() * 0.5F + 0.25D;
 		double d2 = world.rand.nextFloat() * 0.5F + 0.25D;
 		Item drop = AD2Util.getBulbDrop(this).getItem();
+		int meta = AD2Util.getBulbDrop(this).getMetadata();
 		int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-		ItemStack drops = new ItemStack(drop, quantityDropped(state, fortuneLevel, world.rand));
+		ItemStack drops = new ItemStack(drop, quantityDropped(state, fortuneLevel, world.rand), meta);
 		EntityItem entityitem = new EntityItem(world, pos.getX() + d0, pos.getY() + d1, pos.getZ() + d2, drops);
 		entityitem.setDefaultPickupDelay();
 		world.spawnEntity(entityitem);
