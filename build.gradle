@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "1.10.2-" + getVersion("VERSION")
+version = "1.11.2-" + getVersion("VERSION")
 group= "shadows.attained"
 archivesBaseName = "AttainedDrops"
 
