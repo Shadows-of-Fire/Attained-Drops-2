@@ -1,0 +1,42 @@
+//English Localizations
+
+//Blocks
+tile.attaineddrops2.soil.base.name=Vitalized Soil 
+tile.attaineddrops2.soil.enriched.name=Enriched Vitalized Soil
+tile.attaineddrops2.bulb.name=Attained Bulb
+tile.attaineddrops2.plant.name=Attained Plant
+tile.attaineddrops2.soilcreator.name=Vitalized Soil Planter
+tile.attaineddrops2.bulb.0.name=Blaze Bulb
+tile.attaineddrops2.bulb.1.name=Ender Pearl Bulb
+tile.attaineddrops2.bulb.2.name=Bone Bulb
+tile.attaineddrops2.bulb.3.name=Slimeball Bulb
+tile.attaineddrops2.bulb.4.name=Rotten Flesh Bulb
+tile.attaineddrops2.bulb.5.name=Ghast Tear Bulb
+tile.attaineddrops2.bulb.6.name=Gunpowder Bulb
+tile.attaineddrops2.bulb.7.name=String Bulb
+tile.attaineddrops2.bulb.8.name=Spider Eye Bulb
+tile.attaineddrops2.bulb.9.name=Prismarine Shard Bulb
+tile.attaineddrops2.bulb.10.name=Wither Skull Bulb
+
+//Items
+item.attaineddrops2.seed.name=Mob Drop Plant Seed
+item.attaineddrops2.essence.name=Life Essence
+
+//Tooltips
+tooltip.attaineddrops2.holdshift=Hold %s
+tooltip.attaineddrops2.plantvitalized=Plant on enriched vitalized soil
+tooltip.attaineddrops2.enrichedwith=Enriched with %s
+tooltip.attaineddrops2.enableditems=Applicable Items:
+
+//Misc
+phrase.attaineddrops2.dirtblank=This Vitalized Soil has not been enriched yet
+phrase.attaineddrops2.dirtstart=Vitalized with:
+
+//JEI
+jei.attaineddrops2.desc.essence=Dropped by mobs and used in crafting Mob Drop Plant Seeds
+jei.attaineddrops2.desc.vitalized=Right-click with an applicable item to enrich vitalized soil with that item.
+jei.attaineddrops2.desc.seed=Right-click on an Enriched Vitalized Soil block to start the plant growth process
+jei.attaineddrops2.desc.planter=Place this block adjacent to dirt blocks to convert them to Vitilzed Soil
+
+//Creative Tab Label
+itemGroup.attaineddrops2=Attained Drops 2

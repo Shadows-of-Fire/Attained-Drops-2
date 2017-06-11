@@ -1,0 +1,88 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "attaineddrops2:bulb",
+		"transform": "forge:default-block"
+	},
+	"variants": {
+		"meta": {
+			"0": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side0",
+					"particle": "attaineddrops2:blocks/bulbs/side0",
+					"1": "attaineddrops2:blocks/bulbs/top0"
+				}
+			},
+			"1": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side1",
+					"particle": "attaineddrops2:blocks/bulbs/side1",
+					"1": "attaineddrops2:blocks/bulbs/top1"
+				}
+			},
+			"2": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side2",
+					"particle": "attaineddrops2:blocks/bulbs/side2",
+					"1": "attaineddrops2:blocks/bulbs/top2"
+				}
+			},
+			"3": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side3",
+					"particle": "attaineddrops2:blocks/bulbs/side3",
+					"1": "attaineddrops2:blocks/bulbs/top3"
+				}
+			},
+			"4": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side4",
+					"particle": "attaineddrops2:blocks/bulbs/side4",
+					"1": "attaineddrops2:blocks/bulbs/top4"
+				}
+			},
+			"5": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side5",
+					"particle": "attaineddrops2:blocks/bulbs/side5",
+					"1": "attaineddrops2:blocks/bulbs/top5"
+				}
+			},
+			"6": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side6",
+					"particle": "attaineddrops2:blocks/bulbs/side6",
+					"1": "attaineddrops2:blocks/bulbs/top6"
+				}
+			},
+			"7": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side7",
+					"particle": "attaineddrops2:blocks/bulbs/side7",
+					"1": "attaineddrops2:blocks/bulbs/top7"
+				}
+			},
+			"8": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side8",
+					"particle": "attaineddrops2:blocks/bulbs/side8",
+					"1": "attaineddrops2:blocks/bulbs/top8"
+				}
+			},
+			"9": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side9",
+					"particle": "attaineddrops2:blocks/bulbs/side9",
+					"1": "attaineddrops2:blocks/bulbs/top9"
+				}
+			},
+			"10": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side10",
+					"particle": "attaineddrops2:blocks/bulbs/side10",
+					"1": "attaineddrops2:blocks/bulbs/top10"
+				}
+			}
+		}
+	}
+}

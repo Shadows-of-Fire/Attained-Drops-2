@@ -1,0 +1,79 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "cube",
+		"transform": "forge:default-block",
+		"textures": {
+			"particle": "blocks/dirt",
+			"down": "blocks/dirt",
+			"north": "blocks/dirt",
+			"east": "blocks/dirt",
+			"south": "blocks/dirt",
+			"west": "blocks/dirt"
+		}
+	},
+	"variants": {
+		"meta": {
+			"0": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/0"
+				}
+			},
+			"1": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/1"
+				}
+			},
+			"2": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/2"
+				}
+			},
+			"3": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/3"
+				}
+			},
+			"4": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/4"
+				}
+			},
+			"5": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/5"
+				}
+			},
+			"6": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/6"
+				}
+			},
+			"7": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/7"
+				}
+			},
+			"8": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/8"
+				}
+			},
+			"9": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/9"
+				}
+			},
+			"10": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/10"
+				}
+			},
+			"11": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/11"
+				}
+			}
+		}
+	}
+}

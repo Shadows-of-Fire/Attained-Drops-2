@@ -3,14 +3,16 @@ package shadows.attained.items;
 import java.util.List;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import org.lwjgl.input.Keyboard;
 
-import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.settings.KeyBinding;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -25,16 +27,19 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import shadows.attained.init.ModGlobals;
+import shadows.attained.AttainedDrops2;
+import shadows.attained.blocks.BlockVitalized;
 import shadows.attained.init.ModRegistry;
-import shadows.attained.util.AD2Util;
 
 public class ItemSeed extends Item {
+
+	private static final String regname = "seed";
+
 	public ItemSeed() {
 		super();
 		setCreativeTab(ModRegistry.AD2_TAB);
-		setUnlocalizedName(ModGlobals.MODID + ".itemseed");
-		setRegistryName("itemseed");
+		setUnlocalizedName(AttainedDrops2.MODID + "." + regname);
+		setRegistryName(regname);
 		GameRegistry.register(this);
 	}
 
@@ -42,12 +47,11 @@ public class ItemSeed extends Item {
 	@Override
 	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
 			float hitX, float hitY, float hitZ) {
-		Block block = world.getBlockState(pos).getBlock();
-		if (AD2Util.isSoil(block) && AD2Util.isSoilEnriched(AD2Util.getSoilFromBlock(block))
-				&& world.isAirBlock(pos.up())) {
+		IBlockState state = world.getBlockState(pos);
+		if (state.getBlock() instanceof BlockVitalized && world.isAirBlock(pos.up())) {
 			ItemStack stack = player.getHeldItem(hand);
 			if (player.canPlayerEdit(pos, facing, stack) && facing == EnumFacing.UP) {
-				world.setBlockState(pos.up(), ModRegistry.BLOCK_PLANT.getDefaultState());
+				world.setBlockState(pos.up(), ModRegistry.PLANT.getDefaultState());
 				stack.shrink(1);
 				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6,
 						(float) 1.0);
@@ -59,12 +63,12 @@ public class ItemSeed extends Item {
 
 	@Override
 	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack stack, EntityPlayer player, List<String> list, boolean useExtraInformation) {
+	public void addInformation(ItemStack stack, @Nullable World world, List<String> list, ITooltipFlag advanced) {
 		KeyBinding sneak = Minecraft.getMinecraft().gameSettings.keyBindSneak;
-		if (player.isSneaking() || Keyboard.isKeyDown(sneak.getKeyCode())) {
-			list.add(I18n.format("tooltip.attaineddrops.plantvitalized"));
+		if (Keyboard.isKeyDown(sneak.getKeyCode())) {
+			list.add(I18n.format("tooltip.attaineddrops2.plantvitalized"));
 		} else {
-			list.add(I18n.format("tooltip.attaineddrops.holdshift", sneak.getDisplayName()));
+			list.add(I18n.format("tooltip.attaineddrops2.holdshift", sneak.getDisplayName()));
 		}
 	}
 
