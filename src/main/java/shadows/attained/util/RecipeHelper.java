@@ -142,7 +142,7 @@ public class RecipeHelper {
 			} else if (k instanceof ItemStack) {
 				inputL.add(i, Ingredient.func_193369_a((ItemStack) k));
 			} else if (k instanceof Item) {
-				inputL.add(i, Ingredient.func_193367_a((Item) k));
+				inputL.add(i, Ingredient.func_193369_a(new ItemStack((Item) k)));
 			} else if (k instanceof Block) {
 				inputL.add(i, Ingredient.func_193369_a(new ItemStack((Block) k)));
 			} else {
@@ -166,7 +166,7 @@ public class RecipeHelper {
 			} else if (k instanceof ItemStack) {
 				inputL.add(i, Ingredient.func_193369_a((ItemStack) k));
 			} else if (k instanceof Item) {
-				inputL.add(i, Ingredient.func_193367_a((Item) k));
+				inputL.add(i, Ingredient.func_193369_a(new ItemStack((Item) k)));
 			} else if (k instanceof Block) {
 				inputL.add(i, Ingredient.func_193369_a(new ItemStack((Block) k)));
 			} else {
