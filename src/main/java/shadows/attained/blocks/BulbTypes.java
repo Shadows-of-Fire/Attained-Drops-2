@@ -15,9 +15,10 @@ public enum BulbTypes {
 	EYE(new ItemStack(Items.SPIDER_EYE), 8),
 	PRISMARINE(new ItemStack(Items.PRISMARINE_SHARD), 9),
 	WITHER(new ItemStack(Items.SKULL, 1, 1), 10),
-	//PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), 11),
-	//LEATHER(new ItemStack(Items.LEATHER), 12),
-	//FEATHER(new ItemStack(Items.FEATHER), 13),
+	SHULKER(new ItemStack(Items.SHULKER_SHELL), 11),
+	LEATHER(new ItemStack(Items.LEATHER), 12),
+	FEATHER(new ItemStack(Items.FEATHER), 13),
+	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), 14),
 	;
 	private final ItemStack drop;
 	private final int meta;

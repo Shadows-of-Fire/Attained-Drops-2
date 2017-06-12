@@ -1,0 +1,17 @@
+{
+  "type": "crafting_shaped",
+  "group": "boat",
+  "pattern": [
+    "# #",
+    "###"
+  ],
+  "key": {
+    "#": {
+      "item": "minecraft:cauldron",
+      "data": 0
+    }
+  },
+  "result": {
+    "item": "minecraft:stick"
+  }
+}
