@@ -73,6 +73,26 @@
 				"textures": {
 					"up": "attaineddrops2:blocks/soil/11"
 				}
+			},
+			"12": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/12"
+				}
+			},
+			"13": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/13"
+				}
+			},
+			"14": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/14"
+				}
+			},
+			"15": {
+				"textures": {
+					"up": "attaineddrops2:blocks/soil/15"
+				}
 			}
 		}
 	}

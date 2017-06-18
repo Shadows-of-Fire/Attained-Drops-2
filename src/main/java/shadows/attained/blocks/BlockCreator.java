@@ -51,26 +51,25 @@ public class BlockCreator extends Block {
 		};
 		GameRegistry.register(k.setHasSubtypes(true), getRegistryName());
 	}
-	
+
 	@Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand)
-    {
-        return this.blockState.getBaseState().withProperty(CHARGE, 15 - meta);
-    }
-	
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
+			float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+		return this.blockState.getBaseState().withProperty(CHARGE, 15 - meta);
+	}
+
 	@Override
-    public int damageDropped(IBlockState state)
-    {
-        return 15 - state.getValue(CHARGE);
-    }
+	public int damageDropped(IBlockState state) {
+		return 15 - state.getValue(CHARGE);
+	}
 
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		if (rand.nextInt(16 - state.getValue(CHARGE)) == 0){
-			for(int i = 0; i < 3; i++)
-			world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 1.1D,
-					pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.8D, 0);
+		if (rand.nextInt(16 - state.getValue(CHARGE)) == 0) {
+			for (int i = 0; i < 3; i++)
+				world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, pos.getX() + 1.0D - rand.nextDouble(),
+						pos.getY() + 1.1D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.8D, 0);
 		}
 	}
 
@@ -99,13 +98,12 @@ public class BlockCreator extends Block {
 
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
-		for(int i = 0; i < 5; i++){
-			genNewSoil(world,pos,state,rand);
+		for (int i = 0; i < 5; i++) {
+			genNewSoil(world, pos, state, rand);
 		}
 	}
-	
-	
-	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand){
+
+	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
 		BlockPos pos2 = pos.add(MathHelper.getInt(rand, -3, 3), 0, MathHelper.getInt(rand, -3, 3));
 		if (world.getBlockState(pos2).getBlock() == Blocks.DIRT
 				|| world.getBlockState(pos2).getBlock() == Blocks.GRASS) {

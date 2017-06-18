@@ -1,5 +1,7 @@
 package shadows.attained.util;
 
+import java.util.List;
+
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -25,18 +27,20 @@ public class RecipeHelper {
 	 * This adds the recipe to the list of crafting recipes.  Since who cares about names, it adds it as recipesX, where X is the current recipe you are adding.
 	 */
 	public static void addRecipe(int j, IRecipe rec) {
-	    if(rec.getRegistryName() == null)
-		GameRegistry.register(rec.setRegistryName(new ResourceLocation(MODID, "recipes" + j)));
-	    else GameRegistry.register(rec);
+		if (rec.getRegistryName() == null)
+			GameRegistry.register(rec.setRegistryName(new ResourceLocation(MODID, "recipes" + j)));
+		else
+			GameRegistry.register(rec);
 	}
 
 	/*
 	 * This adds the recipe to the list of crafting recipes.  Cares about names.
 	 */
 	public static void addRecipe(String name, IRecipe rec) {
-	    if(rec.getRegistryName() == null)
-		GameRegistry.register(rec.setRegistryName(new ResourceLocation(MODID, name)));
-	    else GameRegistry.register(rec);
+		if (rec.getRegistryName() == null)
+			GameRegistry.register(rec.setRegistryName(new ResourceLocation(MODID, name)));
+		else
+			GameRegistry.register(rec);
 	}
 
 	/*
@@ -52,13 +56,14 @@ public class RecipeHelper {
 	public static void addOldShaped(String group, ItemStack output, Object... input) {
 		addRecipe(j++, new ShapedOreRecipe(new ResourceLocation(MODID, group), output, input));
 	}
-	
-	   /*
-     * This adds a shaped recipe to the list of crafting recipes, using the forge format, with a custom group.
-     */
-    public static void addOldShaped(String name, String group, ItemStack output, Object... input) {
-        addRecipe(j++, new ShapedOreRecipe(new ResourceLocation(MODID, group), output, input).setRegistryName(MODID, name));
-    }
+
+	/*
+	* This adds a shaped recipe to the list of crafting recipes, using the forge format, with a custom group.
+	*/
+	public static void addOldShaped(String name, String group, ItemStack output, Object... input) {
+		addRecipe(j++,
+				new ShapedOreRecipe(new ResourceLocation(MODID, group), output, input).setRegistryName(MODID, name));
+	}
 
 	/*
 	 * This adds a shapeless recipe to the list of crafting recipes, using the forge format.
@@ -162,7 +167,9 @@ public class RecipeHelper {
 	}
 
 	public static ShapedRecipes genShaped(String group, ItemStack output, int l, int w, Object[] input) {
-		if (input[0] instanceof Object[])
+		if (input[0] instanceof List)
+			input = ((List<?>) input[0]).toArray();
+		else if (input[0] instanceof Object[])
 			input = (Object[]) input[0];
 		if (l * w != input.length)
 			throw new UnsupportedOperationException(
@@ -187,7 +194,9 @@ public class RecipeHelper {
 	}
 
 	public static NonNullList<Ingredient> createInput(Object[] input) {
-		if (input[0] instanceof Object[])
+		if (input[0] instanceof List)
+			input = ((List<?>) input[0]).toArray();
+		else if (input[0] instanceof Object[])
 			input = (Object[]) input[0];
 		NonNullList<Ingredient> inputL = NonNullList.create();
 		for (int i = 0; i < input.length; i++) {
@@ -202,7 +211,7 @@ public class RecipeHelper {
 				inputL.add(i, Ingredient.fromStacks(new ItemStack((Block) k)));
 			} else {
 				throw new UnsupportedOperationException(
-						"Attempted to add invalid shapeless recipe.  Complain to the author of  " + MODNAME);
+						"Attempted to add invalid shapeless recipe.  Complain to the author of " + MODNAME);
 			}
 		}
 		return inputL;

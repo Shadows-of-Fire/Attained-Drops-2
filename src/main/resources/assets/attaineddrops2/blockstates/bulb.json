@@ -82,6 +82,34 @@
 					"particle": "attaineddrops2:blocks/bulbs/side10",
 					"1": "attaineddrops2:blocks/bulbs/top10"
 				}
+			},
+			"11": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side11",
+					"particle": "attaineddrops2:blocks/bulbs/side11",
+					"1": "attaineddrops2:blocks/bulbs/top11"
+				}
+			},
+			"12": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side12",
+					"particle": "attaineddrops2:blocks/bulbs/side12",
+					"1": "attaineddrops2:blocks/bulbs/top12"
+				}
+			},
+			"13": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side13",
+					"particle": "attaineddrops2:blocks/bulbs/side13",
+					"1": "attaineddrops2:blocks/bulbs/top13"
+				}
+			},
+			"14": {
+				"textures": {
+					"0": "attaineddrops2:blocks/bulbs/side14",
+					"particle": "attaineddrops2:blocks/bulbs/side14",
+					"1": "attaineddrops2:blocks/bulbs/top14"
+				}
 			}
 		}
 	}

@@ -68,7 +68,7 @@ public class BlockVitalized extends Block {
 				else
 					return "tile." + AttainedDrops2.MODID + "." + name + ".enriched";
 			}
-		}, getRegistryName());
+		}.setHasSubtypes(true), getRegistryName());
 	}
 
 	@Override

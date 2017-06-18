@@ -1,4 +1,4 @@
-/*package shadows.attained.integration;
+package shadows.attained.integration;
 
 import java.util.List;
 
@@ -40,10 +40,10 @@ public class Waila {
 			if (accessor.getBlock() != null) {
 				IBlockState state = accessor.getWorld().getBlockState(accessor.getPosition());
 				Block block = state.getBlock();
-				if(block instanceof BlockVitalized){
+				if (block instanceof BlockVitalized) {
 					return new ItemStack(block, 1, state.getValue(BlockVitalized.META));
 				}
-				if(block instanceof BlockBulb){
+				if (block instanceof BlockBulb) {
 					return new ItemStack(block, 1, state.getValue(BlockBulb.META));
 				}
 			}
@@ -59,29 +59,31 @@ public class Waila {
 				IBlockState state = world.getBlockState(pos);
 				Block block = state.getBlock();
 				if (block instanceof BlockPlant) {
-						currenttip.add("Growth: " + (int) (100 * ((float) state.getValue(BlockPlant.AGE)/((BlockPlant) ModRegistry.PLANT).getMaxAge())) + "%");
-					}
+					currenttip.add("Growth: " + (int) (100
+							* ((float) state.getValue(BlockPlant.AGE) / ((BlockPlant) ModRegistry.PLANT).getMaxAge()))
+							+ "%");
+				}
 				if (block instanceof BlockVitalized) {
 					if (state.getValue(BlockVitalized.META) == 0) {
-						if (accessor.getPlayer().isSneaking()
-								|| Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
+						if (accessor.getPlayer().isSneaking() || Keyboard
+								.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
 							currenttip.add(I18n.format("tooltip.attaineddrops2.enableditems"));
 							String string = "";
 							for (BulbTypes type : BulbTypes.values()) {
 								string = string.concat(type.getDrop().getDisplayName() + ", ");
 							}
 							string = string.substring(0, string.length() - 2);
-							for(String string2 : string.split(", ")){
+							for (String string2 : string.split(", ")) {
 								currenttip.add(string2 + ",");
 							}
 							String k = currenttip.get(currenttip.size() - 1);
 							currenttip.remove(k);
-							currenttip.add(k.substring(0, k.length() - 1 ));
+							currenttip.add(k.substring(0, k.length() - 1));
 						} else {
-							currenttip.add(I18n.format("tooltip.attaineddrops2.holdshift", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
+							currenttip.add(I18n.format("tooltip.attaineddrops2.holdshift",
+									Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
 						}
-					}
-					else if (state.getValue(BlockVitalized.META) > 0){
+					} else if (state.getValue(BlockVitalized.META) > 0) {
 						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith",
 								BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
 					}
@@ -105,9 +107,8 @@ public class Waila {
 		@Override
 		public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world,
 				BlockPos pos) {
-			// TODO Auto-generated method stub
-			return null;
+			return tag;
 		}
 	}
 
-}*/
+}

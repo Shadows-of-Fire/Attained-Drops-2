@@ -27,17 +27,25 @@ minecraft {
 
 repositories {
     maven {
-        name "JEI"
         url "http://dvs1.progwml6.com/files/maven"
     }
-	maven {
-		name "HWYLA"
-		url "http://tehnut.info/maven/"
+    maven {
+        url "http://maven.epoxide.xyz"
     }
+    maven {
+        url "http://maven.amadornes.com/"
+    }
+	maven {
+		url  "http://tehnut.info/maven"
+	}
 }
 
 dependencies {
     compile files('libs/')
+	deobfCompile "mezz.jei:jei_1.12:4.6.0.63:api"
+    runtime "mezz.jei:jei_1.12:4.6.0.63"
+	deobfCompile "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12:api"
+	runtime "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12"
 }
 
 

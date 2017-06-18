@@ -17,6 +17,10 @@ tile.attaineddrops2.bulb.7.name=String Bulb
 tile.attaineddrops2.bulb.8.name=Spider Eye Bulb
 tile.attaineddrops2.bulb.9.name=Prismarine Shard Bulb
 tile.attaineddrops2.bulb.10.name=Wither Skull Bulb
+tile.attaineddrops2.bulb.11.name=Shulker Shell Bulb
+tile.attaineddrops2.bulb.12.name=Leather Bulb
+tile.attaineddrops2.bulb.13.name=Feather Bulb
+tile.attaineddrops2.bulb.14.name=Prismarine Crystal Bulb
 
 //Items
 item.attaineddrops2.seed.name=Mob Drop Plant Seed
@@ -35,6 +39,7 @@ phrase.attaineddrops2.dirtstart=Vitalized with:
 //JEI
 jei.attaineddrops2.desc.essence=Dropped by mobs and used in crafting Mob Drop Plant Seeds
 jei.attaineddrops2.desc.vitalized=Right-click with an applicable item to enrich vitalized soil with that item.
+jei.attaineddrops2.desc.vitalized2=This soil has already been vitalized.  Grow some bulbs!
 jei.attaineddrops2.desc.seed=Right-click on an Enriched Vitalized Soil block to start the plant growth process
 jei.attaineddrops2.desc.planter=Place this block adjacent to dirt blocks to convert them to Vitilzed Soil
 

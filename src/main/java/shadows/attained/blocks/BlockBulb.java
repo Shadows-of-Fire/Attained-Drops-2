@@ -57,11 +57,11 @@ public class BlockBulb extends BlockBush {
 			public String getUnlocalizedName(ItemStack stack) {
 				return block.getUnlocalizedName() + "." + stack.getMetadata();
 			}
-		}, getRegistryName());
-		for(int i = 0; i < BulbTypes.values().length; i++){
+		}.setHasSubtypes(true), getRegistryName());
+		for (int i = 0; i < BulbTypes.values().length; i++) {
 			lookup.put(i, BulbTypes.values()[i].getDrop());
 		}
-		
+
 	}
 
 	@SideOnly(Side.CLIENT)
