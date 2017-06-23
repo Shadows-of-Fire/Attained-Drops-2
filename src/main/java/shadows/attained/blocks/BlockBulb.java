@@ -26,13 +26,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
+import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.util.IHasModel;
 
-public class BlockBulb extends BlockBush {
+public class BlockBulb extends BlockBush implements IHasModel {
 
 	public static final PropertyInteger META = PropertyInteger.create("meta", 0, BulbTypes.values().length - 1);
 	public static final AxisAlignedBB BULB_AABB = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
@@ -46,8 +47,8 @@ public class BlockBulb extends BlockBush {
 		setHardness(0.4F);
 		setTickRandomly(false);
 		setDefaultState(this.blockState.getBaseState().withProperty(META, 0));
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this) {
+		DataLists.BLOCKS.add(this);
+		DataLists.ITEMS.add(new ItemBlock(this) {
 			@Override
 			public int getMetadata(int damage) {
 				return damage;
@@ -57,7 +58,7 @@ public class BlockBulb extends BlockBush {
 			public String getUnlocalizedName(ItemStack stack) {
 				return block.getUnlocalizedName() + "." + stack.getMetadata();
 			}
-		}.setHasSubtypes(true), getRegistryName());
+		}.setHasSubtypes(true).setRegistryName(getRegistryName()));
 		for (int i = 0; i < BulbTypes.values().length; i++) {
 			lookup.put(i, BulbTypes.values()[i].getDrop());
 		}

@@ -26,14 +26,15 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
 import shadows.attained.init.Config;
+import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.util.IHasModel;
 
-public class BlockPlant extends BlockBush implements IGrowable {
+public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] {
@@ -52,8 +53,8 @@ public class BlockPlant extends BlockBush implements IGrowable {
 		setUnlocalizedName(AttainedDrops2.MODID + "." + regname);
 		setHardness(0.2F);
 		setSoundType(SoundType.PLANT);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this), getRegistryName());
+		DataLists.BLOCKS.add(this);
+		DataLists.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0));
 
 	}

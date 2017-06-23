@@ -18,8 +18,7 @@ public enum BulbTypes {
 	SHULKER(new ItemStack(Items.SHULKER_SHELL), 11),
 	LEATHER(new ItemStack(Items.LEATHER), 12),
 	FEATHER(new ItemStack(Items.FEATHER), 13),
-	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), 14),
-	;
+	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), 14),;
 	private final ItemStack drop;
 	private final int meta;
 

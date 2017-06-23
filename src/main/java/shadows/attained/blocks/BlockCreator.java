@@ -22,13 +22,14 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
+import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.util.IHasModel;
 
-public class BlockCreator extends Block {
+public class BlockCreator extends Block implements IHasModel {
 
 	final String regname = "creator";
 	public static final PropertyInteger CHARGE = PropertyInteger.create("charge", 0, 15);
@@ -42,14 +43,14 @@ public class BlockCreator extends Block {
 		setHardness(0.5F);
 		setTickRandomly(true);
 		setDefaultState(this.blockState.getBaseState().withProperty(CHARGE, 15));
-		GameRegistry.register(this);
+		DataLists.BLOCKS.add(this);
 		ItemBlock k = new ItemBlock(this) {
 			@Override
 			public int getMetadata(int damage) {
 				return damage;
 			};
 		};
-		GameRegistry.register(k.setHasSubtypes(true), getRegistryName());
+		DataLists.ITEMS.add(k.setHasSubtypes(true).setRegistryName(getRegistryName()));
 	}
 
 	@Override

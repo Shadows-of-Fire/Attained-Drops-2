@@ -9,13 +9,14 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
+import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.util.IHasModel;
 
-public class ItemEssence extends Item {
+public class ItemEssence extends Item implements IHasModel {
 
 	private final String regname = "essence";
 
@@ -23,7 +24,7 @@ public class ItemEssence extends Item {
 		setCreativeTab(ModRegistry.AD2_TAB);
 		setUnlocalizedName(AttainedDrops2.MODID + "." + regname);
 		setRegistryName(regname);
-		GameRegistry.register(this);
+		DataLists.ITEMS.add(this);
 	}
 
 	@Override

@@ -35,13 +35,14 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
+import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.util.IHasModel;
 
-public class BlockVitalized extends Block {
+public class BlockVitalized extends Block implements IHasModel {
 
 	public static final PropertyInteger META = PropertyInteger.create("meta", 0, BulbTypes.values().length);
 	public static final Map<ItemStack, Integer> lookup = new HashMap<ItemStack, Integer>();
@@ -54,8 +55,8 @@ public class BlockVitalized extends Block {
 		setUnlocalizedName(AttainedDrops2.MODID + "." + name + ".base");
 		setDefaultState(this.blockState.getBaseState().withProperty(META, 0));
 		setCreativeTab(ModRegistry.AD2_TAB);
-		GameRegistry.register(this);
-		GameRegistry.register(new ItemBlock(this) {
+		DataLists.BLOCKS.add(this);
+		DataLists.ITEMS.add(new ItemBlock(this) {
 			@Override
 			public int getMetadata(int damage) {
 				return damage;
@@ -68,7 +69,7 @@ public class BlockVitalized extends Block {
 				else
 					return "tile." + AttainedDrops2.MODID + "." + name + ".enriched";
 			}
-		}.setHasSubtypes(true), getRegistryName());
+		}.setHasSubtypes(true).setRegistryName(getRegistryName()));
 	}
 
 	@Override

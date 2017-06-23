@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "1.12-3.1.0"
+version = "1.12-3.3.0"
 group= "shadows.attained" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Attained Drops"
 
@@ -20,9 +20,9 @@ compileJava {
 }
 
 minecraft {
-    version = "1.12-14.21.0.2329"
+    version = "1.12-14.21.0.2348"
     runDir = "run"
-    mappings = "snapshot_20170614"
+    mappings = "snapshot_20170623"
 }
 
 repositories {
@@ -43,7 +43,7 @@ repositories {
 dependencies {
     compile files('libs/')
 	deobfCompile "mezz.jei:jei_1.12:4.6.0.63:api"
-    runtime "mezz.jei:jei_1.12:4.6.0.63"
+    //runtime "mezz.jei:jei_1.12:4.6.0.63"
 	deobfCompile "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12:api"
 	runtime "mcp.mobius.waila:Hwyla:1.8.18-B32_1.12"
 }
