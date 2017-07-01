@@ -1,6 +1,7 @@
 package shadows.attained.init;
 
-import net.minecraftforge.common.config.Configuration;
+import javax.security.auth.login.Configuration;
+
 import shadows.attained.proxy.CommonProxy;
 
 public class Config {
