@@ -50,8 +50,8 @@ public class ModRegistry {
 	public void initRecipes() {
 		RecipeHelper.addShapeless(new ItemStack(ModRegistry.SEED, 2), ModRegistry.ESSENCE, Items.APPLE,
 				Items.WHEAT_SEEDS);
-		RecipeHelper.addShaped(ModRegistry.CREATOR, 3, 3, null, ModRegistry.SEED, null, Items.DIAMOND, Blocks.DIRT,
-				Items.DIAMOND, null, Items.WATER_BUCKET, null);
+		RecipeHelper.addShaped(ModRegistry.CREATOR, 3, 3, null, ModRegistry.SEED, null, Items.DIAMOND,
+				Blocks.DIRT, Items.DIAMOND, null, Items.WATER_BUCKET, null);
 	}
 
 	@SubscribeEvent
