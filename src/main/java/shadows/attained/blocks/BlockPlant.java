@@ -37,15 +37,7 @@ import shadows.attained.util.IHasModel;
 public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] {
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D),
-			new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D) };
+	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] { new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D) };
 	public static final String regname = "plant";
 
 	public BlockPlant() {
@@ -78,8 +70,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 	}
 
 	@Override
-	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos,
-			@Nonnull IBlockState state) {
+	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 		return Config.allowBonemeal;
 	}
 
@@ -106,8 +97,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	@Override
 	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean bool) {
-		if (world.getBlockState(pos.down()).getBlock() instanceof BlockVitalized
-				&& world.getBlockState(pos.down()).getValue(BlockVitalized.META) > 0) {
+		if (world.getBlockState(pos.down()).getBlock() instanceof BlockVitalized && world.getBlockState(pos.down()).getValue(BlockVitalized.META) > 0) {
 			int age = getAge(world.getBlockState(pos));
 			return age < this.getMaxAge() || (isMaxAge(state) && world.isAirBlock(pos.up()));
 		}
@@ -134,8 +124,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
 		if (canGrow(world, pos, state, true))
 			grow(world, world.rand, pos, state);
-		else if (!canGrow(world, pos, state, true) && world.getBlockState(pos.down()).getBlock() instanceof BlockDirt
-				&& state.getValue(AGE) > 0) {
+		else if (!canGrow(world, pos, state, true) && world.getBlockState(pos.down()).getBlock() instanceof BlockDirt && state.getValue(AGE) > 0) {
 			world.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) - 1));
 		}
 	}
@@ -183,8 +172,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0,
-				new ModelResourceLocation(getRegistryName(), "inventory"));
+		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

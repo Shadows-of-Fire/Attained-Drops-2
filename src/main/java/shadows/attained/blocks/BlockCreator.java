@@ -54,8 +54,7 @@ public class BlockCreator extends Block implements IHasModel {
 	}
 
 	@Override
-	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY,
-			float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
 		return this.blockState.getBaseState().withProperty(CHARGE, 15 - meta);
 	}
 
@@ -69,8 +68,7 @@ public class BlockCreator extends Block implements IHasModel {
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if (rand.nextInt(16 - state.getValue(CHARGE)) == 0) {
 			for (int i = 0; i < 3; i++)
-				world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, pos.getX() + 1.0D - rand.nextDouble(),
-						pos.getY() + 1.1D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.8D, 0);
+				world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 1.1D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.8D, 0);
 		}
 	}
 
@@ -92,8 +90,7 @@ public class BlockCreator extends Block implements IHasModel {
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		for (int i = 0; i <= 15; i++) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i,
-					new ModelResourceLocation(getRegistryName(), "charge=" + i));
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "charge=" + i));
 		}
 	}
 
@@ -106,8 +103,7 @@ public class BlockCreator extends Block implements IHasModel {
 
 	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
 		BlockPos pos2 = pos.add(MathHelper.getInt(rand, -3, 3), 0, MathHelper.getInt(rand, -3, 3));
-		if (world.getBlockState(pos2).getBlock() == Blocks.DIRT
-				|| world.getBlockState(pos2).getBlock() == Blocks.GRASS) {
+		if (world.getBlockState(pos2).getBlock() == Blocks.DIRT || world.getBlockState(pos2).getBlock() == Blocks.GRASS) {
 			world.setBlockState(pos2, ModRegistry.SOIL.getDefaultState());
 			if (rand.nextInt(4) == 0) {
 				if (state.getValue(CHARGE) - 1 <= 0)

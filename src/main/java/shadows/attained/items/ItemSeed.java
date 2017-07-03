@@ -46,16 +46,14 @@ public class ItemSeed extends Item implements IHasModel {
 
 	@Nonnull
 	@Override
-	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing,
-			float hitX, float hitY, float hitZ) {
+	public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		IBlockState state = world.getBlockState(pos);
 		if (state.getBlock() instanceof BlockVitalized && world.isAirBlock(pos.up())) {
 			ItemStack stack = player.getHeldItem(hand);
 			if (player.canPlayerEdit(pos, facing, stack) && facing == EnumFacing.UP) {
 				world.setBlockState(pos.up(), ModRegistry.PLANT.getDefaultState());
 				stack.shrink(1);
-				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6,
-						(float) 1.0);
+				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 1.0);
 			}
 			return EnumActionResult.SUCCESS;
 		}

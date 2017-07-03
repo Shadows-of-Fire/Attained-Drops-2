@@ -90,8 +90,7 @@ public class BlockVitalized extends Block implements IHasModel {
 	}
 
 	@Override
-	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand,
-			EnumFacing facing, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
 		if (!stack.isEmpty() && state.getValue(META) == 0 && !world.isRemote) {
 			int meta = BulbTypes.getMetaFromStack(stack);
@@ -106,8 +105,7 @@ public class BlockVitalized extends Block implements IHasModel {
 			player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
 			return true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && !world.isRemote && state.getValue(META) > 0) {
-			player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " "
-					+ BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
+			player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
 			return true;
 		}
 		return false;
@@ -133,8 +131,7 @@ public class BlockVitalized extends Block implements IHasModel {
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag useExtraInformation) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		if (stack.getMetadata() == 0) {
-			if (player.isSneaking()
-					|| Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
+			if (player.isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
 				list.add(I18n.format("tooltip.attaineddrops2.enableditems"));
 				String string = "";
 				for (BulbTypes type : BulbTypes.values()) {
@@ -142,12 +139,10 @@ public class BlockVitalized extends Block implements IHasModel {
 				}
 				list.add(string.substring(0, string.length() - 2));
 			} else {
-				list.add(I18n.format("tooltip.attaineddrops2.holdshift",
-						Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
+				list.add(I18n.format("tooltip.attaineddrops2.holdshift", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
 			}
 		} else if (stack.getMetadata() > 0) {
-			list.add(I18n.format("tooltip.attaineddrops2.enrichedwith",
-					BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
+			list.add(I18n.format("tooltip.attaineddrops2.enrichedwith", BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
 		}
 	}
 
@@ -164,8 +159,7 @@ public class BlockVitalized extends Block implements IHasModel {
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		for (int i = 0; i < BulbTypes.values().length + 1; i++) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i,
-					new ModelResourceLocation(getRegistryName(), "meta=" + i));
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "meta=" + i));
 		}
 	}
 

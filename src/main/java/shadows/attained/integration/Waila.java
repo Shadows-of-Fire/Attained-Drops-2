@@ -51,22 +51,18 @@ public class Waila {
 		}
 
 		@Override
-		public List<String> getWailaBody(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor,
-				IWailaConfigHandler config) {
+		public List<String> getWailaBody(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
 			if (accessor.getBlock() != null) {
 				BlockPos pos = accessor.getPosition();
 				World world = accessor.getWorld();
 				IBlockState state = world.getBlockState(pos);
 				Block block = state.getBlock();
 				if (block instanceof BlockPlant) {
-					currenttip.add("Growth: " + (int) (100
-							* ((float) state.getValue(BlockPlant.AGE) / ((BlockPlant) ModRegistry.PLANT).getMaxAge()))
-							+ "%");
+					currenttip.add("Growth: " + (int) (100 * ((float) state.getValue(BlockPlant.AGE) / ((BlockPlant) ModRegistry.PLANT).getMaxAge())) + "%");
 				}
 				if (block instanceof BlockVitalized) {
 					if (state.getValue(BlockVitalized.META) == 0) {
-						if (accessor.getPlayer().isSneaking() || Keyboard
-								.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
+						if (accessor.getPlayer().isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
 							currenttip.add(I18n.format("tooltip.attaineddrops2.enableditems"));
 							String string = "";
 							for (BulbTypes type : BulbTypes.values()) {
@@ -80,12 +76,10 @@ public class Waila {
 							currenttip.remove(k);
 							currenttip.add(k.substring(0, k.length() - 1));
 						} else {
-							currenttip.add(I18n.format("tooltip.attaineddrops2.holdshift",
-									Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
+							currenttip.add(I18n.format("tooltip.attaineddrops2.holdshift", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
 						}
 					} else if (state.getValue(BlockVitalized.META) > 0) {
-						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith",
-								BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
+						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith", BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
 					}
 				}
 			}
@@ -93,20 +87,17 @@ public class Waila {
 		}
 
 		@Override
-		public List<String> getWailaHead(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor,
-				IWailaConfigHandler config) {
+		public List<String> getWailaHead(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
 			return currenttip;
 		}
 
 		@Override
-		public List<String> getWailaTail(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor,
-				IWailaConfigHandler config) {
+		public List<String> getWailaTail(ItemStack stack, List<String> currenttip, IWailaDataAccessor accessor, IWailaConfigHandler config) {
 			return currenttip;
 		}
 
 		@Override
-		public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world,
-				BlockPos pos) {
+		public NBTTagCompound getNBTData(EntityPlayerMP player, TileEntity te, NBTTagCompound tag, World world, BlockPos pos) {
 			return tag;
 		}
 	}

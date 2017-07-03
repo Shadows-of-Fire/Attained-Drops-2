@@ -77,8 +77,7 @@ public class BlockBulb extends BlockBush implements IHasModel {
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if (rand.nextFloat() > 0.6937F)
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 1.0D - rand.nextDouble(),
-					pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.4D, 0);
+			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.4D, 0);
 	}
 
 	@Override
@@ -146,8 +145,7 @@ public class BlockBulb extends BlockBush implements IHasModel {
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		for (int i = 0; i < BulbTypes.values().length; i++) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i,
-					new ModelResourceLocation(getRegistryName(), "meta=" + i));
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "meta=" + i));
 		}
 	}
 }
