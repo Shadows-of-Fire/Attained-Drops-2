@@ -25,6 +25,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
+import shadows.attained.init.Config;
 import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
 import shadows.attained.util.IHasModel;
@@ -102,7 +103,8 @@ public class BlockCreator extends Block implements IHasModel {
 	}
 
 	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
-		BlockPos pos2 = pos.add(MathHelper.getInt(rand, -3, 3), 0, MathHelper.getInt(rand, -3, 3));
+		int radius = Config.creatorRadius;
+		BlockPos pos2 = pos.add(MathHelper.getInt(rand, radius * -1, radius), 0, MathHelper.getInt(rand, radius * -1, radius));
 		if (world.getBlockState(pos2).getBlock() == Blocks.DIRT || world.getBlockState(pos2).getBlock() == Blocks.GRASS) {
 			world.setBlockState(pos2, ModRegistry.SOIL.getDefaultState());
 			if (rand.nextInt(4) == 0) {
