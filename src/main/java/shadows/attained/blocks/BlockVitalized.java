@@ -92,23 +92,28 @@ public class BlockVitalized extends Block implements IHasModel {
 	@Override
 	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
 		ItemStack stack = player.getHeldItem(hand);
-		if (!stack.isEmpty() && state.getValue(META) == 0 && !world.isRemote) {
+		boolean flag = false;
+		if (!stack.isEmpty() && state.getValue(META) == 0) {
 			int meta = BulbTypes.getMetaFromStack(stack);
 			if (meta == -1)
-				return false;
-			world.setBlockState(pos, getDefaultState().withProperty(META, meta + 1));
-			world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
-			if (!player.capabilities.isCreativeMode)
-				stack.shrink(1);
-			return true;
-		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && !world.isRemote && state.getValue(META) == 0) {
-			player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
-			return true;
-		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && !world.isRemote && state.getValue(META) > 0) {
-			player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
-			return true;
+				return flag;
+			if (!world.isRemote) {
+				world.setBlockState(pos, getDefaultState().withProperty(META, meta + 1));
+				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
+				if (!player.capabilities.isCreativeMode)
+					stack.shrink(1);
+			}
+			flag = true;
+		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) == 0) {
+			if (!world.isRemote)
+				player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
+			flag = true;
+		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) > 0) {
+			if (!world.isRemote)
+				player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
+			flag = true;
 		}
-		return false;
+		return flag;
 	}
 
 	@Nullable
