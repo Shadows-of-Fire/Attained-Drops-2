@@ -113,7 +113,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 				world.setBlockState(pos.up(), place);
 				if (Config.revertChance > 0 && rand.nextInt(Config.revertChance) == 0) {
 					world.setBlockState(pos.down(), world.getBlockState(pos.down()).getBlock().getDefaultState());
-					if (rand.nextInt(Config.revertChance) == 0)
+					if (Config.revertToDirt && rand.nextInt(Config.revertChance) == 0)
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
 				}
 			}
