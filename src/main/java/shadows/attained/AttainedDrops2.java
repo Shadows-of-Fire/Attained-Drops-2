@@ -2,6 +2,7 @@ package shadows.attained;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -22,7 +23,7 @@ public class AttainedDrops2 {
 
 	public static final String MODID = "attaineddrops2";
 	public static final String MODNAME = "Attained Drops 2";
-	public static final String VERSION = "3.3.1";
+	public static final String VERSION = "3.4.0";
 	public static final String DEPS = "";
 
 	@SidedProxy(clientSide = "shadows.attained.proxy.ClientProxy", serverSide = "shadows.attained.proxy.CommonProxy")
@@ -49,13 +50,8 @@ public class AttainedDrops2 {
 
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof IMob) {
-			int rand = event.getEntity().world.rand.nextInt(Config.dropChance);
-			if (rand == 0) {
-				ItemStack dropItem = new ItemStack(ModRegistry.ESSENCE, 1);
-				EntityItem drop = new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, dropItem);
-				event.getDrops().add(drop);
-			}
+		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(Config.dropChance - event.getLootingLevel()) == 0) {
+			event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(ModRegistry.ESSENCE)));
 		}
 	}
 

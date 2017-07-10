@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Nullable;
-
 import org.lwjgl.input.Keyboard;
 
 import net.minecraft.block.Block;
@@ -116,7 +114,6 @@ public class BlockVitalized extends Block implements IHasModel {
 		return flag;
 	}
 
-	@Nullable
 	public static IBlockState getBulbFromState(IBlockState state) {
 		if (state.getValue(META) == 0)
 			return null;

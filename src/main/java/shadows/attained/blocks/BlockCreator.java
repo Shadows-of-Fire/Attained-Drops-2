@@ -22,17 +22,20 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
 import shadows.attained.init.Config;
 import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
+import shadows.attained.proxy.CommonProxy;
 import shadows.attained.util.IHasModel;
+import shadows.attained.util.ParticleMessage;
 
 public class BlockCreator extends Block implements IHasModel {
 
-	final String regname = "creator";
+	private static final String regname = "creator";
 	public static final PropertyInteger CHARGE = PropertyInteger.create("charge", 0, 15);
 
 	public BlockCreator() {
@@ -67,9 +70,9 @@ public class BlockCreator extends Block implements IHasModel {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		if (rand.nextInt(16 - state.getValue(CHARGE)) == 0) {
-			for (int i = 0; i < 3; i++)
-				world.spawnParticle(EnumParticleTypes.CRIT_MAGIC, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 1.1D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.8D, 0);
+		if (rand.nextInt(20 - state.getValue(CHARGE)) == 0) {
+			for (int i = 0; i < rand.nextInt(9); i++)
+				world.spawnParticle(EnumParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 1.02D, pos.getZ() + 0.5D, MathHelper.nextDouble(rand, -0.05, 0.05), 0.06D, MathHelper.nextDouble(rand, -0.05, 0.05));
 		}
 	}
 
@@ -91,28 +94,33 @@ public class BlockCreator extends Block implements IHasModel {
 	@SideOnly(Side.CLIENT)
 	public void initModel() {
 		for (int i = 0; i <= 15; i++) {
-			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "charge=" + i));
+			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "charge=" + (15 - i)));
 		}
 	}
 
 	@Override
+	public int tickRate(World world) {
+		return 1;
+	}
+
+	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
-		for (int i = 0; i < 5; i++) {
-			genNewSoil(world, pos, state, rand);
-		}
+		genNewSoil(world, pos, state, rand);
 	}
 
 	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
 		int radius = Config.creatorRadius;
 		BlockPos pos2 = pos.add(MathHelper.getInt(rand, radius * -1, radius), 0, MathHelper.getInt(rand, radius * -1, radius));
-		if (world.getBlockState(pos2).getBlock() == Blocks.DIRT || world.getBlockState(pos2).getBlock() == Blocks.GRASS) {
+		if (Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, pos2.up())) {
 			world.setBlockState(pos2, ModRegistry.SOIL.getDefaultState());
-			if (rand.nextInt(4) == 0) {
+			if (rand.nextBoolean()) {
 				if (state.getValue(CHARGE) - 1 <= 0)
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 				else
 					world.setBlockState(pos, state.withProperty(CHARGE, state.getValue(CHARGE) - 1));
 			}
+			CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+
 		}
 	}
 }

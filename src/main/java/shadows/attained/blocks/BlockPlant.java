@@ -1,6 +1,5 @@
 package shadows.attained.blocks;
 
-import java.util.List;
 import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -75,13 +74,11 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-		List<ItemStack> ret = super.getDrops(world, pos, state, fortune);
+	public void getDrops(NonNullList<ItemStack> ret, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
 		ret.clear();
 		if (ThreadLocalRandom.current().nextFloat() >= 0.3) {
 			ret.add(new ItemStack(ModRegistry.SEED));
 		}
-		return ret;
 	}
 
 	@Override
@@ -97,7 +94,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	@Override
 	public boolean canGrow(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean bool) {
-		if (world.getBlockState(pos.down()).getBlock() instanceof BlockVitalized && world.getBlockState(pos.down()).getValue(BlockVitalized.META) > 0) {
+		if (world.getBlockState(pos.down()).getBlock() instanceof BlockVitalized) {
 			int age = getAge(world.getBlockState(pos));
 			return age < this.getMaxAge() || (isMaxAge(state) && world.isAirBlock(pos.up()));
 		}
@@ -111,11 +108,14 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 			setAge(world, pos, getAge(state) + 1);
 		}
 		if (isMaxAge(state) && world.isAirBlock(pos.up())) {
-			world.setBlockState(pos.up(), BlockVitalized.getBulbFromState(world.getBlockState(pos.down())));
-			if (Config.revertChance > 0 && rand.nextInt(Config.revertChance) == 0) {
-				world.setBlockState(pos.down(), world.getBlockState(pos.down()).getBlock().getDefaultState());
-				if (rand.nextInt(Config.revertChance) == 0)
-					world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
+			IBlockState place = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
+			if (place != null) {
+				world.setBlockState(pos.up(), place);
+				if (Config.revertChance > 0 && rand.nextInt(Config.revertChance) == 0) {
+					world.setBlockState(pos.down(), world.getBlockState(pos.down()).getBlock().getDefaultState());
+					if (rand.nextInt(Config.revertChance) == 0)
+						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
+				}
 			}
 		}
 	}
@@ -123,7 +123,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
 		if (canGrow(world, pos, state, true))
-			grow(world, world.rand, pos, state);
+			if(rand.nextInt(6) == 0) grow(world, world.rand, pos, state);
 		else if (!canGrow(world, pos, state, true) && world.getBlockState(pos.down()).getBlock() instanceof BlockDirt && state.getValue(AGE) > 0) {
 			world.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) - 1));
 		}
