@@ -69,8 +69,7 @@ public class Waila {
 					currenttip.add(I18n.format("tooltip.attaineddrops2.revertchance") + " " + (k > 20 ? k : 0) + "%");
 					IBlockState state2 = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
 					currenttip.add(I18n.format("tooltip.attaineddrops2.growing") + " " + (state2 == null ? I18n.format("tooltip.attaineddrops2.nothing") : ModRegistry.BULB.getPickBlock(state2, null, null, null, null).getDisplayName()));
-				}
-				else if (block instanceof BlockVitalized) {
+				} else if (block instanceof BlockVitalized) {
 					if (state.getValue(BlockVitalized.META) == 0) {
 						if (accessor.getPlayer().isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
 							currenttip.add(I18n.format("tooltip.attaineddrops2.enableditems"));
@@ -91,8 +90,7 @@ public class Waila {
 					} else if (state.getValue(BlockVitalized.META) > 0) {
 						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith", BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
 					}
-				}
-				else if(block instanceof BlockCreator){
+				} else if (block instanceof BlockCreator) {
 					currenttip.add(I18n.format("tooltip.attaineddrops2.creatorcharge", state.getValue(BlockCreator.CHARGE)));
 				}
 			}

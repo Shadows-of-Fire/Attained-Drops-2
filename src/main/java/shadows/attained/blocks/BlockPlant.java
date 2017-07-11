@@ -73,7 +73,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	@Override
 	public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-		return Config.allowBonemeal && isMaxAge(state);
+		return Config.allowBonemeal && !isMaxAge(state);
 	}
 
 	@Override
@@ -114,12 +114,13 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 				CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos.up(), (byte) 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				world.setBlockState(pos.up(), place);
 				int charge = state.getValue(CHARGE);
-				world.setBlockState(pos, state.withProperty(CHARGE, charge + 1 >4 ? 0 : charge + 1));
+				world.setBlockState(pos, state.withProperty(CHARGE, charge + 1 > 4 ? 0 : charge + 1));
 				if (charge > 0 && rand.nextInt(5 - charge) == 0) {
 					world.setBlockState(pos.down(), world.getBlockState(pos.down()).getBlock().getDefaultState());
 					world.setBlockState(pos, state.withProperty(CHARGE, 0));
-					if (Config.revertToDirt && rand.nextInt(8 - charge) == 0){
-						if(world.getBlockState(pos.up()).getBlock() == ModRegistry.BULB) world.destroyBlock(pos.up(), true);
+					if (Config.revertToDirt && rand.nextInt(8 - charge) == 0) {
+						if (world.getBlockState(pos.up()).getBlock() == ModRegistry.BULB)
+							world.destroyBlock(pos.up(), true);
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
 						CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 					}
@@ -151,19 +152,20 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		IBlockState state = getDefaultState();
-		if(meta > 7){
+		if (meta > 7) {
 			state = state.withProperty(AGE, 7).withProperty(CHARGE, meta - 7);
-		}
-		else state = withAge(meta);
+		} else
+			state = withAge(meta);
 		return state;
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int k = state.getValue(AGE);
-		if(k == 7) k+= state.getValue(CHARGE);
+		if (k == 7)
+			k += state.getValue(CHARGE);
 		return k;
-		
+
 	}
 
 	@Override
