@@ -28,12 +28,17 @@ item.attaineddrops2.essence.name=Life Essence
 
 //Tooltips
 tooltip.attaineddrops2.holdshift=Hold %s
-tooltip.attaineddrops2.plantvitalized=Plant on enriched vitalized soil
+tooltip.attaineddrops2.plantvitalized=Plant on enriched vitalized soil.
 tooltip.attaineddrops2.enrichedwith=Enriched with %s
 tooltip.attaineddrops2.enableditems=Applicable Items:
+tooltip.attaineddrops2.creatorcharge=Charge Remaining: %s
+tooltip.attaineddrops2.revertchance=Revert Chance:
+tooltip.attaineddrops2.growth=Growth:
+tooltip.attaineddrops2.growing=Growing:
+tooltip.attaineddrops2.nothing=Nothing
 
 //Misc
-phrase.attaineddrops2.dirtblank=This Vitalized Soil has not been enriched yet
+phrase.attaineddrops2.dirtblank=This Vitalized Soil has not been enriched yet.
 phrase.attaineddrops2.dirtstart=Vitalized with:
 
 //JEI

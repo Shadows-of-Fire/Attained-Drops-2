@@ -1,6 +1,5 @@
 package shadows.attained.proxy;
 
-import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -33,10 +32,6 @@ public class CommonProxy {
 
 	public void postInit(FMLPostInitializationEvent e) {
 
-	}
-
-	public World getWorld() {
-		return null;
 	}
 
 }

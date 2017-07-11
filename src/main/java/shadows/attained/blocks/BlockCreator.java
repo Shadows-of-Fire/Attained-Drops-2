@@ -15,6 +15,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.EnumParticleTypes;
@@ -97,16 +98,22 @@ public class BlockCreator extends Block implements IHasModel {
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "charge=" + (15 - i)));
 		}
 	}
-
+	
 	@Override
-	public int tickRate(World world) {
-		return 1;
+	public void randomTick(World world, BlockPos pos, IBlockState state, Random rand) {
+		genNewSoil(world, pos, state, rand);
 	}
 
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
 		genNewSoil(world, pos, state, rand);
+		world.scheduleBlockUpdate(pos, this, 40, 20);
 	}
+	
+	@Override
+    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		world.scheduleBlockUpdate(pos, this, 50, 20);
+    }
 
 	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
 		int radius = Config.creatorRadius;
@@ -114,8 +121,10 @@ public class BlockCreator extends Block implements IHasModel {
 		if (Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, pos2.up())) {
 			world.setBlockState(pos2, ModRegistry.SOIL.getDefaultState());
 			if (rand.nextBoolean()) {
-				if (state.getValue(CHARGE) - 1 <= 0)
+				if (state.getValue(CHARGE) - 1 <= 0){
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
+				CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+				}
 				else
 					world.setBlockState(pos, state.withProperty(CHARGE, state.getValue(CHARGE) - 1));
 			}

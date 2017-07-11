@@ -47,12 +47,19 @@
 				}
 			}
 		},
+		"charge": {
+			"0": {},
+			"1": {},
+			"2": {},
+			"3": {},
+			"4": {}
+		},
 		"inventory": {
-		"model": "builtin/generated",
-		"transform": "forge:default-item",
-		"textures": {
-		"layer0": "attaineddrops2:blocks/plant/7"
-		}
+			"model": "builtin/generated",
+			"transform": "forge:default-item",
+			"textures": {
+				"layer0": "attaineddrops2:blocks/plant/7"
+			}
 		}
 	}
 }

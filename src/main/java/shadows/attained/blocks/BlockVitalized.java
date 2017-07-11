@@ -29,6 +29,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -76,6 +77,11 @@ public class BlockVitalized extends Block implements IHasModel {
 	}
 
 	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, state.getValue(META));
+	}
+
+	@Override
 	public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
 		List<ItemStack> ret = new ArrayList<ItemStack>();
 		ret.add(new ItemStack(Blocks.DIRT));
@@ -103,11 +109,11 @@ public class BlockVitalized extends Block implements IHasModel {
 			}
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) == 0) {
-			if (!world.isRemote)
+			if (world.isRemote)
 				player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) > 0) {
-			if (!world.isRemote)
+			if (world.isRemote)
 				player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
 			flag = true;
 		}
@@ -115,7 +121,7 @@ public class BlockVitalized extends Block implements IHasModel {
 	}
 
 	public static IBlockState getBulbFromState(IBlockState state) {
-		if (state.getValue(META) == 0)
+		if (state.getBlock() != ModRegistry.SOIL || state.getValue(META) == 0)
 			return null;
 		return ModRegistry.BULB.getDefaultState().withProperty(BlockBulb.META, state.getValue(META) - 1);
 	}

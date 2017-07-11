@@ -1,6 +1,7 @@
 package shadows.attained.blocks;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,9 +24,11 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
@@ -33,7 +36,7 @@ import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
 import shadows.attained.util.IHasModel;
 
-public class BlockBulb extends BlockBush implements IHasModel {
+public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
 	public static final PropertyInteger META = PropertyInteger.create("meta", 0, BulbTypes.values().length - 1);
 	public static final AxisAlignedBB BULB_AABB = new AxisAlignedBB(0.3125D, 0.0D, 0.3125D, 0.6875D, 0.5D, 0.6875D);
@@ -77,7 +80,12 @@ public class BlockBulb extends BlockBush implements IHasModel {
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if (rand.nextFloat() > 0.6937F)
-			world.spawnParticle(EnumParticleTypes.VILLAGER_HAPPY, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.4D, 0);
+			world.spawnParticle(EnumParticleTypes.END_ROD, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
+	}
+
+	@Override
+	public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+		return new ItemStack(this, 1, state.getValue(META));
 	}
 
 	@Override
@@ -147,5 +155,15 @@ public class BlockBulb extends BlockBush implements IHasModel {
 		for (int i = 0; i < BulbTypes.values().length; i++) {
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "meta=" + i));
 		}
+	}
+
+	@Override
+	public boolean isShearable(ItemStack item, IBlockAccess world, BlockPos pos) {
+		return true;
+	}
+
+	@Override
+	public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+		return Arrays.asList(new ItemStack(this, 1, world.getBlockState(pos).getValue(META)));
 	}
 }

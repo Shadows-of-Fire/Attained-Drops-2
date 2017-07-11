@@ -6,8 +6,8 @@ import shadows.attained.proxy.CommonProxy;
 public class Config {
 
 	public static int dropChance = 18; // 1/n for Essence drops.
-	public static boolean allowBonemeal = false;
-	public static int revertChance = 6; // 1/n for soil reversion.
+	public static boolean allowBonemeal = true;
+	//public static int revertChance = 6; // 1/n for soil reversion.
 	public static int creatorRadius = 2;
 	public static boolean revertToDirt = true;
 
@@ -15,10 +15,10 @@ public class Config {
 		try {
 			CommonProxy.config.load();
 			dropChance = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Drop Chance", "18", "The 1/n chance for Essence to drop from mobs.").getInt();
-			allowBonemeal = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Allow Bonemeal", false, "If bonemealing Attained Plants is allowed").getBoolean();
-			revertChance = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Revert Chance", 6, "The 1/n chance for soil to revert after a bulb grows. Set to 0 to disable.").getInt();
+			allowBonemeal = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Allow Bonemeal", false, "If bonemealing Attained Plants is allowed.  This is strictly for plants, you can never grow bulbs with bonemeal.").getBoolean();
+			//revertChance = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Revert Chance", 6, "The chance for Enriched Vitalized Soil to revert to Vitalized Soil or dirt.").getInt();
 			creatorRadius = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Creator Radius", 2, "The radius of the soil creator.").getInt();
-			revertToDirt = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Revert to dirt", true, "If Vitalized Soil has a chance to revert to dirt upon growth.  Uses \"Revert Chance\" as its chance.").getBoolean();
+			revertToDirt = CommonProxy.config.get(Configuration.CATEGORY_GENERAL, "Revert to dirt", true, "If Vitalized Soil has a chance to revert to dirt upon bulb growth.").getBoolean();
 
 		} catch (Exception e) {
 		} finally {
