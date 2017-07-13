@@ -118,7 +118,7 @@ public class BlockCreator extends Block implements IHasModel {
 	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
 		int radius = Config.creatorRadius;
 		BlockPos pos2 = pos.add(MathHelper.getInt(rand, radius * -1, radius), 0, MathHelper.getInt(rand, radius * -1, radius));
-		if (Blocks.YELLOW_FLOWER.canPlaceBlockAt(world, pos2.up())) {
+		if (world.getBlockState(pos2).getBlock().canSustainPlant(world.getBlockState(pos2), world, pos2, EnumFacing.UP, Blocks.YELLOW_FLOWER)) {
 			world.setBlockState(pos2, ModRegistry.SOIL.getDefaultState());
 			if (rand.nextBoolean()) {
 				if (state.getValue(CHARGE) - 1 <= 0) {
