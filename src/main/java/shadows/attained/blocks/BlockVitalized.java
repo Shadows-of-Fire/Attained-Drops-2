@@ -139,7 +139,7 @@ public class BlockVitalized extends Block implements IHasModel {
 	public void addInformation(ItemStack stack, World world, List<String> list, ITooltipFlag useExtraInformation) {
 		EntityPlayer player = Minecraft.getMinecraft().player;
 		if (stack.getMetadata() == 0) {
-			if (player.isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
+			if (player != null && player.isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
 				list.add(I18n.format("tooltip.attaineddrops2.enableditems"));
 				String string = "";
 				for (BulbTypes type : BulbTypes.values()) {

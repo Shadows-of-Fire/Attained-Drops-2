@@ -4,6 +4,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -50,7 +51,7 @@ public class AttainedDrops2 {
 
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(Config.dropChance - event.getLootingLevel()) == 0) {
+		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(MathHelper.clamp(Config.dropChance - event.getLootingLevel(), 1, Integer.MAX_VALUE)) == 0) {
 			event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(ModRegistry.ESSENCE)));
 		}
 	}
