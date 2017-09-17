@@ -124,8 +124,7 @@ public class BlockCreator extends Block implements IHasModel {
 				if (state.getValue(CHARGE) - 1 <= 0) {
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
 					CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
-				} else
-					world.setBlockState(pos, state.withProperty(CHARGE, state.getValue(CHARGE) - 1));
+				} else world.setBlockState(pos, state.withProperty(CHARGE, state.getValue(CHARGE) - 1));
 			}
 			CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 

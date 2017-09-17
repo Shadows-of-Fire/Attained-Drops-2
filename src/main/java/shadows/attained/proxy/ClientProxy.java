@@ -38,12 +38,10 @@ public class ClientProxy extends CommonProxy {
 	@SubscribeEvent
 	public void onModelRegistry(ModelRegistryEvent event) {
 		for (Item item : DataLists.ITEMS) {
-			if (item instanceof IHasModel)
-				((IHasModel) item).initModel();
+			if (item instanceof IHasModel) ((IHasModel) item).initModel();
 		}
 		for (Block block : DataLists.BLOCKS) {
-			if (block instanceof IHasModel)
-				((IHasModel) block).initModel();
+			if (block instanceof IHasModel) ((IHasModel) block).initModel();
 		}
 	}
 

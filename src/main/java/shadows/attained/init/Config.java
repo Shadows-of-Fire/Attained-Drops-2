@@ -22,8 +22,7 @@ public class Config {
 
 		} catch (Exception e) {
 		} finally {
-			if (CommonProxy.config.hasChanged())
-				CommonProxy.config.save();
+			if (CommonProxy.config.hasChanged()) CommonProxy.config.save();
 		}
 	}
 

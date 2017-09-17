@@ -30,8 +30,7 @@ public enum BulbTypes {
 	public static int getMetaFromStack(ItemStack stack) {
 		for (int i = 0; i < BulbTypes.values().length; i++) {
 			ItemStack k = BlockBulb.lookup.get(i);
-			if (ItemStack.areItemsEqual(stack, k))
-				return i;
+			if (ItemStack.areItemsEqual(stack, k)) return i;
 		}
 		return -1;
 	}

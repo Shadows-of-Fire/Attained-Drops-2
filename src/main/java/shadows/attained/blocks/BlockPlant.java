@@ -131,8 +131,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	@Override
 	public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
-		if (canGrow(world, pos, state, true))
-			grow(world, world.rand, pos, state);
+		if (canGrow(world, pos, state, true)) grow(world, world.rand, pos, state);
 		else if (!canGrow(world, pos, state, true) && world.getBlockState(pos.down()).getBlock() instanceof BlockDirt && state.getValue(AGE) > 0) {
 			world.setBlockState(pos, state.withProperty(AGE, state.getValue(AGE) - 1));
 		}
@@ -154,16 +153,14 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 		IBlockState state = getDefaultState();
 		if (meta > 7) {
 			state = state.withProperty(AGE, 7).withProperty(CHARGE, meta - 7);
-		} else
-			state = withAge(meta);
+		} else state = withAge(meta);
 		return state;
 	}
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
 		int k = state.getValue(AGE);
-		if (k == 7)
-			k += state.getValue(CHARGE);
+		if (k == 7) k += state.getValue(CHARGE);
 		return k;
 
 	}

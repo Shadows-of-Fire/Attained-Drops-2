@@ -63,10 +63,8 @@ public class BlockVitalized extends Block implements IHasModel {
 
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
-				if (stack.getMetadata() == 0)
-					return block.getUnlocalizedName();
-				else
-					return "tile." + AttainedDrops2.MODID + "." + name + ".enriched";
+				if (stack.getMetadata() == 0) return block.getUnlocalizedName();
+				else return "tile." + AttainedDrops2.MODID + "." + name + ".enriched";
 			}
 		}.setHasSubtypes(true).setRegistryName(getRegistryName()));
 	}
@@ -99,13 +97,11 @@ public class BlockVitalized extends Block implements IHasModel {
 		boolean flag = false;
 		if (!stack.isEmpty() && state.getValue(META) == 0) {
 			int meta = BulbTypes.getMetaFromStack(stack);
-			if (meta == -1)
-				return flag;
+			if (meta == -1) return flag;
 			if (!world.isRemote) {
 				world.setBlockState(pos, getDefaultState().withProperty(META, meta + 1));
 				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
-				if (!player.capabilities.isCreativeMode)
-					stack.shrink(1);
+				if (!player.capabilities.isCreativeMode) stack.shrink(1);
 			}
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) == 0) {
@@ -121,8 +117,7 @@ public class BlockVitalized extends Block implements IHasModel {
 	}
 
 	public static IBlockState getBulbFromState(IBlockState state) {
-		if (state.getBlock() != ModRegistry.SOIL || state.getValue(META) == 0)
-			return null;
+		if (state.getBlock() != ModRegistry.SOIL || state.getValue(META) == 0) return null;
 		return ModRegistry.BULB.getDefaultState().withProperty(BlockBulb.META, state.getValue(META) - 1);
 	}
 
