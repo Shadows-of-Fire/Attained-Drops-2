@@ -43,15 +43,9 @@ public class Waila {
 			if (accessor.getBlock() != null) {
 				IBlockState state = accessor.getWorld().getBlockState(accessor.getPosition());
 				Block block = state.getBlock();
-				if (block instanceof BlockVitalized) {
-					return new ItemStack(block, 1, state.getValue(BlockVitalized.META));
-				}
-				if (block instanceof BlockBulb) {
-					return new ItemStack(block, 1, state.getValue(BlockBulb.META));
-				}
-				if (block instanceof BlockPlant) {
-					return new ItemStack(block, 1, 0);
-				}
+				if (block instanceof BlockVitalized) { return new ItemStack(block, 1, state.getValue(BlockVitalized.META)); }
+				if (block instanceof BlockBulb) { return new ItemStack(block, 1, state.getValue(BlockBulb.META)); }
+				if (block instanceof BlockPlant) { return new ItemStack(block, 1, 0); }
 			}
 			return null;
 		}

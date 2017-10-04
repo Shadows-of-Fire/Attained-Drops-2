@@ -1,30 +1,32 @@
 package shadows.attained.blocks;
 
 import net.minecraft.init.Items;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 
 public enum BulbTypes {
-	BLAZE(new ItemStack(Items.BLAZE_ROD), 0),
-	PEARL(new ItemStack(Items.ENDER_PEARL), 1),
-	BONE(new ItemStack(Items.BONE), 2),
-	SLIME(new ItemStack(Items.SLIME_BALL), 3),
-	FLESH(new ItemStack(Items.ROTTEN_FLESH), 4),
-	TEAR(new ItemStack(Items.GHAST_TEAR), 5),
-	GUNPOWDER(new ItemStack(Items.GUNPOWDER), 6),
-	STRING(new ItemStack(Items.STRING), 7),
-	EYE(new ItemStack(Items.SPIDER_EYE), 8),
-	PRISMARINE(new ItemStack(Items.PRISMARINE_SHARD), 9),
-	WITHER(new ItemStack(Items.SKULL, 1, 1), 10),
-	SHULKER(new ItemStack(Items.SHULKER_SHELL), 11),
-	LEATHER(new ItemStack(Items.LEATHER), 12),
-	FEATHER(new ItemStack(Items.FEATHER), 13),
-	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), 14),;
-	private final ItemStack drop;
-	private final int meta;
+	BLAZE(new ItemStack(Items.BLAZE_ROD), EnumDyeColor.ORANGE),
+	PEARL(new ItemStack(Items.ENDER_PEARL), EnumDyeColor.GRAY),
+	BONE(new ItemStack(Items.BONE), EnumDyeColor.WHITE),
+	SLIME(new ItemStack(Items.SLIME_BALL), EnumDyeColor.GREEN),
+	FLESH(new ItemStack(Items.ROTTEN_FLESH), EnumDyeColor.RED),
+	TEAR(new ItemStack(Items.GHAST_TEAR), EnumDyeColor.SILVER),
+	GUNPOWDER(new ItemStack(Items.GUNPOWDER), EnumDyeColor.GRAY),
+	STRING(new ItemStack(Items.STRING), EnumDyeColor.WHITE),
+	EYE(new ItemStack(Items.SPIDER_EYE), EnumDyeColor.BLACK),
+	PRISMARINE(new ItemStack(Items.PRISMARINE_SHARD), EnumDyeColor.CYAN),
+	WITHER(new ItemStack(Items.SKULL, 1, 1), EnumDyeColor.BLACK),
+	SHULKER(new ItemStack(Items.SHULKER_SHELL), EnumDyeColor.PURPLE),
+	LEATHER(new ItemStack(Items.LEATHER), EnumDyeColor.BROWN),
+	FEATHER(new ItemStack(Items.FEATHER), EnumDyeColor.WHITE),
+	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), EnumDyeColor.CYAN),;
 
-	BulbTypes(ItemStack drop, int meta) {
+	private final ItemStack drop;
+	private final EnumDyeColor color;
+
+	BulbTypes(ItemStack drop, EnumDyeColor color) {
 		this.drop = drop;
-		this.meta = meta;
+		this.color = color;
 	}
 
 	public static int getMetaFromStack(ItemStack stack) {
@@ -40,7 +42,11 @@ public enum BulbTypes {
 	}
 
 	public int getMeta() {
-		return meta;
+		return ordinal();
+	}
+
+	public EnumDyeColor getColor() {
+		return color;
 	}
 
 }

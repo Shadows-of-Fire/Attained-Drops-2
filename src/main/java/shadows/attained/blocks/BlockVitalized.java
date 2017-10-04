@@ -105,12 +105,10 @@ public class BlockVitalized extends Block implements IHasModel {
 			}
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) == 0) {
-			if (world.isRemote)
-				player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
+			if (world.isRemote) player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) > 0) {
-			if (world.isRemote)
-				player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
+			if (world.isRemote) player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
 			flag = true;
 		}
 		return flag;

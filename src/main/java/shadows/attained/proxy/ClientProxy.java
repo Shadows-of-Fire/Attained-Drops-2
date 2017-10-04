@@ -31,8 +31,7 @@ public class ClientProxy extends CommonProxy {
 	@Override
 	public void init(FMLInitializationEvent e) {
 		super.init(e);
-		if (Loader.isModLoaded("waila"))
-			FMLInterModComms.sendMessage("waila", "register", Waila.class.getName() + ".callbackRegister");
+		if (Loader.isModLoaded("waila")) FMLInterModComms.sendMessage("waila", "register", Waila.class.getName() + ".callbackRegister");
 	}
 
 	@SubscribeEvent

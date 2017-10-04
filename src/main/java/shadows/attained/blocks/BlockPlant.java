@@ -17,6 +17,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -111,7 +112,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 		if (isMaxAge(state) && world.isAirBlock(pos.up())) {
 			IBlockState place = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
 			if (place != null) {
-				CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos.up(), (byte) 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+				CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(BlockBulb.getColorFromState(place), pos.up(), (byte) 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				world.setBlockState(pos.up(), place);
 				int charge = state.getValue(CHARGE);
 				world.setBlockState(pos, state.withProperty(CHARGE, charge + 1 > 4 ? 0 : charge + 1));
@@ -119,10 +120,9 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 					world.setBlockState(pos.down(), world.getBlockState(pos.down()).getBlock().getDefaultState());
 					world.setBlockState(pos, state.withProperty(CHARGE, 0));
 					if (Config.revertToDirt && rand.nextInt(8 - charge) == 0) {
-						if (world.getBlockState(pos.up()).getBlock() == ModRegistry.BULB)
-							world.destroyBlock(pos.up(), true);
+						if (world.getBlockState(pos.up()).getBlock() == ModRegistry.BULB) world.destroyBlock(pos.up(), true);
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
-						CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+						CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 					}
 				}
 			}

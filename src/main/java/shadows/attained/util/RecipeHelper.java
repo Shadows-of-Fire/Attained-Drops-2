@@ -28,8 +28,7 @@ public class RecipeHelper {
 	 * This adds the recipe to the list of crafting recipes.  Since who cares about names, it adds it as recipesX, where X is the current recipe you are adding.
 	 */
 	public static void addRecipe(int j, IRecipe rec) {
-		if (rec.getRegistryName() == null)
-			recipeList.add(rec.setRegistryName(new ResourceLocation(MODID, "recipes" + j)));
+		if (rec.getRegistryName() == null) recipeList.add(rec.setRegistryName(new ResourceLocation(MODID, "recipes" + j)));
 		else recipeList.add(rec);
 	}
 
@@ -147,8 +146,7 @@ public class RecipeHelper {
 
 	public static ShapedRecipes genShaped(ItemStack output, int l, int w, Object[] input) {
 		if (input[0] instanceof Object[]) input = (Object[]) input[0];
-		if (l * w != input.length)
-			throw new UnsupportedOperationException("Attempted to add invalid shaped recipe.  Complain to the author of " + MODNAME);
+		if (l * w != input.length) throw new UnsupportedOperationException("Attempted to add invalid shaped recipe.  Complain to the author of " + MODNAME);
 		NonNullList<Ingredient> inputL = NonNullList.create();
 		for (int i = 0; i < input.length; i++) {
 			Object k = input[i];
@@ -171,8 +169,7 @@ public class RecipeHelper {
 	public static ShapedRecipes genShaped(String group, ItemStack output, int l, int w, Object[] input) {
 		if (input[0] instanceof List) input = ((List<?>) input[0]).toArray();
 		else if (input[0] instanceof Object[]) input = (Object[]) input[0];
-		if (l * w != input.length)
-			throw new UnsupportedOperationException("Attempted to add invalid shaped recipe.  Complain to the author of " + MODNAME);
+		if (l * w != input.length) throw new UnsupportedOperationException("Attempted to add invalid shaped recipe.  Complain to the author of " + MODNAME);
 		NonNullList<Ingredient> inputL = NonNullList.create();
 		for (int i = 0; i < input.length; i++) {
 			Object k = input[i];

@@ -7,19 +7,24 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
+import com.google.common.base.Preconditions;
+
 import io.netty.util.internal.ThreadLocalRandom;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleEndRod;
+import net.minecraft.client.particle.ParticleSimpleAnimated;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -79,8 +84,18 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 	@Override
 	@SideOnly(Side.CLIENT)
 	public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-		if (rand.nextFloat() > 0.6937F)
-			world.spawnParticle(EnumParticleTypes.END_ROD, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
+		if (rand.nextFloat() > 0.6937F) {
+			EnumDyeColor color = getColorFromState(state);
+			ParticleSimpleAnimated p = new ParticleEndRod(Minecraft.getMinecraft().world, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
+			p.setColor(color.getColorValue());
+			p.setColorFade(color.getColorValue());
+			Minecraft.getMinecraft().effectRenderer.addEffect(p);
+		}
+	}
+
+	public static EnumDyeColor getColorFromState(IBlockState state) {
+		Preconditions.checkArgument(state.getBlock() == ModRegistry.BULB);
+		return BulbTypes.values()[state.getValue(META)].getColor();
 	}
 
 	@Override
