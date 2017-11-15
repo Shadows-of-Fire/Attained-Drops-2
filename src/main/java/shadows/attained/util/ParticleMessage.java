@@ -9,9 +9,12 @@ import net.minecraft.client.particle.ParticleSimpleAnimated;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 import net.minecraftforge.fml.common.network.simpleimpl.IMessageHandler;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class ParticleMessage implements IMessage {
 
@@ -53,6 +56,12 @@ public class ParticleMessage implements IMessage {
 
 		@Override
 		public IMessage onMessage(ParticleMessage message, MessageContext ctx) {
+			if(FMLCommonHandler.instance().getEffectiveSide().isClient()) doMessage(message, ctx);
+			return null;
+		}
+		
+		@SideOnly(Side.CLIENT)
+		public void doMessage(ParticleMessage message, MessageContext ctx) {
 			BlockPos pos = message.pos;
 			byte type = message.type;
 			if (type == 0) Minecraft.getMinecraft().addScheduledTask(() -> {
@@ -91,8 +100,6 @@ public class ParticleMessage implements IMessage {
 				}
 
 			});
-
-			return null;
 		}
 
 	}

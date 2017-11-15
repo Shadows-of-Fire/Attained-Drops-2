@@ -10,7 +10,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "1.12-3.5.2"
+version = "1.12.2-3.5.3"
 group= "shadows.attained" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = "Attained Drops"
 
