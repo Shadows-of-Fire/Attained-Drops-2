@@ -1,0 +1,21 @@
+{
+	"forge_marker": 1,
+	"defaults": {
+		"model": "builtin/generated",
+		"transform": "forge:default-item"
+	},
+	"variants": {
+		"item": {
+			"essence": {
+				"textures": {
+					"layer0": "attaineddrops2:items/essence"
+				}
+			},
+			"seed": {
+				"textures": {
+					"layer0": "attaineddrops2:items/itemseed"
+				}
+			}
+		}
+	}
+}

@@ -7,7 +7,6 @@ import java.util.Map;
 
 import org.lwjgl.input.Keyboard;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -33,29 +32,29 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
-import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
-import shadows.attained.util.IHasModel;
+import shadows.placebo.block.base.BlockBasic;
+import shadows.placebo.itemblock.ItemBlockBase;
 
-public class BlockVitalized extends Block implements IHasModel {
+public class BlockVitalized extends BlockBasic {
 
 	public static final PropertyInteger META = PropertyInteger.create("meta", 0, BulbTypes.values().length);
 	public static final Map<ItemStack, Integer> lookup = new HashMap<ItemStack, Integer>();
 
-	public BlockVitalized(String name) {
-		super(Material.GROUND);
+	public BlockVitalized() {
+		super("soil", Material.GROUND, 0.5F, 12F, AttainedDrops2.INFO);
 		setSoundType(SoundType.GROUND);
-		setHardness(0.5F);
-		setRegistryName(name);
-		setUnlocalizedName(AttainedDrops2.MODID + "." + name + ".base");
 		setDefaultState(this.blockState.getBaseState().withProperty(META, 0));
-		setCreativeTab(ModRegistry.AD2_TAB);
-		DataLists.BLOCKS.add(this);
-		DataLists.ITEMS.add(new ItemBlock(this) {
+	}
+	
+	@Override
+	public ItemBlock createItemBlock() {
+		return (ItemBlock) new ItemBlockBase(this) {
 			@Override
 			public int getMetadata(int damage) {
 				return damage;
@@ -64,9 +63,9 @@ public class BlockVitalized extends Block implements IHasModel {
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
 				if (stack.getMetadata() == 0) return block.getUnlocalizedName();
-				else return "tile." + AttainedDrops2.MODID + "." + name + ".enriched";
+				else return "tile." + AttainedDrops2.MODID + ".soil.enriched";
 			}
-		}.setHasSubtypes(true).setRegistryName(getRegistryName()));
+		}.setHasSubtypes(true);
 	}
 
 	@Override
@@ -119,7 +118,6 @@ public class BlockVitalized extends Block implements IHasModel {
 		return ModRegistry.BULB.getDefaultState().withProperty(BlockBulb.META, state.getValue(META) - 1);
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for (int i = 0; i <= BulbTypes.values().length; i++) {
@@ -157,8 +155,8 @@ public class BlockVitalized extends Block implements IHasModel {
 		return new BlockStateContainer(this, META);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
+	@Override
+	public void initModels(ModelRegistryEvent e) {
 		for (int i = 0; i < BulbTypes.values().length + 1; i++) {
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "meta=" + i));
 		}

@@ -4,7 +4,6 @@ import java.util.Random;
 
 import javax.annotation.Nonnull;
 
-import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
@@ -23,40 +22,37 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
 import shadows.attained.init.Config;
-import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
-import shadows.attained.proxy.CommonProxy;
-import shadows.attained.util.IHasModel;
 import shadows.attained.util.ParticleMessage;
+import shadows.placebo.block.base.BlockBasic;
+import shadows.placebo.itemblock.ItemBlockBase;
 
-public class BlockCreator extends Block implements IHasModel {
+public class BlockCreator extends BlockBasic {
 
-	private static final String regname = "creator";
 	public static final PropertyInteger CHARGE = PropertyInteger.create("charge", 0, 15);
 
 	public BlockCreator() {
-		super(Material.GROUND);
-		setRegistryName(regname);
-		setCreativeTab(ModRegistry.AD2_TAB);
-		setUnlocalizedName(AttainedDrops2.MODID + "." + regname);
+		super("creator", Material.GROUND, 0.5F, 12F, AttainedDrops2.INFO);
 		setSoundType(SoundType.GROUND);
-		setHardness(0.5F);
 		setTickRandomly(true);
 		setDefaultState(this.blockState.getBaseState().withProperty(CHARGE, 15));
-		DataLists.BLOCKS.add(this);
-		ItemBlock k = new ItemBlock(this) {
+	}
+
+	@Override
+	public ItemBlock createItemBlock() {
+		return (ItemBlock) new ItemBlockBase(this) {
 			@Override
 			public int getMetadata(int damage) {
 				return damage;
-			};
-		};
-		DataLists.ITEMS.add(k.setHasSubtypes(true).setRegistryName(getRegistryName()));
+			}
+		}.setHasSubtypes(true);
 	}
 
 	@Override
@@ -93,8 +89,8 @@ public class BlockCreator extends Block implements IHasModel {
 		return new BlockStateContainer(this, CHARGE);
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
+	@Override
+	public void initModels(ModelRegistryEvent e) {
 		for (int i = 0; i <= 15; i++) {
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "charge=" + (15 - i)));
 		}
@@ -124,10 +120,10 @@ public class BlockCreator extends Block implements IHasModel {
 			if (rand.nextBoolean()) {
 				if (state.getValue(CHARGE) - 1 <= 0) {
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-					CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+					AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				} else world.setBlockState(pos, state.withProperty(CHARGE, state.getValue(CHARGE) - 1));
 			}
-			CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(EnumDyeColor.GREEN, pos2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+			AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(EnumDyeColor.GREEN, pos2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 
 		}
 	}

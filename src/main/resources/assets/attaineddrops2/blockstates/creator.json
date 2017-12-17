@@ -1,89 +1,44 @@
 {
 	"forge_marker": 1,
 	"defaults": {
-		"model": "cube_all"
+		"model": "cube_all",
+		"textures": {
+			"all": "attaineddrops2:blocks/soilcreator"
+		}
 	},
 	"variants": {
 		"charge": {
 			"0": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"1": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"2": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"3": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"4": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"5": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"6": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"7": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"8": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"9": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"10": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"11": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"12": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"13": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"14": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			},
 			"15": {
-				"textures": {
-					"all": "attaineddrops2:blocks/soilcreator"
-				}
 			}
 		}
 	}

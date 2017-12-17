@@ -13,12 +13,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -27,32 +25,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.fml.common.network.NetworkRegistry.TargetPoint;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
 import shadows.attained.init.Config;
-import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
-import shadows.attained.proxy.CommonProxy;
-import shadows.attained.util.IHasModel;
 import shadows.attained.util.ParticleMessage;
+import shadows.placebo.client.IHasModel;
 
 public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 	public static final PropertyInteger CHARGE = PropertyInteger.create("charge", 0, 4);
 	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] { new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D) };
-	public static final String regname = "plant";
 
 	public BlockPlant() {
-		setRegistryName(regname);
-		setUnlocalizedName(AttainedDrops2.MODID + "." + regname);
+		setRegistryName(AttainedDrops2.MODID, "plant");
+		setUnlocalizedName(AttainedDrops2.MODID + ".plant");
 		setHardness(0.2F);
 		setSoundType(SoundType.PLANT);
-		DataLists.BLOCKS.add(this);
-		DataLists.ITEMS.add(new ItemBlock(this).setRegistryName(getRegistryName()));
+		AttainedDrops2.INFO.getBlockList().add(this);
+		AttainedDrops2.INFO.getItemList().add(new ItemBlock(this).setRegistryName(getRegistryName()));
 		setDefaultState(blockState.getBaseState().withProperty(AGE, 0).withProperty(CHARGE, 0));
 
 	}
@@ -112,7 +104,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 		if (isMaxAge(state) && world.isAirBlock(pos.up())) {
 			IBlockState place = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
 			if (place != null) {
-				CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(BlockBulb.getColorFromState(place), pos.up(), (byte) 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+				AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(BlockBulb.getColorFromState(place), pos.up(), (byte) 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				world.setBlockState(pos.up(), place);
 				int charge = state.getValue(CHARGE);
 				world.setBlockState(pos, state.withProperty(CHARGE, charge + 1 > 4 ? 0 : charge + 1));
@@ -122,7 +114,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 					if (Config.revertToDirt && rand.nextInt(8 - charge) == 0) {
 						if (world.getBlockState(pos.up()).getBlock() == ModRegistry.BULB) world.destroyBlock(pos.up(), true);
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
-						CommonProxy.INSTANCE.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+						AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 					}
 				}
 			}
@@ -147,7 +139,6 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 		return new ItemStack(ModRegistry.SEED);
 	}
 
-	@Nonnull
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		IBlockState state = getDefaultState();
@@ -188,11 +179,6 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	public boolean isMaxAge(IBlockState state) {
 		return state.getValue(AGE) >= getMaxAge();
-	}
-
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
-		ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), 0, new ModelResourceLocation(getRegistryName(), "inventory"));
 	}
 
 }

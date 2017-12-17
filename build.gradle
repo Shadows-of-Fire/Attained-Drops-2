@@ -10,36 +10,27 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle.forge'
 
 
-version = "1.12.2-3.5.3"
-group= "shadows.attained" // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+version = "1.12.2-3.6.0"
+group= "shadows.attained"
 archivesBaseName = "Attained Drops"
 
-sourceCompatibility = targetCompatibility = "1.8" // Need this here so eclipse task generates correctly.
+sourceCompatibility = targetCompatibility = "1.8"
 compileJava {
     sourceCompatibility = targetCompatibility = "1.8"
 }
 
 minecraft {
-    version = "1.12.1-14.22.1.2481"
+    version = "1.12.2-14.23.1.2566"
     runDir = "run"
-    mappings = "snapshot_20170821"
+    mappings = "snapshot_20171215"
 }
 
 repositories {
     maven {
         url "http://dvs1.progwml6.com/files/maven"
     }
-    maven {
-        url "http://maven.epoxide.xyz"
-    }
-    maven {
-        url "http://maven.amadornes.com/"
-    }
 	maven {
 		url "http://tehnut.info/maven"
-	}
-	maven {
-		url "http://maven.ic2.player.to"
 	}
 }
 

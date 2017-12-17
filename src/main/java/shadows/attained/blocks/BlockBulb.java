@@ -32,14 +32,14 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
-import shadows.attained.init.DataLists;
 import shadows.attained.init.ModRegistry;
-import shadows.attained.util.IHasModel;
+import shadows.placebo.client.IHasModel;
 
 public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
@@ -50,13 +50,13 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 	public BlockBulb(String name) {
 		setRegistryName(name);
 		setUnlocalizedName(AttainedDrops2.MODID + "." + name);
-		setCreativeTab(ModRegistry.AD2_TAB);
+		setCreativeTab(AttainedDrops2.TAB);
 		setSoundType(SoundType.PLANT);
 		setHardness(0.4F);
 		setTickRandomly(false);
 		setDefaultState(this.blockState.getBaseState().withProperty(META, 0));
-		DataLists.BLOCKS.add(this);
-		DataLists.ITEMS.add(new ItemBlock(this) {
+		AttainedDrops2.INFO.getBlockList().add(this);
+		AttainedDrops2.INFO.getItemList().add(new ItemBlock(this) {
 			@Override
 			public int getMetadata(int damage) {
 				return damage;
@@ -73,7 +73,6 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
 	}
 
-	@SideOnly(Side.CLIENT)
 	@Override
 	public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
 		for (int i = 0; i < BulbTypes.values().length; i++) {
@@ -165,8 +164,8 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 		return !world.isAirBlock(pos.down());
 	}
 
-	@SideOnly(Side.CLIENT)
-	public void initModel() {
+	@Override
+	public void initModels(ModelRegistryEvent e) {
 		for (int i = 0; i < BulbTypes.values().length; i++) {
 			ModelLoader.setCustomModelResourceLocation(Item.getItemFromBlock(this), i, new ModelResourceLocation(getRegistryName(), "meta=" + i));
 		}

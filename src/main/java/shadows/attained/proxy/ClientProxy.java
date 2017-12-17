@@ -16,32 +16,28 @@ import net.minecraftforge.fml.common.event.FMLInterModComms;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent.PlayerTickEvent;
-import shadows.attained.init.DataLists;
+import shadows.attained.AttainedDrops2;
 import shadows.attained.integration.Waila;
-import shadows.attained.util.IHasModel;
+import shadows.placebo.client.IHasModel;
 
 public class ClientProxy extends CommonProxy {
 
 	@Override
 	public void preInit(FMLPreInitializationEvent e) {
-		super.preInit(e);
 		MinecraftForge.EVENT_BUS.register(this);
 	}
 
 	@Override
 	public void init(FMLInitializationEvent e) {
-		super.init(e);
 		if (Loader.isModLoaded("waila")) FMLInterModComms.sendMessage("waila", "register", Waila.class.getName() + ".callbackRegister");
 	}
 
 	@SubscribeEvent
-	public void onModelRegistry(ModelRegistryEvent event) {
-		for (Item item : DataLists.ITEMS) {
-			if (item instanceof IHasModel) ((IHasModel) item).initModel();
-		}
-		for (Block block : DataLists.BLOCKS) {
-			if (block instanceof IHasModel) ((IHasModel) block).initModel();
-		}
+	public void onModelRegister(ModelRegistryEvent e) {
+		for (Block b : AttainedDrops2.INFO.getBlockList())
+			if (b instanceof IHasModel) ((IHasModel) b).initModels(e);
+		for (Item i : AttainedDrops2.INFO.getItemList())
+			if (i instanceof IHasModel) ((IHasModel) i).initModels(e);
 	}
 
 	@SubscribeEvent
