@@ -34,7 +34,7 @@ public class AttainedDrops2 {
 	public static final String MODID = "attaineddrops2";
 	public static final String MODNAME = "Attained Drops 2";
 	public static final String VERSION = "3.6.0";
-	public static final String DEPS = "required-after:placebo";
+	public static final String DEPS = "required-after:placebo@[1.1.0,)";
 
 	@SidedProxy(clientSide = "shadows.attained.proxy.ClientProxy", serverSide = "shadows.attained.proxy.CommonProxy")
 	public static CommonProxy PROXY;
