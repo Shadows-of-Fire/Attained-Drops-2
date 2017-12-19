@@ -38,14 +38,14 @@ public class AttainedDrops2 {
 
 	@SidedProxy(clientSide = "shadows.attained.proxy.ClientProxy", serverSide = "shadows.attained.proxy.CommonProxy")
 	public static CommonProxy PROXY;
-	
+
 	public static final SimpleNetworkWrapper NETWORK = NetworkRegistry.INSTANCE.newSimpleChannel(AttainedDrops2.MODID);
 
 	public static final CreativeTabs TAB = new AD2Tab();
-	
+
 	public static final RegistryInformation INFO = new RegistryInformation(AttainedDrops2.MODID, TAB);
 	public static final RecipeHelper HELPER = new RecipeHelper(MODID, MODNAME, INFO.getRecipeList());
-	
+
 	public static Configuration config;
 
 	@EventHandler

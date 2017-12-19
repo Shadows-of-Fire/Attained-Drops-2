@@ -56,10 +56,10 @@ public class ParticleMessage implements IMessage {
 
 		@Override
 		public IMessage onMessage(ParticleMessage message, MessageContext ctx) {
-			if(FMLCommonHandler.instance().getEffectiveSide().isClient()) doMessage(message, ctx);
+			if (FMLCommonHandler.instance().getEffectiveSide().isClient()) doMessage(message, ctx);
 			return null;
 		}
-		
+
 		@SideOnly(Side.CLIENT)
 		public void doMessage(ParticleMessage message, MessageContext ctx) {
 			BlockPos pos = message.pos;
@@ -67,7 +67,7 @@ public class ParticleMessage implements IMessage {
 			if (type == 0) Minecraft.getMinecraft().addScheduledTask(() -> {
 				int k = 0;
 				while (k < 30) {
-					double j = 0.8D - MathHelper.clamp((0.5D / (double) ++k), 0D, 0.7D);
+					double j = 0.8D - MathHelper.clamp((0.5D / ++k), 0D, 0.7D);
 					ParticleSimpleAnimated p = new ParticleEndRod(Minecraft.getMinecraft().world, pos.getX() + 0.5D, pos.getY() + 5.0D, pos.getZ() + 0.5D, 0, -j, 0);
 					p.setColor(message.color.getColorValue());
 					p.setColorFade(message.color.getColorValue());

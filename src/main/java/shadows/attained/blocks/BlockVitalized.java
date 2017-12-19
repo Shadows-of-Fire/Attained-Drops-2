@@ -51,7 +51,7 @@ public class BlockVitalized extends BlockBasic {
 		setSoundType(SoundType.GROUND);
 		setDefaultState(this.blockState.getBaseState().withProperty(META, 0));
 	}
-	
+
 	@Override
 	public ItemBlock createItemBlock() {
 		return (ItemBlock) new ItemBlockBase(this) {

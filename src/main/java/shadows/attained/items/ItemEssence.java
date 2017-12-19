@@ -6,6 +6,6 @@ import shadows.placebo.item.base.ItemBase;
 public class ItemEssence extends ItemBase {
 
 	public ItemEssence() {
-		super( "essence", AttainedDrops2.INFO);
+		super("essence", AttainedDrops2.INFO);
 	}
 }
