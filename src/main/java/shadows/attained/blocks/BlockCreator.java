@@ -31,7 +31,7 @@ import shadows.attained.AttainedDrops2;
 import shadows.attained.init.Config;
 import shadows.attained.init.ModRegistry;
 import shadows.attained.util.ParticleMessage;
-import shadows.placebo.block.base.BlockBasic;
+import shadows.placebo.block.BlockBasic;
 import shadows.placebo.itemblock.ItemBlockBase;
 
 public class BlockCreator extends BlockBasic {

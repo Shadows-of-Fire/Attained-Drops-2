@@ -25,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
 import shadows.attained.blocks.BlockVitalized;
 import shadows.attained.init.ModRegistry;
-import shadows.placebo.item.base.ItemBase;
+import shadows.placebo.item.ItemBase;
 
 public class ItemSeed extends ItemBase {
 

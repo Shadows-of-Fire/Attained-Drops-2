@@ -29,7 +29,7 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -38,7 +38,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
 import shadows.attained.init.ModRegistry;
-import shadows.placebo.block.base.BlockBasic;
+import shadows.placebo.block.BlockBasic;
 import shadows.placebo.itemblock.ItemBlockBase;
 
 public class BlockVitalized extends BlockBasic {
@@ -104,10 +104,10 @@ public class BlockVitalized extends BlockBasic {
 			}
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) == 0) {
-			if (world.isRemote) player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtblank")));
+			if (world.isRemote) player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtblank"));
 			flag = true;
 		} else if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(META) > 0) {
-			if (world.isRemote) player.sendMessage(new TextComponentString(I18n.format("phrase.attaineddrops2.dirtstart") + " " + BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
+			if (world.isRemote) player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtstart", BlockBulb.lookup.get(state.getValue(META) - 1).getDisplayName()));
 			flag = true;
 		}
 		return flag;
