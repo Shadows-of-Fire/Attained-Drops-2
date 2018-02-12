@@ -6,25 +6,25 @@ tile.attaineddrops2.soil.enriched.name=Enriched Vitalized Soil
 tile.attaineddrops2.bulb.name=Attained Bulb
 tile.attaineddrops2.plant.name=Attained Plant
 tile.attaineddrops2.creator.name=Soil Enricher
-tile.attaineddrops2.bulb.0.name=Blaze Bulb
-tile.attaineddrops2.bulb.1.name=Ender Pearl Bulb
-tile.attaineddrops2.bulb.2.name=Bone Bulb
-tile.attaineddrops2.bulb.3.name=Slimeball Bulb
-tile.attaineddrops2.bulb.4.name=Rotten Flesh Bulb
-tile.attaineddrops2.bulb.5.name=Ghast Tear Bulb
-tile.attaineddrops2.bulb.6.name=Gunpowder Bulb
-tile.attaineddrops2.bulb.7.name=String Bulb
-tile.attaineddrops2.bulb.8.name=Spider Eye Bulb
-tile.attaineddrops2.bulb.9.name=Prismarine Shard Bulb
-tile.attaineddrops2.bulb.10.name=Wither Skull Bulb
-tile.attaineddrops2.bulb.11.name=Shulker Shell Bulb
-tile.attaineddrops2.bulb.12.name=Leather Bulb
-tile.attaineddrops2.bulb.13.name=Feather Bulb
-tile.attaineddrops2.bulb.14.name=Prismarine Crystal Bulb
+tile.attaineddrops2.bulb.blaze.name=Blaze Bulb
+tile.attaineddrops2.bulb.pearl.name=Ender Pearl Bulb
+tile.attaineddrops2.bulb.bone.name=Bone Bulb
+tile.attaineddrops2.bulb.slime.name=Slimeball Bulb
+tile.attaineddrops2.bulb.flesh.name=Rotten Flesh Bulb
+tile.attaineddrops2.bulb.tear.name=Ghast Tear Bulb
+tile.attaineddrops2.bulb.gunpowder.name=Gunpowder Bulb
+tile.attaineddrops2.bulb.string.name=String Bulb
+tile.attaineddrops2.bulb.eye.name=Spider Eye Bulb
+tile.attaineddrops2.bulb.prismarine.name=Prismarine Shard Bulb
+tile.attaineddrops2.bulb.wither.name=Wither Skull Bulb
+tile.attaineddrops2.bulb.shulker.name=Shulker Shell Bulb
+tile.attaineddrops2.bulb.leather.name=Leather Bulb
+tile.attaineddrops2.bulb.feather.name=Feather Bulb
+tile.attaineddrops2.bulb.prismarine_c.name=Prismarine Crystal Bulb
 
 //Items
-item.attaineddrops2.seed.name=Mob Drop Plant Seed
-item.attaineddrops2.essence.name=Life Essence
+item.attaineddrops2.seed.name=Vitalized Seed
+item.attaineddrops2.essence.name=Soul Essence
 
 //Tooltips
 tooltip.attaineddrops2.holdshift=Hold %s

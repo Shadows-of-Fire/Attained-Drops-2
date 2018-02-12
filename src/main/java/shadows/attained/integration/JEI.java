@@ -12,7 +12,7 @@ import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.JEIPlugin;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
 import net.minecraft.item.ItemStack;
-import shadows.attained.blocks.BulbTypes;
+import shadows.attained.blocks.BulbType;
 import shadows.attained.init.ModRegistry;
 
 @JEIPlugin
@@ -26,7 +26,7 @@ public class JEI implements IModPlugin {
 		List<ItemStack> list = new ArrayList<ItemStack>();
 		registry.addIngredientInfo(new ItemStack(ModRegistry.ESSENCE), ItemStack.class, "jei.attaineddrops2.desc.essence");
 		registry.addIngredientInfo(new ItemStack(ModRegistry.SEED), ItemStack.class, "jei.attaineddrops2.desc.seed");
-		for (int i = 1; i <= BulbTypes.values().length; i++) {
+		for (int i = 1; i <= BulbType.values().length; i++) {
 			list.add(new ItemStack(ModRegistry.SOIL, 1, i));
 		}
 		registry.addIngredientInfo(list, ItemStack.class, "jei.attaineddrops2.desc.vitalized");

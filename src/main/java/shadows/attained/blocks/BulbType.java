@@ -3,8 +3,10 @@ package shadows.attained.blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import shadows.attained.init.ModRegistry;
+import shadows.placebo.interfaces.IPropertyEnum;
 
-public enum BulbTypes {
+public enum BulbType implements IPropertyEnum {
 	BLAZE(new ItemStack(Items.BLAZE_ROD), EnumDyeColor.ORANGE),
 	PEARL(new ItemStack(Items.ENDER_PEARL), EnumDyeColor.GRAY),
 	BONE(new ItemStack(Items.BONE), EnumDyeColor.WHITE),
@@ -19,34 +21,37 @@ public enum BulbTypes {
 	SHULKER(new ItemStack(Items.SHULKER_SHELL), EnumDyeColor.PURPLE),
 	LEATHER(new ItemStack(Items.LEATHER), EnumDyeColor.BROWN),
 	FEATHER(new ItemStack(Items.FEATHER), EnumDyeColor.WHITE),
-	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), EnumDyeColor.CYAN),;
+	PRISMARINE_C(new ItemStack(Items.PRISMARINE_CRYSTALS), EnumDyeColor.CYAN);
 
 	private final ItemStack drop;
 	private final EnumDyeColor color;
 
-	BulbTypes(ItemStack drop, EnumDyeColor color) {
+	BulbType(ItemStack drop, EnumDyeColor color) {
 		this.drop = drop;
 		this.color = color;
-	}
-
-	public static int getMetaFromStack(ItemStack stack) {
-		for (int i = 0; i < BulbTypes.values().length; i++) {
-			ItemStack k = BlockBulb.lookup.get(i);
-			if (ItemStack.areItemsEqual(stack, k)) return i;
-		}
-		return -1;
 	}
 
 	public ItemStack getDrop() {
 		return drop;
 	}
 
-	public int getMeta() {
-		return ordinal();
-	}
-
 	public EnumDyeColor getColor() {
 		return color;
+	}
+
+	@Override
+	public ItemStack get() {
+		return new ItemStack(ModRegistry.BULB, 1, ordinal());
+	}
+
+	public static BulbType byStack(ItemStack stack) {
+		for (BulbType b : values())
+			if (b.getDrop().isItemEqual(stack)) return b;
+		return null;
+	}
+
+	public String getDisplayName() {
+		return drop.getDisplayName();
 	}
 
 }

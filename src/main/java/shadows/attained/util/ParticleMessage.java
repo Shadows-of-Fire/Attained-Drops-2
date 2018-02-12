@@ -30,9 +30,9 @@ public class ParticleMessage implements IMessage {
 		this.color = color;
 	}
 
-	public ParticleMessage(EnumDyeColor color, BlockPos pos, byte i) {
+	public ParticleMessage(EnumDyeColor color, BlockPos pos, int i) {
 		this(color, pos);
-		type = i;
+		type = (byte) i;
 	}
 
 	@Override

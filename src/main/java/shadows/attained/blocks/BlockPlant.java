@@ -36,7 +36,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
 	public static final PropertyInteger CHARGE = PropertyInteger.create("charge", 0, 4);
-	private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] { new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D) };
+	public static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[] { new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.125D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.25D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.375D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.5D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.625D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.75D, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 0.875, 0.84375D), new AxisAlignedBB(0.15625D, 0.0D, 0.15625D, 0.84375D, 1.0D, 0.84375D) };
 
 	public BlockPlant() {
 		setRegistryName(AttainedDrops2.MODID, "plant");
@@ -104,7 +104,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 		if (isMaxAge(state) && world.isAirBlock(pos.up())) {
 			IBlockState place = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
 			if (place != null) {
-				AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(BlockBulb.getColorFromState(place), pos.up(), (byte) 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+				AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(place.getValue(BlockBulb.BULB).getColor(), pos.up(), 1), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 				world.setBlockState(pos.up(), place);
 				int charge = state.getValue(CHARGE);
 				world.setBlockState(pos, state.withProperty(CHARGE, charge + 1 > 4 ? 0 : charge + 1));
@@ -114,7 +114,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 					if (Config.revertToDirt && rand.nextInt(8 - charge) == 0) {
 						if (world.getBlockState(pos.up()).getBlock() == ModRegistry.BULB) world.destroyBlock(pos.up(), true);
 						world.setBlockState(pos.down(), Blocks.DIRT.getDefaultState());
-						AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), (byte) 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
+						AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(EnumDyeColor.RED, pos.up(), 2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
 					}
 				}
 			}

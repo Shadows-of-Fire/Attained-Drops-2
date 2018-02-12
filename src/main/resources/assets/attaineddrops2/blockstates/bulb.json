@@ -5,106 +5,106 @@
 		"transform": "forge:default-block"
 	},
 	"variants": {
-		"meta": {
-			"0": {
+		"type": {
+			"blaze": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side0",
 					"particle": "attaineddrops2:blocks/bulbs/side0",
 					"1": "attaineddrops2:blocks/bulbs/top0"
 				}
 			},
-			"1": {
+			"pearl": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side1",
 					"particle": "attaineddrops2:blocks/bulbs/side1",
 					"1": "attaineddrops2:blocks/bulbs/top1"
 				}
 			},
-			"2": {
+			"bone": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side2",
 					"particle": "attaineddrops2:blocks/bulbs/side2",
 					"1": "attaineddrops2:blocks/bulbs/top2"
 				}
 			},
-			"3": {
+			"slime": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side3",
 					"particle": "attaineddrops2:blocks/bulbs/side3",
 					"1": "attaineddrops2:blocks/bulbs/top3"
 				}
 			},
-			"4": {
+			"flesh": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side4",
 					"particle": "attaineddrops2:blocks/bulbs/side4",
 					"1": "attaineddrops2:blocks/bulbs/top4"
 				}
 			},
-			"5": {
+			"tear": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side5",
 					"particle": "attaineddrops2:blocks/bulbs/side5",
 					"1": "attaineddrops2:blocks/bulbs/top5"
 				}
 			},
-			"6": {
+			"gunpowder": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side6",
 					"particle": "attaineddrops2:blocks/bulbs/side6",
 					"1": "attaineddrops2:blocks/bulbs/top6"
 				}
 			},
-			"7": {
+			"string": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side7",
 					"particle": "attaineddrops2:blocks/bulbs/side7",
 					"1": "attaineddrops2:blocks/bulbs/top7"
 				}
 			},
-			"8": {
+			"eye": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side8",
 					"particle": "attaineddrops2:blocks/bulbs/side8",
 					"1": "attaineddrops2:blocks/bulbs/top8"
 				}
 			},
-			"9": {
+			"prismarine": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side9",
 					"particle": "attaineddrops2:blocks/bulbs/side9",
 					"1": "attaineddrops2:blocks/bulbs/top9"
 				}
 			},
-			"10": {
+			"wither": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side10",
 					"particle": "attaineddrops2:blocks/bulbs/side10",
 					"1": "attaineddrops2:blocks/bulbs/top10"
 				}
 			},
-			"11": {
+			"shulker": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side11",
 					"particle": "attaineddrops2:blocks/bulbs/side11",
 					"1": "attaineddrops2:blocks/bulbs/top11"
 				}
 			},
-			"12": {
+			"leather": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side12",
 					"particle": "attaineddrops2:blocks/bulbs/side12",
 					"1": "attaineddrops2:blocks/bulbs/top12"
 				}
 			},
-			"13": {
+			"feather": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side13",
 					"particle": "attaineddrops2:blocks/bulbs/side13",
 					"1": "attaineddrops2:blocks/bulbs/top13"
 				}
 			},
-			"14": {
+			"prismarine_c": {
 				"textures": {
 					"0": "attaineddrops2:blocks/bulbs/side14",
 					"particle": "attaineddrops2:blocks/bulbs/side14",

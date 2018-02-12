@@ -22,7 +22,8 @@ import shadows.attained.blocks.BlockBulb;
 import shadows.attained.blocks.BlockCreator;
 import shadows.attained.blocks.BlockPlant;
 import shadows.attained.blocks.BlockVitalized;
-import shadows.attained.blocks.BulbTypes;
+import shadows.attained.blocks.BulbType;
+import shadows.attained.blocks.SoilType;
 import shadows.attained.init.ModRegistry;
 
 public class Waila {
@@ -43,9 +44,9 @@ public class Waila {
 			if (accessor.getBlock() != null) {
 				IBlockState state = accessor.getWorld().getBlockState(accessor.getPosition());
 				Block block = state.getBlock();
-				if (block instanceof BlockVitalized) { return new ItemStack(block, 1, state.getValue(BlockVitalized.META)); }
-				if (block instanceof BlockBulb) { return new ItemStack(block, 1, state.getValue(BlockBulb.META)); }
-				if (block instanceof BlockPlant) { return new ItemStack(block, 1, 0); }
+				if (block instanceof BlockVitalized) return state.getValue(BlockVitalized.SOIL).get();
+				if (block instanceof BlockBulb) return state.getValue(BlockBulb.BULB).get();
+				if (block instanceof BlockPlant) return new ItemStack(block, 1, 0);
 			}
 			return null;
 		}
@@ -64,11 +65,11 @@ public class Waila {
 					IBlockState state2 = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
 					currenttip.add(I18n.format("tooltip.attaineddrops2.growing") + " " + (state2 == null ? I18n.format("tooltip.attaineddrops2.nothing") : ModRegistry.BULB.getPickBlock(state2, null, null, null, null).getDisplayName()));
 				} else if (block instanceof BlockVitalized) {
-					if (state.getValue(BlockVitalized.META) == 0) {
+					if (state.getValue(BlockVitalized.SOIL) == SoilType.NONE) {
 						if (accessor.getPlayer().isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
 							currenttip.add(I18n.format("tooltip.attaineddrops2.enableditems"));
 							String string = "";
-							for (BulbTypes type : BulbTypes.values()) {
+							for (BulbType type : BulbType.values()) {
 								string = string.concat(type.getDrop().getDisplayName() + ", ");
 							}
 							string = string.substring(0, string.length() - 2);
@@ -81,8 +82,8 @@ public class Waila {
 						} else {
 							currenttip.add(I18n.format("tooltip.attaineddrops2.holdshift", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
 						}
-					} else if (state.getValue(BlockVitalized.META) > 0) {
-						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith", BlockBulb.lookup.get(stack.getMetadata() - 1).getDisplayName()));
+					} else if (state.getValue(BlockVitalized.SOIL) != SoilType.NONE) {
+						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith", BulbType.values()[state.getValue(BlockVitalized.SOIL).ordinal() - 1].getDisplayName()));
 					}
 				} else if (block instanceof BlockCreator) {
 					currenttip.add(I18n.format("tooltip.attaineddrops2.creatorcharge", state.getValue(BlockCreator.CHARGE)));
