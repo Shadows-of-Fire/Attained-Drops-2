@@ -87,7 +87,7 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ItemStack bulb = state.getValue(BULB).get();
+		ItemStack bulb = state.getValue(BULB).getDrop();
 		drops.add(bulb);
 		if (fortune > 0 && RANDOM.nextInt(MathHelper.clamp(4 - fortune, 1, 4)) == 0) drops.add(bulb.copy());
 	}
