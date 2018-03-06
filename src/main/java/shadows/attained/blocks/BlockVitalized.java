@@ -98,13 +98,16 @@ public class BlockVitalized extends BlockBasic {
 			return true;
 		}
 
-		if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && state.getValue(SOIL) == SoilType.NONE) {
-			if (world.isRemote) player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtblank"));
-			return true;
-		} else {
-			if (world.isRemote) player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtstart", BulbType.values()[state.getValue(SOIL).ordinal() - 1].getDisplayName()));
+		if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
+			if (state.getValue(SOIL) == SoilType.NONE) {
+				player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtblank"));
+				return true;
+			}
+			player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtstart", BulbType.values()[state.getValue(SOIL).ordinal() - 1].getDisplayName()));
 			return true;
 		}
+		
+		return false;
 	}
 
 	@Override
@@ -153,7 +156,7 @@ public class BlockVitalized extends BlockBasic {
 
 	public static IBlockState getBulbFromState(IBlockState dirt) {
 		SoilType s = dirt.getValue(SOIL);
-		if(s == SoilType.NONE) return null;
+		if (s == SoilType.NONE) return null;
 		return ModRegistry.BULB.getDefaultState().withProperty(BlockBulb.BULB, BulbType.values()[s.ordinal() - 1]);
 	}
 

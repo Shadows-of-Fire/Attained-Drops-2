@@ -56,7 +56,7 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
 			@Override
 			public String getUnlocalizedName(ItemStack stack) {
-				return block.getUnlocalizedName() + "." + BulbType.values()[stack.getMetadata()].getName();
+				return block.getUnlocalizedName() + "." + BulbType.values()[MathHelper.clamp(stack.getMetadata(), 0, 14)].getName();
 			}
 		}.setHasSubtypes(true));
 	}

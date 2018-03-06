@@ -57,7 +57,7 @@ public class BlockCreator extends BlockBasic {
 
 	@Override
 	public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
-		return this.blockState.getBaseState().withProperty(CHARGE, 15 - meta);
+		return this.blockState.getBaseState().withProperty(CHARGE, Math.max(0, 15 - meta));
 	}
 
 	@Override
@@ -124,7 +124,6 @@ public class BlockCreator extends BlockBasic {
 				} else world.setBlockState(pos, state.withProperty(CHARGE, state.getValue(CHARGE) - 1));
 			}
 			AttainedDrops2.NETWORK.sendToAllAround(new ParticleMessage(EnumDyeColor.GREEN, pos2), new TargetPoint(world.provider.getDimension(), pos.getX(), pos.getY(), pos.getZ(), 30));
-
 		}
 	}
 }
