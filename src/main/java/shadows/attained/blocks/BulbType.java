@@ -32,7 +32,7 @@ public enum BulbType implements IPropertyEnum {
 	}
 
 	public ItemStack getDrop() {
-		return drop;
+		return drop.copy();
 	}
 
 	public EnumDyeColor getColor() {

@@ -18,6 +18,8 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -31,6 +33,7 @@ import net.minecraftforge.common.IShearable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import shadows.attained.AttainedDrops2;
+import shadows.attained.init.Config;
 import shadows.placebo.client.IHasModel;
 import shadows.placebo.itemblock.ItemBlockBase;
 
@@ -87,9 +90,20 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
 	@Override
 	public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-		ItemStack bulb = state.getValue(BULB).getDrop();
-		drops.add(bulb);
-		if (fortune > 0 && RANDOM.nextInt(MathHelper.clamp(4 - fortune, 1, 4)) == 0) drops.add(bulb.copy());
+		ItemStack drop = state.getValue(BULB).getDrop();
+		drops.add(drop);
+		if (fortune > 0 && RANDOM.nextInt(MathHelper.clamp(4 - fortune, 1, 4)) == 0) drops.add(drop.copy());
+	}
+
+	@Override
+	public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+		if (!Config.rightClickFarm) return false;
+		if (!world.isRemote) {
+			ItemStack drop = state.getValue(BULB).getDrop();
+			if (!player.addItemStackToInventory(drop)) spawnAsEntity(world, pos, drop);
+			world.setBlockToAir(pos);
+		}
+		return true;
 	}
 
 	@Override

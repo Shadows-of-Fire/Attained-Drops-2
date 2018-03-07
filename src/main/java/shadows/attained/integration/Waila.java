@@ -2,15 +2,12 @@ package shadows.attained.integration;
 
 import java.util.List;
 
-import org.lwjgl.input.Keyboard;
-
 import mcp.mobius.waila.api.IWailaConfigHandler;
 import mcp.mobius.waila.api.IWailaDataAccessor;
 import mcp.mobius.waila.api.IWailaDataProvider;
 import mcp.mobius.waila.api.IWailaRegistrar;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
@@ -65,24 +62,7 @@ public class Waila {
 					IBlockState state2 = BlockVitalized.getBulbFromState(world.getBlockState(pos.down()));
 					currenttip.add(I18n.format("tooltip.attaineddrops2.growing") + " " + (state2 == null ? I18n.format("tooltip.attaineddrops2.nothing") : ModRegistry.BULB.getPickBlock(state2, null, null, null, null).getDisplayName()));
 				} else if (block instanceof BlockVitalized) {
-					if (state.getValue(BlockVitalized.SOIL) == SoilType.NONE) {
-						if (accessor.getPlayer().isSneaking() || Keyboard.isKeyDown(Minecraft.getMinecraft().gameSettings.keyBindSneak.getKeyCode())) {
-							currenttip.add(I18n.format("tooltip.attaineddrops2.enableditems"));
-							String string = "";
-							for (BulbType type : BulbType.values()) {
-								string = string.concat(type.getDrop().getDisplayName() + ", ");
-							}
-							string = string.substring(0, string.length() - 2);
-							for (String string2 : string.split(", ")) {
-								currenttip.add(string2 + ",");
-							}
-							String k = currenttip.get(currenttip.size() - 1);
-							currenttip.remove(k);
-							currenttip.add(k.substring(0, k.length() - 1));
-						} else {
-							currenttip.add(I18n.format("tooltip.attaineddrops2.holdshift", Minecraft.getMinecraft().gameSettings.keyBindSneak.getDisplayName()));
-						}
-					} else if (state.getValue(BlockVitalized.SOIL) != SoilType.NONE) {
+					if (state.getValue(BlockVitalized.SOIL) != SoilType.NONE) {
 						currenttip.add(I18n.format("tooltip.attaineddrops2.enrichedwith", BulbType.values()[state.getValue(BlockVitalized.SOIL).ordinal() - 1].getDisplayName()));
 					}
 				} else if (block instanceof BlockCreator) {
