@@ -41,7 +41,7 @@ public class BlockPlant extends BlockBush implements IGrowable, IHasModel {
 
 	public BlockPlant() {
 		setRegistryName(AttainedDrops2.MODID, "plant");
-		setUnlocalizedName(AttainedDrops2.MODID + ".plant");
+		setTranslationKey(AttainedDrops2.MODID + ".plant");
 		setHardness(0.2F);
 		setSoundType(SoundType.PLANT);
 		AttainedDrops2.INFO.getBlockList().add(this);

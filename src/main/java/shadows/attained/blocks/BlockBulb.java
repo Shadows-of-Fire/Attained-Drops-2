@@ -44,7 +44,7 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 
 	public BlockBulb(String name) {
 		setRegistryName(name);
-		setUnlocalizedName(AttainedDrops2.MODID + "." + name);
+		setTranslationKey(AttainedDrops2.MODID + "." + name);
 		setCreativeTab(AttainedDrops2.TAB);
 		setSoundType(SoundType.PLANT);
 		setHardness(0.4F);
@@ -58,8 +58,8 @@ public class BlockBulb extends BlockBush implements IHasModel, IShearable {
 			}
 
 			@Override
-			public String getUnlocalizedName(ItemStack stack) {
-				return block.getUnlocalizedName() + "." + BulbType.values()[MathHelper.clamp(stack.getMetadata(), 0, 14)].getName();
+			public String getTranslationKey(ItemStack stack) {
+				return block.getTranslationKey() + "." + BulbType.values()[MathHelper.clamp(stack.getMetadata(), 0, 14)].getName();
 			}
 		}.setHasSubtypes(true));
 	}

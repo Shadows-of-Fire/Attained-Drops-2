@@ -57,8 +57,8 @@ public class BlockVitalized extends BlockBasic {
 			}
 
 			@Override
-			public String getUnlocalizedName(ItemStack stack) {
-				if (stack.getMetadata() == 0) return block.getUnlocalizedName();
+			public String getTranslationKey(ItemStack stack) {
+				if (stack.getMetadata() == 0) return block.getTranslationKey();
 				else return "tile." + AttainedDrops2.MODID + ".soil.enriched";
 			}
 		}.setHasSubtypes(true);
