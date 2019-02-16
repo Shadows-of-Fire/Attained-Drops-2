@@ -1,20 +1,6 @@
 package shadows.attained.integration;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.annotation.Nonnull;
-
-import mezz.jei.api.IJeiRuntime;
-import mezz.jei.api.IModPlugin;
-import mezz.jei.api.IModRegistry;
-import mezz.jei.api.ISubtypeRegistry;
-import mezz.jei.api.JEIPlugin;
-import mezz.jei.api.ingredients.IModIngredientRegistration;
-import net.minecraft.item.ItemStack;
-import shadows.attained.blocks.BulbType;
-import shadows.attained.init.ModRegistry;
-
+/*
 @JEIPlugin
 public class JEI implements IModPlugin {
 
@@ -47,3 +33,4 @@ public class JEI implements IModPlugin {
 	}
 
 }
+*/

@@ -38,8 +38,8 @@ tooltip.attaineddrops2.growing=Growing:
 tooltip.attaineddrops2.nothing=Nothing
 
 //Misc
-phrase.attaineddrops2.dirtblank=This Vitalized Soil has not been enriched yet.
-phrase.attaineddrops2.dirtstart=Vitalized with: %s
+phrase.attained_drops.blank=This Vitalized Soil has not been enriched yet.
+phrase.attained_drops.vitalized=Vitalized with: %s
 
 //JEI
 jei.attaineddrops2.desc.essence=Dropped by mobs and used in crafting Mob Drop Plant Seeds.  Player kill required.
