@@ -2,6 +2,9 @@ package shadows.attained;
 
 import javax.security.auth.login.Configuration;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
@@ -14,14 +17,15 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import shadows.attained.init.AD2Config;
-import shadows.attained.init.ModRegistry;
 import shadows.attained.util.ParticleHandler;
 import shadows.attained.util.ParticleMessage;
 import shadows.attained.util.RecipeHelper;
@@ -30,7 +34,7 @@ import shadows.attained.util.RecipeHelper;
 public class AttainedDrops {
 
 	public static final String MODID = "attained_drops";
-
+	public static final Logger LOGGER = LogManager.getLogger(MODID);
 	public static final ItemGroup GROUP = new ItemGroup(MODID) {
 		@Override
 		public ItemStack createIcon() {
@@ -51,13 +55,18 @@ public class AttainedDrops {
 
 	public static Configuration config;
 
+	public AttainedDrops() throws Exception {
+		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
+		MinecraftForge.EVENT_BUS.addListener(this::serverStart);
+		MinecraftForge.EVENT_BUS.addListener(this::onMobDrop);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, AttainedConfig.spec);
+	}
+
 	@SubscribeEvent
 	public void setup(FMLCommonSetupEvent e) {
-		AD2Config.load();
-		MinecraftForge.EVENT_BUS.register(new ModRegistry());
+		MinecraftForge.EVENT_BUS.register(new AttainedRegistry());
 		CHANNEL.registerMessage(0, ParticleMessage.class, ParticleMessage::write, ParticleMessage::read, ParticleHandler::handle);
-		MinecraftForge.EVENT_BUS.addListener(this::onMobDrop);
-		ModRegistry.initRecipes();
+		AttainedRegistry.initRecipes();
 	}
 
 	@SubscribeEvent
@@ -67,8 +76,8 @@ public class AttainedDrops {
 
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(Math.max(AD2Config.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
-			event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(ModRegistry.LIFE_ESSENCE)));
+		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.INSTANCE.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
+			event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
 		}
 	}
 

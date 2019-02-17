@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"": {
+			"model": "attained_drops:block/blaze_bulb"
+		},
+		"inventory": {
+			"model": "attained_drops:block/blaze_bulb"
+		}
+	}
+}

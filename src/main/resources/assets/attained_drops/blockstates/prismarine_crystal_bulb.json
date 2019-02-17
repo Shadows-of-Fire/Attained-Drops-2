@@ -1,0 +1,10 @@
+{
+	"variants": {
+		"": {
+			"model": "attained_drops:block/prismarine_crystal_bulb"
+		},
+		"inventory": {
+			"model": "attained_drops:block/prismarine_crystal_bulb"
+		}
+	}
+}

@@ -22,7 +22,7 @@ public class ParticleMessage {
 
 	public static ParticleMessage read(PacketBuffer buf) {
 		BlockPos pos = BlockPos.fromLong(buf.readLong());
-		EnumDyeColor color = EnumDyeColor.byId(buf.readInt());
+		EnumDyeColor color = EnumDyeColor.byId(buf.readByte());
 		byte type = buf.readByte();
 		return new ParticleMessage(pos, color, type);
 	}

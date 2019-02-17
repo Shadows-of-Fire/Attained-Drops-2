@@ -19,6 +19,7 @@ import net.minecraft.resources.IResourceManager;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import net.minecraftforge.resource.IResourceType;
@@ -41,7 +42,7 @@ public class RecipeHelper implements ISelectiveResourceReloadListener {
 	}
 
 	public void addShapeless(Object output, Object... inputs) {
-		addRecipe(new ShapelessRecipe(new ResourceLocation(modid + ":" + j++), null, makeStack(output), createInput(false, inputs)));
+		addRecipe(new ShapelessRecipe(new ResourceLocation(modid + ":" + j++), modid, makeStack(output), createInput(false, inputs)));
 	}
 
 	public void addShaped(Object output, int width, int height, Object... input) {
@@ -50,7 +51,7 @@ public class RecipeHelper implements ISelectiveResourceReloadListener {
 
 	public ShapedRecipe genShaped(ItemStack output, int l, int w, Object... input) {
 		if (l * w != input.length) throw new UnsupportedOperationException("Attempted to add invalid shaped recipe.  Complain to the author of " + modname);
-		return new ShapedRecipe(new ResourceLocation(modid + ":" + j++), null, l, w, createInput(true, input), output);
+		return new ShapedRecipe(new ResourceLocation(modid + ":" + j++), modid, l, w, createInput(true, input), output);
 	}
 
 	public NonNullList<Ingredient> createInput(boolean allowEmpty, Object... input) {
@@ -102,7 +103,9 @@ public class RecipeHelper implements ISelectiveResourceReloadListener {
 
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
-		recipes.forEach(ServerLifecycleHooks.getCurrentServer().getRecipeManager()::addRecipe);
+		if (!ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getWorldInfo().getDisabledDataPacks().contains("mod:" + modid)) {
+			recipes.forEach(ServerLifecycleHooks.getCurrentServer().getRecipeManager()::addRecipe);
+		}
 	}
 
 }

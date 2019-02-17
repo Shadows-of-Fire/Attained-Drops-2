@@ -3,8 +3,6 @@ package shadows.attained.items;
 import java.util.List;
 
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.settings.KeyBinding;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -21,13 +19,14 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import shadows.attained.AttainedDrops;
+import shadows.attained.AttainedRegistry;
 import shadows.attained.blocks.BlockSoil;
-import shadows.attained.init.ModRegistry;
 
 public class ItemSeed extends Item {
 
-	public ItemSeed() {
-		super(new Properties().group(AttainedDrops.GROUP));
+	public ItemSeed(Item.Properties props) {
+		super(props);
+		setRegistryName(AttainedDrops.MODID, "seed");
 	}
 
 	@Override
@@ -39,7 +38,7 @@ public class ItemSeed extends Item {
 		if (state.getBlock() instanceof BlockSoil && world.isAirBlock(pos.up())) {
 			ItemStack stack = ctx.getItem();
 			if (player.canPlayerEdit(pos, ctx.getFace(), stack) && ctx.getFace() == EnumFacing.UP) {
-				world.setBlockState(pos.up(), ModRegistry.PLANT.getDefaultState());
+				world.setBlockState(pos.up(), AttainedRegistry.PLANT.getDefaultState());
 				stack.shrink(1);
 				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 1.0);
 			}
@@ -51,12 +50,7 @@ public class ItemSeed extends Item {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag advanced) {
-		KeyBinding sneak = Minecraft.getInstance().gameSettings.keyBindSneak;
-		if (sneak.isKeyDown()) {
-			list.add(new TextComponentTranslation("tooltip.attaineddrops2.plantvitalized"));
-		} else {
-			list.add(new TextComponentTranslation("tooltip.attaineddrops2.holdshift", new TextComponentTranslation(sneak.getTranslationKey())));
-		}
+		list.add(new TextComponentTranslation("tooltip.attained_drops.plantvitalized"));
 	}
 
 }

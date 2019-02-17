@@ -21,9 +21,9 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.IPlantable;
+import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
-import shadows.attained.init.AD2Config;
-import shadows.attained.init.ModRegistry;
+import shadows.attained.AttainedRegistry;
 import shadows.attained.util.ParticleMessage;
 
 public class BlockVitalitySpreader extends Block {
@@ -76,14 +76,14 @@ public class BlockVitalitySpreader extends Block {
 	}
 
 	private void genNewSoil(World world, BlockPos pos, IBlockState state, Random rand) {
-		int radius = AD2Config.spreaderRadius.get();
+		int radius = AttainedConfig.INSTANCE.spreaderRadius.get();
 		BlockPos pos2 = pos.add(MathHelper.nextInt(rand, radius * -1, radius), 0, MathHelper.nextInt(rand, radius * -1, radius));
 		if (world.getBlockState(pos2).getBlock().canSustainPlant(world.getBlockState(pos2), world, pos2, EnumFacing.UP, (IPlantable) Blocks.DANDELION)) {
-			world.setBlockState(pos2, ModRegistry.SOIL_TO_BULB.get(SoilType.NONE).getDefaultState());
+			world.setBlockState(pos2, AttainedRegistry.SOILS.get(SoilType.NONE).getDefaultState());
 			if (rand.nextBoolean()) {
 				if (state.get(CHARGE) == 0) {
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-					AttainedDrops.sendToTracking(new ParticleMessage(pos.up(), EnumDyeColor.RED, (byte) 2), (WorldServer) world, pos);
+					AttainedDrops.sendToTracking(new ParticleMessage(pos.up(), EnumDyeColor.RED, 2), (WorldServer) world, pos);
 				} else world.setBlockState(pos, state.with(CHARGE, state.get(CHARGE) - 1));
 			}
 			AttainedDrops.sendToTracking(new ParticleMessage(pos2, EnumDyeColor.GREEN), (WorldServer) world, pos);

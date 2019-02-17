@@ -24,7 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import shadows.attained.AttainedDrops;
-import shadows.attained.init.ModRegistry;
+import shadows.attained.AttainedRegistry;
 
 public class BlockSoil extends Block {
 
@@ -50,7 +50,7 @@ public class BlockSoil extends Block {
 
 		if (type != null && this.type == SoilType.NONE) {
 			if (!world.isRemote) {
-				world.setBlockState(pos, ModRegistry.SOILS.get(type).getDefaultState());
+				world.setBlockState(pos, AttainedRegistry.SOILS.get(type).getDefaultState());
 				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
 				if (!player.isCreative()) stack.shrink(1);
 			}
@@ -59,10 +59,10 @@ public class BlockSoil extends Block {
 
 		if (hand == EnumHand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
 			if (this.type == SoilType.NONE) {
-				player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.dirtblank"));
+				player.sendMessage(new TextComponentTranslation("phrase.attained_drops.blank"));
 				return true;
 			}
-			player.sendMessage(new TextComponentTranslation("phrase.attaineddrops2.vitalized", this.type));
+			player.sendMessage(new TextComponentTranslation("phrase.attained_drops.vitalized", this.type));
 			return true;
 		}
 
@@ -75,18 +75,24 @@ public class BlockSoil extends Block {
 		EntityPlayer player = Minecraft.getInstance().player;
 		if (this.type == SoilType.NONE) {
 			if (player != null && player.isSneaking() || Minecraft.getInstance().gameSettings.keyBindSneak.isKeyDown()) {
-				list.add(new TextComponentTranslation("tooltip.attaineddrops2.enableditems"));
+				list.add(new TextComponentTranslation("tooltip.attained_drops.enableditems"));
 				String string = "";
 				for (BulbType type : BulbType.values()) {
 					string = string.concat(type.getDrop().getDisplayName() + ", ");
 				}
 				list.add(new TextComponentString(string.substring(0, string.length() - 2)));
 			} else {
-				list.add(new TextComponentTranslation("tooltip.attaineddrops2.holdshift", new TextComponentTranslation(Minecraft.getInstance().gameSettings.keyBindSneak.getTranslationKey())));
+				list.add(new TextComponentTranslation("tooltip.attained_drops.holdshift", new TextComponentTranslation(Minecraft.getInstance().gameSettings.keyBindSneak.getTranslationKey())));
 			}
 		} else {
-			list.add(new TextComponentTranslation("tooltip.attaineddrops2.enrichedwith", type.getDrop()));
+			list.add(new TextComponentTranslation("tooltip.attained_drops.enrichedwith", type.getDrop().getDisplayName()));
 		}
+	}
+
+	@Override
+	public String getTranslationKey() {
+		if (type == SoilType.NONE) return "block.attained_drops.soil";
+		else return "block.attained_drops.enriched.soil";
 	}
 
 }

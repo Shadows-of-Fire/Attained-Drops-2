@@ -28,8 +28,8 @@ import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IShearable;
+import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
-import shadows.attained.init.AD2Config;
 
 public class BlockBulb extends BlockBush implements IShearable {
 
@@ -64,7 +64,7 @@ public class BlockBulb extends BlockBush implements IShearable {
 
 	@Override
 	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!AD2Config.rightClickFarm.get()) return false;
+		if (!AttainedConfig.INSTANCE.rightClickFarm.get()) return false;
 		if (!world.isRemote) {
 			ItemStack drop = type.createDrop();
 			if (!player.addItemStackToInventory(drop)) spawnAsEntity(world, pos, drop);
