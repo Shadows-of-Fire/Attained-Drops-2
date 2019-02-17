@@ -1,46 +1,28 @@
 {
 	"variants": {
-		"age": {
-			"0": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/0"
-				}
-			},
-			"1": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/1"
-				}
-			},
-			"2": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/2"
-				}
-			},
-			"3": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/3"
-				}
-			},
-			"4": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/4"
-				}
-			},
-			"5": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/5"
-				}
-			},
-			"6": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/6"
-				}
-			},
-			"7": {
-				"textures": {
-					"cross": "attaineddrops2:blocks/plant/7"
-				}
-			}
+		"age=0": {
+			"model": "attained_drops:block/plant/0"
+		},
+		"age=1": {
+			"model": "attained_drops:block/plant/1"
+		},
+		"age=2": {
+			"model": "attained_drops:block/plant/2"
+		},
+		"age=3": {
+			"model": "attained_drops:block/plant/3"
+		},
+		"age=4": {
+			"model": "attained_drops:block/plant/4"
+		},
+		"age=5": {
+			"model": "attained_drops:block/plant/5"
+		},
+		"age=6": {
+			"model": "attained_drops:block/plant/6"
+		},
+		"age=7": {
+			"model": "attained_drops:block/plant/7"
 		}
 	}
 }

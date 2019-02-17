@@ -88,6 +88,7 @@ public class BlockPlant extends BlockBush implements IGrowable {
 		Block down = world.getBlockState(pos.down()).getBlock();
 		if (down instanceof BlockSoil && isMaxAge(state) && world.isAirBlock(pos.up())) {
 			BlockBulb place = AttainedRegistry.SOIL_TO_BULB.get(((BlockSoil) down).type);
+			if (place == null) return;
 			AttainedDrops.sendToTracking(new ParticleMessage(pos.up(), place.type.getColor(), 1), (WorldServer) world, pos);
 			world.setBlockState(pos.up(), place.getDefaultState());
 			int bulbsGrown = state.get(BULBS);

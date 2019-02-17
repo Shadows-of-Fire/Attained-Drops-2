@@ -1,0 +1,6 @@
+{
+	"parent": "block/cross",
+	"textures": {
+		"cross": "attained_drops:blocks/plant/6"
+	}
+}
