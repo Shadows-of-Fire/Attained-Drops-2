@@ -8,11 +8,19 @@ import net.minecraft.client.particle.ParticleEndRod;
 import net.minecraft.client.particle.ParticleSimpleAnimated;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.network.NetworkEvent;
 
 public class ParticleHandler {
 
 	public static void handle(ParticleMessage message, Supplier<NetworkEvent.Context> context) {
+		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleMessage(message));
+	}
+
+	@OnlyIn(Dist.CLIENT)
+	private static void handleMessage(ParticleMessage message) {
 		BlockPos pos = message.pos;
 		int type = message.type;
 		if (type == 0) Minecraft.getInstance().addScheduledTask(() -> {

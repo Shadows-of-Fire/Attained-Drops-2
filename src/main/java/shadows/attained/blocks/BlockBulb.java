@@ -27,6 +27,8 @@ import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.IShearable;
 import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
@@ -45,6 +47,7 @@ public class BlockBulb extends BlockBush implements IShearable {
 	}
 
 	@Override
+	@OnlyIn(Dist.CLIENT)
 	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
 		if (rand.nextFloat() >= 0.6937F) {
 			EnumDyeColor color = type.getColor();
