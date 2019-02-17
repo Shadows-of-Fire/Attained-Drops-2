@@ -1,7 +1,7 @@
 {
     "parent": "block/cube_top",
     "textures": {
-        "side": "blocks/dirt",
+        "side": "block/dirt",
         "top": "attained_drops:blocks/spreader"
     }
 }

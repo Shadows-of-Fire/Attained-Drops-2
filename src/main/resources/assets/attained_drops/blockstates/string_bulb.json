@@ -2,9 +2,6 @@
 	"variants": {
 		"": {
 			"model": "attained_drops:block/string_bulb"
-		},
-		"inventory": {
-			"model": "attained_drops:block/string_bulb"
 		}
 	}
 }

@@ -2,9 +2,6 @@
 	"variants": {
 		"": {
 			"model": "attained_drops:block/pearl_bulb"
-		},
-		"inventory": {
-			"model": "attained_drops:block/pearl_bulb"
 		}
 	}
 }

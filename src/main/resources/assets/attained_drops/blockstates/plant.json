@@ -1,9 +1,4 @@
 {
-	"forge_marker": 1,
-	"defaults": {
-		"model": "cross",
-		"transform": "forge:default-block"
-	},
 	"variants": {
 		"age": {
 			"0": {
@@ -45,20 +40,6 @@
 				"textures": {
 					"cross": "attaineddrops2:blocks/plant/7"
 				}
-			}
-		},
-		"charge": {
-			"0": {},
-			"1": {},
-			"2": {},
-			"3": {},
-			"4": {}
-		},
-		"inventory": {
-			"model": "builtin/generated",
-			"transform": "forge:default-item",
-			"textures": {
-				"layer0": "attaineddrops2:blocks/plant/7"
 			}
 		}
 	}
