@@ -8,7 +8,6 @@ import org.apache.logging.log4j.Logger;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -38,7 +37,7 @@ public class AttainedDrops {
 	public static final ItemGroup GROUP = new ItemGroup(MODID) {
 		@Override
 		public ItemStack createIcon() {
-			return new ItemStack(Blocks.ACACIA_BUTTON);
+			return new ItemStack(AttainedRegistry.SEED);
 		}
 	};
 
