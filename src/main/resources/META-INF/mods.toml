@@ -12,7 +12,7 @@ authors="Shadows_of_Fire" #optional
 
 modId="attained_drops" #mandatory
 
-version="${version}" #mandatory
+version="${file.jarVersion}" #mandatory
 
 displayName="Attained Drops" #mandatory
 
