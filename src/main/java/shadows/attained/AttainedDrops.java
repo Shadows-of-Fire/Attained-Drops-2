@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -56,8 +57,7 @@ public class AttainedDrops {
 
 	public AttainedDrops() throws Exception {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-		MinecraftForge.EVENT_BUS.addListener(this::serverStart);
-		MinecraftForge.EVENT_BUS.addListener(this::onMobDrop);
+		MinecraftForge.EVENT_BUS.register(this);
 		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AttainedConfig.spec);
 		FMLJavaModLoadingContext.get().getModEventBus().register(AttainedConfig.class);
 	}
@@ -78,6 +78,14 @@ public class AttainedDrops {
 	public void onMobDrop(LivingDropsEvent event) {
 		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.INSTANCE.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
 			event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
+		}
+	}
+
+	@SubscribeEvent
+	public void onPickup(EntityItemPickupEvent e) {
+		if (e.getItem().getItem().getItem() == AttainedRegistry.LIFE_ESSENCE) {
+			EntityPlayer player = e.getEntityPlayer();
+			player.unlockRecipes(AttainedDrops.RECIPES.getRecipes());
 		}
 	}
 

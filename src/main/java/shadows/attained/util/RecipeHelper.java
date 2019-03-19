@@ -59,7 +59,7 @@ public class RecipeHelper implements IResourceManagerReloadListener {
 			Object k = input[i];
 			if (k instanceof String) inputL.add(i, Ingredient.fromTag(ItemTags.getCollection().get(new ResourceLocation((String) k))));
 			else if (k instanceof ItemStack && !((ItemStack) k).isEmpty()) inputL.add(i, CachedIngredient.create((ItemStack) k));
-			else if (k instanceof IForgeRegistryEntry) inputL.add(i, CachedIngredient.create(makeStack((IForgeRegistryEntry<?>) k)));
+			else if (k instanceof IForgeRegistryEntry) inputL.add(i, CachedIngredient.create(makeStack(k)));
 			else if (k instanceof Ingredient) inputL.add(i, (Ingredient) k);
 			else if (allowEmpty) inputL.add(i, Ingredient.EMPTY);
 			else throw new UnsupportedOperationException("Attempted to add invalid shapeless recipe.  Complain to the author of " + modname);
@@ -69,6 +69,10 @@ public class RecipeHelper implements IResourceManagerReloadListener {
 
 	public void addSimpleShapeless(Object output, Object input, int numInputs) {
 		addShapeless(output, NonNullList.withSize(numInputs, makeStack(input)));
+	}
+
+	public List<IRecipe> getRecipes() {
+		return recipes;
 	}
 
 	public static ItemStack makeStack(Object thing, int size) {
