@@ -11,7 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
-version = '4.0.1'
+version = '4.0.2'
 group = 'shadows.attained'
 archivesBaseName = 'AttainedDrops-1.13.2'
 
@@ -37,7 +37,7 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.13.2-25.0.44'
+    minecraft 'net.minecraftforge:forge:1.13.2-25.0.88'
 }
 
 jar {

@@ -58,7 +58,8 @@ public class AttainedDrops {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		MinecraftForge.EVENT_BUS.addListener(this::serverStart);
 		MinecraftForge.EVENT_BUS.addListener(this::onMobDrop);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, AttainedConfig.spec);
+		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AttainedConfig.spec);
+		FMLJavaModLoadingContext.get().getModEventBus().register(AttainedConfig.class);
 	}
 
 	@SubscribeEvent

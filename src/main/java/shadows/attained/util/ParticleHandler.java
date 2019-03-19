@@ -17,6 +17,7 @@ public class ParticleHandler {
 
 	public static void handle(ParticleMessage message, Supplier<NetworkEvent.Context> context) {
 		DistExecutor.runWhenOn(Dist.CLIENT, () -> () -> handleMessage(message));
+		context.get().setPacketHandled(true);
 	}
 
 	@OnlyIn(Dist.CLIENT)

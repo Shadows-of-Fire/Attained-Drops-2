@@ -5,9 +5,9 @@ import org.apache.commons.lang3.tuple.Pair;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.config.ModConfig;
 
-@EventBusSubscriber(modid = AttainedDrops.MODID)
 public class AttainedConfig {
 
 	static final ForgeConfigSpec spec;
@@ -24,8 +24,8 @@ public class AttainedConfig {
 	public final BooleanValue revertToDirt;
 	public final BooleanValue rightClickFarm;
 
-	public AttainedConfig(ForgeConfigSpec.Builder build) {
-		build.comment("Server configuration");
+	AttainedConfig(ForgeConfigSpec.Builder build) {
+		build.comment("Server Configuration");
 		build.push("server");
 		dropChance = build.comment("The 1/n chance for life essence to drop from a monster.").defineInRange("Drop Chance", 18, 1, Integer.MAX_VALUE);
 		allowBonemeal = build.comment("If bonemeal works on vitalized plants.").define("Allow Bonemeal", false);
@@ -33,6 +33,15 @@ public class AttainedConfig {
 		revertToDirt = build.comment("If vitalized soil will revert to dirt (instead of vitalized soil) after growing 1-4 bulbs.").define("Dirt Reversion", true);
 		rightClickFarm = build.comment("If bulbs can be harvested on right click.").define("Simple Harvest", true);
 		build.pop();
+	}
+
+	@SubscribeEvent
+	public static void onLoad(final ModConfig.Loading e) {
+		if (e.getConfig().getModId().equals(AttainedDrops.MODID)) AttainedDrops.LOGGER.info("Loaded config file!");
+	}
+
+	@SubscribeEvent
+	public static void onFileChange(final ModConfig.ConfigReloading e) {
 	}
 
 }
