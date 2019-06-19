@@ -23,7 +23,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientSerializer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartedEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import shadows.attained.AttainedDrops;
@@ -115,21 +115,18 @@ public class RecipeHelper implements IResourceManagerReloadListener {
 
 	}
 
-	boolean loaded = false;
-
 	@Override
 	public void onResourceManagerReload(IResourceManager resourceManager) {
-		if (!loaded || !ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getWorldInfo().getDisabledDataPacks().contains("mod:" + modid)) {
+		if (!ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getWorldInfo().getDisabledDataPacks().contains("mod:" + modid)) {
 			recipes.forEach(ServerLifecycleHooks.getCurrentServer().getRecipeManager()::addRecipe);
-			loaded = true;
 			AttainedDrops.LOGGER.info("Loaded {} recipes", recipes.size());
 		}
 	}
 
 	@SubscribeEvent
-	public void serverStart(FMLServerAboutToStartEvent e) {
+	public void serverStart(FMLServerStartedEvent e) {
 		e.getServer().getResourceManager().func_219534_a(this);
-		this.onResourceManagerReload(null);
+		recipes.forEach(e.getServer().getRecipeManager()::addRecipe);
 	}
 
 }
