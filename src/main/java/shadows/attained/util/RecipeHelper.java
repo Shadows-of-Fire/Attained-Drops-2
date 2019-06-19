@@ -3,7 +3,6 @@ package shadows.attained.util;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.function.Predicate;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -16,19 +15,21 @@ import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.resources.IResourceManager;
-import net.minecraft.tags.ItemTags;
+import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.common.crafting.IIngredientSerializer;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
+import net.minecraftforge.fml.event.server.FMLServerAboutToStartEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
-import net.minecraftforge.resource.IResourceType;
-import net.minecraftforge.resource.ISelectiveResourceReloadListener;
+import shadows.attained.AttainedDrops;
 
-public class RecipeHelper implements ISelectiveResourceReloadListener {
+@SuppressWarnings("deprecation")
+public class RecipeHelper implements IResourceManagerReloadListener {
 
 	private int j = 0;
 	private final String modid;
@@ -62,8 +63,8 @@ public class RecipeHelper implements ISelectiveResourceReloadListener {
 		NonNullList<Ingredient> inputL = NonNullList.create();
 		for (int i = 0; i < input.length; i++) {
 			Object k = input[i];
-			if (k instanceof String) inputL.add(i, Ingredient.fromTag(ItemTags.getCollection().get(new ResourceLocation((String) k))));
-			else if (k instanceof ItemStack && !((ItemStack) k).isEmpty()) inputL.add(i, CachedIngredient.create((ItemStack) k));
+			//if (k instanceof String) inputL.add(i, new TagIngredient(ItemTags.getCollection().get(new ResourceLocation((String) k))));
+			if (k instanceof ItemStack && !((ItemStack) k).isEmpty()) inputL.add(i, CachedIngredient.create((ItemStack) k));
 			else if (k instanceof IForgeRegistryEntry) inputL.add(i, CachedIngredient.create(makeStack(k)));
 			else if (k instanceof Ingredient) inputL.add(i, (Ingredient) k);
 			else if (allowEmpty) inputL.add(i, Ingredient.EMPTY);
@@ -107,17 +108,26 @@ public class RecipeHelper implements ISelectiveResourceReloadListener {
 			} else return new CachedIngredient(matches);
 		}
 
+		@Override
+		public IIngredientSerializer<? extends Ingredient> getSerializer() {
+			return CraftingHelper.INGREDIENT_VANILLA;
+		}
+
 	}
 
+	boolean loaded = false;
+
 	@Override
-	public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
-		if (!ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getWorldInfo().getDisabledDataPacks().contains("mod:" + modid)) {
+	public void onResourceManagerReload(IResourceManager resourceManager) {
+		if (!loaded || !ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getWorldInfo().getDisabledDataPacks().contains("mod:" + modid)) {
 			recipes.forEach(ServerLifecycleHooks.getCurrentServer().getRecipeManager()::addRecipe);
+			loaded = true;
+			AttainedDrops.LOGGER.info("Loaded {} recipes", recipes.size());
 		}
 	}
 
 	@SubscribeEvent
-	public void serverStart(FMLServerStartingEvent e) {
+	public void serverStart(FMLServerAboutToStartEvent e) {
 		e.getServer().getResourceManager().func_219534_a(this);
 		this.onResourceManagerReload(null);
 	}
