@@ -1,39 +1,41 @@
 package shadows.attained.blocks;
 
-import java.util.Arrays;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Random;
 
-import net.minecraft.block.BlockBush;
+import net.minecraft.block.BlockState;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.BushBlock;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.ParticleEndRod;
-import net.minecraft.client.particle.ParticleSimpleAnimated;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.item.EnumDyeColor;
+import net.minecraft.client.particle.EndRodParticle;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.NonNullList;
+import net.minecraft.item.Items;
+import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.IWorldReader;
-import net.minecraft.world.IWorldReaderBase;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootContext.Builder;
+import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.IShearable;
 import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
 
-public class BlockBulb extends BlockBush implements IShearable {
+public class BlockBulb extends BushBlock {
 
 	public static final VoxelShape SHAPE = makeCuboidShape(5, 0, 5, 11, 8, 11);
 	public static final Properties PROPS = Properties.create(Material.PLANTS).sound(SoundType.PLANT).hardnessAndResistance(0.4F, 0);
@@ -48,25 +50,32 @@ public class BlockBulb extends BlockBush implements IShearable {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void animateTick(IBlockState state, World world, BlockPos pos, Random rand) {
+	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 		if (rand.nextFloat() >= 0.6937F) {
-			EnumDyeColor color = type.getColor();
-			ParticleSimpleAnimated p = new ParticleEndRod(world, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
+			DyeColor color = type.getColor();
+			EndRodParticle p = (EndRodParticle) Minecraft.getInstance().particles.addParticle(ParticleTypes.END_ROD, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
 			p.setColor(color.colorValue);
 			p.setColorFade(color.colorValue);
-			Minecraft.getInstance().particles.addEffect(p);
 		}
 	}
 
 	@Override
-	public void getDrops(IBlockState state, NonNullList<ItemStack> drops, World world, BlockPos pos, int fortune) {
+	public List<ItemStack> getDrops(BlockState state, Builder ctx) {
+		List<ItemStack> drops = new ArrayList<>();
+		ItemStack harvester = ctx.get(LootParameters.field_216289_i);
+		if (harvester.getItem() == Items.SHEARS || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, harvester) > 0) {
+			drops.add(new ItemStack(this));
+			return drops;
+		}
 		ItemStack drop = type.createDrop();
 		drops.add(drop);
+		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, harvester);
 		if (fortune > 0 && RANDOM.nextInt(Math.max(1, 4 - fortune)) == 0) drops.add(drop.copy());
+		return drops;
 	}
 
 	@Override
-	public boolean onBlockActivated(IBlockState state, World world, BlockPos pos, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
 		if (!AttainedConfig.INSTANCE.rightClickFarm.get()) return false;
 		if (!world.isRemote) {
 			ItemStack drop = type.createDrop();
@@ -77,37 +86,19 @@ public class BlockBulb extends BlockBush implements IShearable {
 	}
 
 	@Override
-	protected boolean canSilkHarvest() {
-		return true;
-	}
-
-	@Override
-	public VoxelShape getShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	public VoxelShape getShape(BlockState p_220053_1_, IBlockReader p_220053_2_, BlockPos p_220053_3_, ISelectionContext p_220053_4_) {
 		return SHAPE;
 	}
 
 	@Override
-	public VoxelShape getCollisionShape(IBlockState state, IBlockReader worldIn, BlockPos pos) {
+	public VoxelShape getCollisionShape(BlockState p_220071_1_, IBlockReader p_220071_2_, BlockPos p_220071_3_, ISelectionContext p_220071_4_) {
+
 		return VoxelShapes.empty();
 	}
 
 	@Override
-	public boolean isFullCube(IBlockState state) {
-		return false;
-	}
-
-	@Override
-	public boolean isValidPosition(IBlockState state, IWorldReaderBase world, BlockPos pos) {
+	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
 		return !world.isAirBlock(pos.down());
 	}
 
-	@Override
-	public boolean isShearable(ItemStack item, IWorldReader world, BlockPos pos) {
-		return true;
-	}
-
-	@Override
-	public List<ItemStack> onSheared(ItemStack item, IWorld world, BlockPos pos, int fortune) {
-		return Arrays.asList(new ItemStack(this));
-	}
 }

@@ -5,14 +5,14 @@ import javax.security.auth.login.Configuration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import net.minecraft.entity.item.EntityItem;
+import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.monster.IMob;
-import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.ServerWorld;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.EntityItemPickupEvent;
@@ -21,7 +21,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -70,27 +69,22 @@ public class AttainedDrops {
 	}
 
 	@SubscribeEvent
-	public void serverStart(FMLServerStartingEvent e) {
-		e.getServer().getResourceManager().addReloadListener(RECIPES);
-	}
-
-	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof EntityPlayer && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.INSTANCE.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
-			event.getDrops().add(new EntityItem(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
+		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof PlayerEntity && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.INSTANCE.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
+			event.getDrops().add(new ItemEntity(event.getEntity().world, event.getEntity().posX, event.getEntity().posY, event.getEntity().posZ, new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
 		}
 	}
 
 	@SubscribeEvent
 	public void onPickup(EntityItemPickupEvent e) {
 		if (e.getItem().getItem().getItem() == AttainedRegistry.LIFE_ESSENCE) {
-			EntityPlayer player = e.getEntityPlayer();
+			PlayerEntity player = e.getEntityPlayer();
 			player.unlockRecipes(AttainedDrops.RECIPES.getRecipes());
 		}
 	}
 
-	public static void sendToTracking(Object packet, WorldServer world, BlockPos pos) {
-		world.getPlayerChunkMap().getEntry(pos.getX() >> 4, pos.getZ() >> 4).getWatchingPlayers().forEach(p -> {
+	public static void sendToTracking(Object packet, ServerWorld world, BlockPos pos) {
+		world.getPlayers(p -> p.getDistanceSq(pos.getX(), pos.getY(), pos.getZ()) <= 20 * 20).forEach(p -> {
 			CHANNEL.sendTo(packet, p.connection.netManager, NetworkDirection.PLAY_TO_CLIENT);
 		});
 	}

@@ -3,11 +3,11 @@ package shadows.attained;
 import java.util.EnumMap;
 
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
+import net.minecraft.block.Blocks;
+import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -61,12 +61,12 @@ public class AttainedRegistry {
 		Item.Properties props = new Item.Properties().group(AttainedDrops.GROUP);
 		e.getRegistry().registerAll(new ItemSeed(props), new Item(props).setRegistryName(AttainedDrops.MODID, "life_essence"));
 		for (Block b : SOILS.values()) {
-			e.getRegistry().register(new ItemBlock(b, props).setRegistryName(b.getRegistryName()));
+			e.getRegistry().register(new BlockItem(b, props).setRegistryName(b.getRegistryName()));
 		}
 		for (Block b : SOIL_TO_BULB.values()) {
-			e.getRegistry().register(new ItemBlock(b, props).setRegistryName(b.getRegistryName()));
+			e.getRegistry().register(new BlockItem(b, props).setRegistryName(b.getRegistryName()));
 		}
-		e.getRegistry().register(new ItemBlock(VITALITY_SPREADER, new Item.Properties().group(AttainedDrops.GROUP).defaultMaxDamage(15)).setRegistryName(VITALITY_SPREADER.getRegistryName()));
+		e.getRegistry().register(new BlockItem(VITALITY_SPREADER, new Item.Properties().group(AttainedDrops.GROUP).defaultMaxDamage(15)).setRegistryName(VITALITY_SPREADER.getRegistryName()));
 	}
 
 }

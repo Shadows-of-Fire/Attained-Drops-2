@@ -3,6 +3,7 @@ package shadows.attained.util;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.function.Predicate;
 
 import it.unimi.dsi.fastutil.ints.Int2ObjectMap;
 import it.unimi.dsi.fastutil.ints.Int2ObjectOpenHashMap;
@@ -15,28 +16,32 @@ import net.minecraft.item.crafting.RecipeItemHelper;
 import net.minecraft.item.crafting.ShapedRecipe;
 import net.minecraft.item.crafting.ShapelessRecipe;
 import net.minecraft.resources.IResourceManager;
-import net.minecraft.resources.IResourceManagerReloadListener;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.dimension.DimensionType;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.event.server.FMLServerStartingEvent;
 import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import net.minecraftforge.registries.IForgeRegistryEntry;
+import net.minecraftforge.resource.IResourceType;
+import net.minecraftforge.resource.ISelectiveResourceReloadListener;
 
-@SuppressWarnings("deprecation")
-public class RecipeHelper implements IResourceManagerReloadListener {
+public class RecipeHelper implements ISelectiveResourceReloadListener {
 
 	private int j = 0;
 	private final String modid;
 	private final String modname;
-	private final List<IRecipe> recipes = new LinkedList<>();
+	private final List<IRecipe<?>> recipes = new LinkedList<>();
 
 	public RecipeHelper(String modid, String modname) {
 		this.modid = modid;
 		this.modname = modname;
+		MinecraftForge.EVENT_BUS.addListener(this::serverStart);
 	}
 
-	public void addRecipe(IRecipe rec) {
+	public void addRecipe(IRecipe<?> rec) {
 		recipes.add(rec);
 	}
 
@@ -71,7 +76,7 @@ public class RecipeHelper implements IResourceManagerReloadListener {
 		addShapeless(output, NonNullList.withSize(numInputs, makeStack(input)));
 	}
 
-	public List<IRecipe> getRecipes() {
+	public List<IRecipe<?>> getRecipes() {
 		return recipes;
 	}
 
@@ -105,10 +110,16 @@ public class RecipeHelper implements IResourceManagerReloadListener {
 	}
 
 	@Override
-	public void onResourceManagerReload(IResourceManager resourceManager) {
+	public void onResourceManagerReload(IResourceManager resourceManager, Predicate<IResourceType> resourcePredicate) {
 		if (!ServerLifecycleHooks.getCurrentServer().getWorld(DimensionType.OVERWORLD).getWorldInfo().getDisabledDataPacks().contains("mod:" + modid)) {
 			recipes.forEach(ServerLifecycleHooks.getCurrentServer().getRecipeManager()::addRecipe);
 		}
+	}
+
+	@SubscribeEvent
+	public void serverStart(FMLServerStartingEvent e) {
+		e.getServer().getResourceManager().func_219534_a(this);
+		this.onResourceManagerReload(null);
 	}
 
 }
