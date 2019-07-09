@@ -11,14 +11,14 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
-version = '5.0.1'
+version = '5.0.2'
 group = 'shadows.attained'
-archivesBaseName = 'AttainedDrops-1.14.2'
+archivesBaseName = 'AttainedDrops-1.14.3'
 
 sourceCompatibility = targetCompatibility = compileJava.sourceCompatibility = compileJava.targetCompatibility = '1.8'
 
 minecraft {
-    mappings channel: 'snapshot', version: '20190608-1.14.2'
+    mappings channel: 'snapshot', version: '20190630-1.14.3'
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
     runs {
         client = {
@@ -37,7 +37,8 @@ minecraft {
 }
 
 dependencies {
-    minecraft 'net.minecraftforge:forge:1.14.2-26.0.33'
+    minecraft 'net.minecraftforge:forge:1.14.3-27.0.43'
+	compile fileTree(dir: 'libs', include: '*.jar')
 }
 
 jar {

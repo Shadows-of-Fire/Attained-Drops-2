@@ -27,6 +27,7 @@ import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
 import shadows.attained.AttainedRegistry;
 import shadows.attained.util.ParticleMessage;
+import shadows.placebo.util.NetworkUtils;
 
 public class BlockVitalitySpreader extends Block {
 
@@ -87,10 +88,10 @@ public class BlockVitalitySpreader extends Block {
 			if (rand.nextBoolean()) {
 				if (state.get(CHARGE) == 0) {
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-					AttainedDrops.sendToTracking(new ParticleMessage(pos.up(), DyeColor.RED, 2), (ServerWorld) world, pos);
+					NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED, 2), (ServerWorld) world, pos);
 				} else world.setBlockState(pos, state.with(CHARGE, state.get(CHARGE) - 1));
 			}
-			AttainedDrops.sendToTracking(new ParticleMessage(pos2, DyeColor.GREEN), (ServerWorld) world, pos);
+			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos2, DyeColor.GREEN), (ServerWorld) world, pos);
 		}
 	}
 }

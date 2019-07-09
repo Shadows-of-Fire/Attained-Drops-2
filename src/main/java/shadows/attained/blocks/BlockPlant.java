@@ -32,6 +32,7 @@ import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
 import shadows.attained.AttainedRegistry;
 import shadows.attained.util.ParticleMessage;
+import shadows.placebo.util.NetworkUtils;
 
 public class BlockPlant extends BushBlock implements IGrowable {
 
@@ -95,13 +96,13 @@ public class BlockPlant extends BushBlock implements IGrowable {
 		if (down instanceof BlockSoil && isMaxAge(state) && world.isAirBlock(pos.up())) {
 			BlockBulb place = AttainedRegistry.SOIL_TO_BULB.get(((BlockSoil) down).type);
 			if (place == null) return;
-			AttainedDrops.sendToTracking(new ParticleMessage(pos.up(), place.type.getColor(), 1), (ServerWorld) world, pos);
+			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), place.type.getColor(), 1), (ServerWorld) world, pos);
 			world.setBlockState(pos.up(), place.getDefaultState());
 			int bulbsGrown = state.get(BULBS);
 			if (bulbsGrown > 0 && rand.nextInt(5 - bulbsGrown) == 0) {
 				world.setBlockState(pos.down(), (AttainedConfig.INSTANCE.revertToDirt.get() ? Blocks.DIRT : AttainedRegistry.SOILS.get(SoilType.NONE)).getDefaultState());
 				world.setBlockState(pos, state.with(BULBS, 0));
-				AttainedDrops.sendToTracking(new ParticleMessage(pos.up(), DyeColor.RED, 2), (ServerWorld) world, pos);
+				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED, 2), (ServerWorld) world, pos);
 			} else world.setBlockState(pos, state.with(BULBS, bulbsGrown + 1));
 		}
 	}

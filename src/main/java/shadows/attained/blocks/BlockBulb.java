@@ -62,7 +62,7 @@ public class BlockBulb extends BushBlock {
 	@Override
 	public List<ItemStack> getDrops(BlockState state, Builder ctx) {
 		List<ItemStack> drops = new ArrayList<>();
-		ItemStack harvester = ctx.get(LootParameters.field_216289_i);
+		ItemStack harvester = ctx.get(LootParameters.TOOL);
 		if (harvester.getItem() == Items.SHEARS || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, harvester) > 0) {
 			drops.add(new ItemStack(this));
 			return drops;
