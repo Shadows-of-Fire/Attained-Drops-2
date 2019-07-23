@@ -1,6 +1,6 @@
 modLoader="javafml" #mandatory
 
-loaderVersion="[27,)" #mandatory (24 is current forge version)
+loaderVersion="[28,)" #mandatory (24 is current forge version)
 
 issueTrackerURL="https://github.com/Shadows-of-Fire/Attained-Drops-2/issues" #optional
 
@@ -23,20 +23,20 @@ A mod for farming mob drops.
 [[dependencies.attained_drops]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[27,)" #mandatory
+    versionRange="[28,)" #mandatory
     ordering="NONE"
     side="BOTH"
 	
 [[dependencies.attained_drops]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.14.3]"
+    versionRange="[1.14.4]"
     ordering="NONE"
     side="BOTH"
 	
 [[dependencies.attained_drops]]
     modId="placebo"
     mandatory=true
-    versionRange="[2.0.0,)"
+    versionRange="[2.1.0,)"
     ordering="NONE"
     side="BOTH"
