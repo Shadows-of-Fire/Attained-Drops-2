@@ -21,9 +21,9 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
-import shadows.attained.util.ParticleHandler;
 import shadows.attained.util.ParticleMessage;
 import shadows.placebo.recipe.RecipeHelper;
+import shadows.placebo.util.NetworkUtils;
 
 @Mod(AttainedDrops.MODID)
 public class AttainedDrops {
@@ -60,7 +60,7 @@ public class AttainedDrops {
 	@SubscribeEvent
 	public void setup(FMLCommonSetupEvent e) {
 		MinecraftForge.EVENT_BUS.register(new AttainedRegistry());
-		CHANNEL.registerMessage(0, ParticleMessage.class, ParticleMessage::write, ParticleMessage::read, ParticleHandler::handle);
+		NetworkUtils.registerMessage(CHANNEL, 0, new ParticleMessage());
 		AttainedRegistry.initRecipes();
 	}
 
