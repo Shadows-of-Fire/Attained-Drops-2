@@ -1,7 +1,5 @@
 package shadows.attained;
 
-import javax.security.auth.login.Configuration;
-
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -10,6 +8,7 @@ import net.minecraft.entity.monster.IMob;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
@@ -21,6 +20,7 @@ import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
 import net.minecraftforge.fml.network.simple.SimpleChannel;
+import shadows.attained.api.PlantingRegistry;
 import shadows.attained.util.ParticleMessage;
 import shadows.placebo.recipe.RecipeHelper;
 import shadows.placebo.util.NetworkUtils;
@@ -35,6 +35,15 @@ public class AttainedDrops {
 		public ItemStack createIcon() {
 			return new ItemStack(AttainedRegistry.SEED);
 		}
+
+		@Override
+		public void fill(NonNullList<ItemStack> items) {
+			items.add(new ItemStack(AttainedRegistry.SEED));
+			items.add(new ItemStack(AttainedRegistry.LIFE_ESSENCE));
+			items.add(new ItemStack(AttainedRegistry.VITALITY_SPREADER));
+			PlantingRegistry.SOILS.values().forEach(b -> items.add(new ItemStack(b)));
+			PlantingRegistry.BULBS.values().forEach(b -> items.add(new ItemStack(b)));
+		};
 	};
 
 	//Formatter::off
@@ -47,8 +56,6 @@ public class AttainedDrops {
     //Formatter::on
 
 	public static final RecipeHelper RECIPES = new RecipeHelper(MODID);
-
-	public static Configuration config;
 
 	public AttainedDrops() throws Exception {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);

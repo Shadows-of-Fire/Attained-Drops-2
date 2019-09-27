@@ -7,32 +7,33 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import shadows.attained.AttainedDrops;
-import shadows.attained.AttainedRegistry;
+import shadows.attained.api.IAttainedType;
+import shadows.attained.api.ITypedBlock;
+import shadows.attained.api.PlantingRegistry;
 
-public class BlockSoil extends Block {
+public class BlockSoil extends Block implements ITypedBlock {
 
 	public static final Properties PROPS = Properties.create(Material.EARTH).sound(SoundType.GROUND).hardnessAndResistance(0.7F, 4);
 
-	protected final SoilType type;
+	public final IAttainedType type;
 
-	public BlockSoil(SoilType type) {
+	public BlockSoil(IAttainedType type) {
 		super(PROPS);
 		setRegistryName(AttainedDrops.MODID, type.name().toLowerCase(Locale.ROOT) + "_soil");
 		this.type = type;
@@ -41,11 +42,11 @@ public class BlockSoil extends Block {
 	@Override
 	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
 		ItemStack stack = player.getHeldItem(hand);
-		SoilType type = SoilType.byStack(stack);
+		IAttainedType type = PlantingRegistry.byStack(stack);
 
-		if (type != null && this.type == SoilType.NONE) {
+		if (type != null && this.type == DefaultTypes.NONE) {
 			if (!world.isRemote) {
-				world.setBlockState(pos, AttainedRegistry.SOILS.get(type).getDefaultState());
+				world.setBlockState(pos, PlantingRegistry.SOILS.get(type).getDefaultState());
 				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
 				if (!player.isCreative()) stack.shrink(1);
 			}
@@ -53,7 +54,7 @@ public class BlockSoil extends Block {
 		}
 
 		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
-			if (this.type == SoilType.NONE) {
+			if (this.type == DefaultTypes.NONE) {
 				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"));
 				return true;
 			}
@@ -67,18 +68,8 @@ public class BlockSoil extends Block {
 	@Override
 	@OnlyIn(Dist.CLIENT)
 	public void addInformation(ItemStack stack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
-		PlayerEntity player = Minecraft.getInstance().player;
-		if (this.type == SoilType.NONE) {
-			if (player != null && player.isSneaking() || Minecraft.getInstance().gameSettings.keyBindSneak.isKeyDown()) {
-				list.add(new TranslationTextComponent("tooltip.attained_drops.enableditems"));
-				String string = "";
-				for (BulbType type : BulbType.values()) {
-					string = string.concat(type.getDrop().getDisplayName() + ", ");
-				}
-				list.add(new StringTextComponent(string.substring(0, string.length() - 2)));
-			} else {
-				list.add(new TranslationTextComponent("tooltip.attained_drops.holdshift", new TranslationTextComponent(Minecraft.getInstance().gameSettings.keyBindSneak.getTranslationKey())));
-			}
+		if (this.type == DefaultTypes.NONE) {
+			list.add(new TranslationTextComponent("tooltip.attained_drops.unenriched"));
 		} else {
 			list.add(new TranslationTextComponent("tooltip.attained_drops.enrichedwith", type.getDrop().getDisplayName()));
 		}
@@ -86,8 +77,22 @@ public class BlockSoil extends Block {
 
 	@Override
 	public String getTranslationKey() {
-		if (type == SoilType.NONE) return "block.attained_drops.soil";
+		if (type == DefaultTypes.NONE) return "block.attained_drops.soil";
 		else return "block.attained_drops.enriched.soil";
+	}
+
+	@Override
+	public int getColor() {
+		return type.getColor();
+	}
+
+	public boolean isCustom() {
+		return type instanceof CustomBulbType;
+	}
+
+	@Override
+	public BlockRenderLayer getRenderLayer() {
+		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
 }

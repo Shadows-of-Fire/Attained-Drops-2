@@ -19,13 +19,13 @@ import net.minecraft.state.StateContainer.Builder;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import net.minecraftforge.common.IPlantable;
 import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
-import shadows.attained.AttainedRegistry;
+import shadows.attained.api.PlantingRegistry;
 import shadows.attained.util.ParticleMessage;
 import shadows.placebo.util.NetworkUtils;
 
@@ -84,14 +84,14 @@ public class BlockVitalitySpreader extends Block {
 		int radius = AttainedConfig.INSTANCE.spreaderRadius.get();
 		BlockPos pos2 = pos.add(MathHelper.nextInt(rand, radius * -1, radius), 0, MathHelper.nextInt(rand, radius * -1, radius));
 		if (world.getBlockState(pos2).getBlock().canSustainPlant(world.getBlockState(pos2), world, pos2, Direction.UP, (IPlantable) Blocks.DANDELION)) {
-			world.setBlockState(pos2, AttainedRegistry.SOILS.get(SoilType.NONE).getDefaultState());
+			world.setBlockState(pos2, PlantingRegistry.SOILS.get(DefaultTypes.NONE).getDefaultState());
 			if (rand.nextBoolean()) {
 				if (state.get(CHARGE) == 0) {
 					world.setBlockState(pos, Blocks.DIRT.getDefaultState());
-					NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED, 2), (ServerWorld) world, pos);
+					NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), (ServerWorld) world, pos);
 				} else world.setBlockState(pos, state.with(CHARGE, state.get(CHARGE) - 1));
 			}
-			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos2, DyeColor.GREEN), (ServerWorld) world, pos);
+			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos2, DyeColor.GREEN.colorValue), (ServerWorld) world, pos);
 		}
 	}
 }

@@ -1,0 +1,7 @@
+{
+	"parent": "attained_drops:block/bulb",
+	"textures": {
+		"side": "attained_drops:blocks/bulbs/side_colorless",
+		"top": "attained_drops:blocks/bulbs/top_colorless"
+	}
+}

@@ -25,12 +25,13 @@ import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
 import net.minecraft.world.IBlockReader;
-import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.server.ServerWorld;
 import net.minecraft.world.storage.loot.LootContext;
 import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
 import shadows.attained.AttainedRegistry;
+import shadows.attained.api.PlantingRegistry;
 import shadows.attained.util.ParticleMessage;
 import shadows.placebo.util.NetworkUtils;
 
@@ -80,7 +81,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 	@Override
 	public boolean canGrow(IBlockReader world, BlockPos pos, BlockState state, boolean bool) {
 		int age = getAge(world.getBlockState(pos));
-		return age < this.getMaxAge() || (age == getMaxAge() && world.getBlockState(pos.up()).isAir(world, pos.up()));
+		return age < this.getMaxAge() || age == getMaxAge() && world.getBlockState(pos.up()).isAir(world, pos.up());
 	}
 
 	@Override
@@ -94,15 +95,15 @@ public class BlockPlant extends BushBlock implements IGrowable {
 
 		Block down = world.getBlockState(pos.down()).getBlock();
 		if (down instanceof BlockSoil && isMaxAge(state) && world.isAirBlock(pos.up())) {
-			BlockBulb place = AttainedRegistry.SOIL_TO_BULB.get(((BlockSoil) down).type);
+			BlockBulb place = PlantingRegistry.BULBS.get(((BlockSoil) down).type);
 			if (place == null) return;
 			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), place.type.getColor(), 1), (ServerWorld) world, pos);
 			world.setBlockState(pos.up(), place.getDefaultState());
 			int bulbsGrown = state.get(BULBS);
 			if (bulbsGrown > 0 && rand.nextInt(5 - bulbsGrown) == 0) {
-				world.setBlockState(pos.down(), (AttainedConfig.INSTANCE.revertToDirt.get() ? Blocks.DIRT : AttainedRegistry.SOILS.get(SoilType.NONE)).getDefaultState());
+				world.setBlockState(pos.down(), (AttainedConfig.INSTANCE.revertToDirt.get() ? Blocks.DIRT : PlantingRegistry.SOILS.get(DefaultTypes.NONE)).getDefaultState());
 				world.setBlockState(pos, state.with(BULBS, 0));
-				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED, 2), (ServerWorld) world, pos);
+				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), (ServerWorld) world, pos);
 			} else world.setBlockState(pos, state.with(BULBS, bulbsGrown + 1));
 		}
 	}

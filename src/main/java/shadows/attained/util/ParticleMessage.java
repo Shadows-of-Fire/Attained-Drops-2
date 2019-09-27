@@ -2,7 +2,6 @@ package shadows.attained.util;
 
 import java.util.function.Supplier;
 
-import net.minecraft.item.DyeColor;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.network.NetworkEvent.Context;
@@ -13,15 +12,15 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 
 	BlockPos pos;
 	int type;
-	DyeColor color;
+	int color;
 
-	public ParticleMessage(BlockPos pos, DyeColor color, int type) {
+	public ParticleMessage(BlockPos pos, int color, int type) {
 		this.pos = pos;
 		this.color = color;
 		this.type = type;
 	}
 
-	public ParticleMessage(BlockPos pos, DyeColor color) {
+	public ParticleMessage(BlockPos pos, int color) {
 		this(pos, color, 0);
 	}
 
@@ -36,7 +35,7 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 	@Override
 	public ParticleMessage read(PacketBuffer buf) {
 		BlockPos pos = BlockPos.fromLong(buf.readLong());
-		DyeColor color = DyeColor.byId(buf.readByte());
+		int color = buf.readInt();
 		byte type = buf.readByte();
 		return new ParticleMessage(pos, color, type);
 	}
@@ -44,7 +43,7 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 	@Override
 	public void write(ParticleMessage msg, PacketBuffer buf) {
 		buf.writeLong(msg.pos.toLong());
-		buf.writeByte(msg.color.getId());
+		buf.writeInt(msg.color);
 		buf.writeByte(msg.type);
 	}
 

@@ -4,9 +4,11 @@ import net.minecraft.block.Blocks;
 import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import shadows.attained.api.IAttainedType;
 
-public enum BulbType {
+public enum DefaultTypes implements IAttainedType {
 
+	NONE(ItemStack.EMPTY, DyeColor.BROWN),
 	BLAZE(new ItemStack(Items.BLAZE_ROD), DyeColor.ORANGE),
 	PEARL(new ItemStack(Items.ENDER_PEARL), DyeColor.GRAY),
 	BONE(new ItemStack(Items.BONE), DyeColor.WHITE),
@@ -23,24 +25,24 @@ public enum BulbType {
 	FEATHER(new ItemStack(Items.FEATHER), DyeColor.WHITE),
 	PRISMARINE_CRYSTAL(new ItemStack(Items.PRISMARINE_CRYSTALS), DyeColor.CYAN);
 
+	public static final DefaultTypes[] VALUES = values();
+
 	private final ItemStack drop;
 	private final DyeColor color;
 
-	BulbType(ItemStack drop, DyeColor color) {
+	DefaultTypes(ItemStack drop, DyeColor color) {
 		this.drop = drop;
 		this.color = color;
 	}
 
-	public ItemStack createDrop() {
-		return drop.copy();
-	}
-
-	public DyeColor getColor() {
-		return color;
-	}
-
+	@Override
 	public ItemStack getDrop() {
 		return drop;
+	}
+
+	@Override
+	public int getColor() {
+		return color.colorValue;
 	}
 
 }

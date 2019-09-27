@@ -37,6 +37,6 @@ A mod for farming mob drops.
 [[dependencies.attained_drops]]
     modId="placebo"
     mandatory=true
-    versionRange="[2.2.0,)"
+    versionRange="[2.3.0,)"
     ordering="NONE"
     side="BOTH"
