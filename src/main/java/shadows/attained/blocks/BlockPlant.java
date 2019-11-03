@@ -19,7 +19,9 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer.Builder;
+import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
@@ -106,6 +108,16 @@ public class BlockPlant extends BushBlock implements IGrowable {
 				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), (ServerWorld) world, pos);
 			} else world.setBlockState(pos, state.with(BULBS, bulbsGrown + 1));
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	@Override
+	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		Block down = world.getBlockState(pos.down()).getBlock();
+		if (down instanceof BlockSoil && PlantingRegistry.BULBS.get(((BlockSoil) down).type) == null) {
+			return down.onBlockActivated(down.getDefaultState(), world, pos.down(), player, handIn, hit);
+		}
+		return false;
 	}
 
 	@Override

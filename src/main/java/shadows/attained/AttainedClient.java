@@ -9,7 +9,6 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -36,11 +35,6 @@ public class AttainedClient {
 			ModelMapRegistry.registerBlockMap(s, sl -> soil);
 			ModelMapRegistry.registerItemMap(s.asItem(), i -> soilI);
 		});
-	}
-
-	@SubscribeEvent
-	public static void bake(ModelBakeEvent e) {
-		e.getModelRegistry().put(new ModelResourceLocation(AttainedDrops.MODID + ":iron_ingot_bulb", "inventory"), e.getModelRegistry().get(bulbI));
 	}
 
 	@SubscribeEvent

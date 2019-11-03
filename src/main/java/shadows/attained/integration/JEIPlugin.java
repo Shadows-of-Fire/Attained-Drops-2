@@ -34,6 +34,7 @@ public class JEIPlugin implements IModPlugin {
 	@Override
 	public void registerRecipeCatalysts(IRecipeCatalystRegistration reg) {
 		reg.addRecipeCatalyst(new ItemStack(AttainedRegistry.SEED), AttainedCategory.UID);
+		reg.addRecipeCatalyst(new ItemStack(PlantingRegistry.SOILS.get(DefaultTypes.NONE)), AttainedCategory.UID);
 	}
 
 	@Override
