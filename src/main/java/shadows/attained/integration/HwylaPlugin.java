@@ -49,8 +49,10 @@ public class HwylaPlugin implements IWailaPlugin {
 					currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growth", (int) (100 * ((float) state.get(BlockPlant.AGE) / AttainedRegistry.PLANT.getMaxAge())) + "%"));
 					BlockState down = world.getBlockState(pos.down());
 					if (down.getBlock() instanceof BlockSoil) {
-						ITextComponent bulb = PlantingRegistry.BULBS.get(((BlockSoil) down.getBlock()).type).getNameTextComponent();
-						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growing", bulb));
+						BlockBulb bulb = PlantingRegistry.BULBS.get(((BlockSoil) down.getBlock()).type);
+						if (bulb == null) return;
+						ITextComponent name = bulb.getNameTextComponent();
+						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growing", name));
 					}
 				}
 			}
