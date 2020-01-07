@@ -4,12 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import net.minecraft.block.Block;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.RenderTypeLookup;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber.Bus;
@@ -27,6 +30,10 @@ public class AttainedClient {
 
 	@SubscribeEvent
 	public static void models(ModelRegistryEvent e) {
+		ModelLoader.addSpecialModel(bulb);
+		ModelLoader.addSpecialModel(soil);
+		ModelLoader.addSpecialModel(bulbI);
+		ModelLoader.addSpecialModel(soilI);
 		PlantingRegistry.BULBS.values().stream().filter(b -> b.isCustom()).forEach(b -> {
 			ModelMapRegistry.registerBlockMap(b, bl -> bulb);
 			ModelMapRegistry.registerItemMap(b.asItem(), i -> bulbI);
@@ -35,6 +42,7 @@ public class AttainedClient {
 			ModelMapRegistry.registerBlockMap(s, sl -> soil);
 			ModelMapRegistry.registerItemMap(s.asItem(), i -> soilI);
 		});
+		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, t -> t == RenderType.func_228643_e_());
 	}
 
 	@SubscribeEvent

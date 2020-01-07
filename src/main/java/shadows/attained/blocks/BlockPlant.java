@@ -19,6 +19,7 @@ import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.state.IntegerProperty;
 import net.minecraft.state.StateContainer.Builder;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -87,7 +88,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 	}
 
 	@Override
-	public void grow(World world, Random rand, BlockPos pos, BlockState state) {
+	public void func_225535_a_(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
 		if (world.isRemote) return;
 		int age = getAge(state);
 		if (age < getMaxAge()) {
@@ -110,19 +111,19 @@ public class BlockPlant extends BushBlock implements IGrowable {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+	@Deprecated
+	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 		Block down = world.getBlockState(pos.down()).getBlock();
 		if (down instanceof BlockSoil && PlantingRegistry.BULBS.get(((BlockSoil) down).type) == null) {
-			return down.onBlockActivated(down.getDefaultState(), world, pos.down(), player, handIn, hit);
+			return down.func_225533_a_(down.getDefaultState(), world, pos.down(), player, handIn, hit);
 		}
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random random) {
-		if (world.rand.nextInt(10) == 0 && canGrow(world, pos, state, true)) grow(world, world.rand, pos, state);
+	public void func_225542_b_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+		if (world.rand.nextInt(10) == 0 && canGrow(world, pos, state, true)) func_225535_a_(world, world.rand, pos, state);
 		else if (world.getBlockState(pos.down()).getBlock() instanceof SnowyDirtBlock && state.get(AGE) > 0) {
 			world.setBlockState(pos, state.with(AGE, state.get(AGE) - 1));
 		}

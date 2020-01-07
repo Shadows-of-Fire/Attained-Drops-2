@@ -68,11 +68,9 @@ public class BlockVitalitySpreader extends Block {
 	}
 
 	@Override
-	public void tick(BlockState state, World world, BlockPos pos, Random rand) {
-		if (!world.isRemote) {
-			genNewSoil(world, pos, state, rand);
-			((ServerWorld) world).getPendingBlockTicks().scheduleTick(pos, this, 40);
-		}
+	public void func_225542_b_(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+		genNewSoil(world, pos, state, rand);
+		((ServerWorld) world).getPendingBlockTicks().scheduleTick(pos, this, 40);
 	}
 
 	@Override

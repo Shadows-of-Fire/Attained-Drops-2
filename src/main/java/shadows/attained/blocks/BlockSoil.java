@@ -10,7 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
@@ -40,7 +40,7 @@ public class BlockSoil extends Block implements ITypedBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
+	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
 		ItemStack stack = player.getHeldItem(hand);
 		IAttainedType type = PlantingRegistry.byStack(stack);
 
@@ -50,19 +50,19 @@ public class BlockSoil extends Block implements ITypedBlock {
 				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
 				if (!player.isCreative()) stack.shrink(1);
 			}
-			return true;
+			return ActionResultType.CONSUME;
 		}
 
 		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
 			if (this.type == DefaultTypes.NONE) {
 				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"));
-				return true;
+				return ActionResultType.SUCCESS;
 			}
 			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getDisplayName()));
-			return true;
+			return ActionResultType.SUCCESS;
 		}
 
-		return false;
+		return ActionResultType.PASS;
 	}
 
 	@Override
@@ -88,11 +88,6 @@ public class BlockSoil extends Block implements ITypedBlock {
 
 	public boolean isCustom() {
 		return type instanceof CustomBulbType;
-	}
-
-	@Override
-	public BlockRenderLayer getRenderLayer() {
-		return BlockRenderLayer.CUTOUT_MIPPED;
 	}
 
 }

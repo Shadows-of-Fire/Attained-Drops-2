@@ -1,5 +1,5 @@
 package shadows.attained.integration;
-
+/*
 import java.util.List;
 
 import mcp.mobius.waila.Waila;
@@ -106,4 +106,4 @@ public class HwylaPlugin implements IWailaPlugin {
 
 	}
 
-}
+}*/

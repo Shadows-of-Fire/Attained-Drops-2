@@ -18,6 +18,7 @@ import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.particles.ParticleTypes;
+import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
@@ -78,14 +79,14 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	}
 
 	@Override
-	public boolean onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
-		if (!AttainedConfig.INSTANCE.rightClickFarm.get()) return false;
+	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+		if (!AttainedConfig.INSTANCE.rightClickFarm.get()) return ActionResultType.PASS;
 		if (!world.isRemote) {
 			ItemStack drop = type.getDrop().copy();
 			if (!player.addItemStackToInventory(drop)) spawnAsEntity(world, pos, drop);
 			world.setBlockState(pos, Blocks.AIR.getDefaultState());
 		}
-		return true;
+		return ActionResultType.SUCCESS;
 	}
 
 	@Override
