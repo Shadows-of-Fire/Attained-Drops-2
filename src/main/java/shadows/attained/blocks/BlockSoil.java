@@ -40,7 +40,7 @@ public class BlockSoil extends Block implements ITypedBlock {
 	}
 
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
 		ItemStack stack = player.getHeldItem(hand);
 		IAttainedType type = PlantingRegistry.byStack(stack);
 

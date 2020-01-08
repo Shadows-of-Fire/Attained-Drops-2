@@ -88,7 +88,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 	}
 
 	@Override
-	public void func_225535_a_(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+	public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
 		if (world.isRemote) return;
 		int age = getAge(state);
 		if (age < getMaxAge()) {
@@ -113,17 +113,17 @@ public class BlockPlant extends BushBlock implements IGrowable {
 
 	@Override
 	@Deprecated
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 		Block down = world.getBlockState(pos.down()).getBlock();
 		if (down instanceof BlockSoil && PlantingRegistry.BULBS.get(((BlockSoil) down).type) == null) {
-			return down.func_225533_a_(down.getDefaultState(), world, pos.down(), player, handIn, hit);
+			return down.onUse(down.getDefaultState(), world, pos.down(), player, handIn, hit);
 		}
 		return ActionResultType.PASS;
 	}
 
 	@Override
-	public void func_225542_b_(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (world.rand.nextInt(10) == 0 && canGrow(world, pos, state, true)) func_225535_a_(world, world.rand, pos, state);
+	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
+		if (world.rand.nextInt(10) == 0 && canGrow(world, pos, state, true)) grow(world, world.rand, pos, state);
 		else if (world.getBlockState(pos.down()).getBlock() instanceof SnowyDirtBlock && state.get(AGE) > 0) {
 			world.setBlockState(pos, state.with(AGE, state.get(AGE) - 1));
 		}

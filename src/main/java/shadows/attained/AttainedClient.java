@@ -42,7 +42,7 @@ public class AttainedClient {
 			ModelMapRegistry.registerBlockMap(s, sl -> soil);
 			ModelMapRegistry.registerItemMap(s.asItem(), i -> soilI);
 		});
-		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, t -> t == RenderType.func_228643_e_());
+		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, RenderType.getCutout());
 	}
 
 	@SubscribeEvent

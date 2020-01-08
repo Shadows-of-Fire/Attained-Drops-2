@@ -79,7 +79,7 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	}
 
 	@Override
-	public ActionResultType func_225533_a_(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
 		if (!AttainedConfig.INSTANCE.rightClickFarm.get()) return ActionResultType.PASS;
 		if (!world.isRemote) {
 			ItemStack drop = type.getDrop().copy();
