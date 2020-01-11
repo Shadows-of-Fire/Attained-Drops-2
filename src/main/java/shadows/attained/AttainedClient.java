@@ -43,6 +43,7 @@ public class AttainedClient {
 			ModelMapRegistry.registerItemMap(s.asItem(), i -> soilI);
 		});
 		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, RenderType.getCutout());
+		PlantingRegistry.SOILS.values().forEach(b -> RenderTypeLookup.setRenderLayer(b, RenderType.getCutout()));
 	}
 
 	@SubscribeEvent
