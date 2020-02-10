@@ -40,8 +40,4 @@ public class AttainedConfig {
 		if (e.getConfig().getModId().equals(AttainedDrops.MODID)) AttainedDrops.LOGGER.info("Loaded config file!");
 	}
 
-	@SubscribeEvent
-	public static void onFileChange(final ModConfig.ConfigReloading e) {
-	}
-
 }
