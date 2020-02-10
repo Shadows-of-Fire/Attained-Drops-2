@@ -11,6 +11,7 @@ buildscript {
 apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'eclipse'
 
+version = '6.0.3'
 group = 'shadows.attained'
 archivesBaseName = 'AttainedDrops-1.15.2'
 
