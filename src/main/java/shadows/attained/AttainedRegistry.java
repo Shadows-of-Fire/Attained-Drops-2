@@ -7,6 +7,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -53,7 +54,7 @@ public class AttainedRegistry {
 			e.getRegistry().register(new BlockItem(b, props) {
 				@Override
 				public ITextComponent getDisplayName(ItemStack s) {
-					return b.getNameTextComponent();
+					return new TranslationTextComponent(b.getTranslationKey());
 				};
 			}.setRegistryName(b.getRegistryName()));
 		}
