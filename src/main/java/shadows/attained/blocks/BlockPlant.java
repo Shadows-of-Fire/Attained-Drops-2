@@ -124,7 +124,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
 		if (world.rand.nextInt(10) == 0 && canGrow(world, pos, state, true)) grow(world, world.rand, pos, state);
-		else if (world.getBlockState(pos.down()).getBlock() instanceof SnowyDirtBlock && state.get(AGE) > 0) {
+		else if (world.getBlockState(pos.down()).getBlock() instanceof SnowyDirtBlock && !(world.getBlockState(pos.up()).getBlock() instanceof BlockBulb) && state.get(AGE) > 0) {
 			world.setBlockState(pos, state.with(AGE, state.get(AGE) - 1));
 		}
 	}
