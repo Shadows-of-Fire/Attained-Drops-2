@@ -26,7 +26,7 @@
   "tooltip.attained_drops.creatorcharge": "剩余富集能量：%s",
   "tooltip.attained_drops.revertchance": "还原几率：",
   "tooltip.attained_drops.growth": "成熟度：%s",
-  "tooltip.attained_drops.growing": "成熟度：%s",
+  "tooltip.attained_drops.growing": "成熟物：%s",
   "tooltip.attained_drops.nothing": "无",
   "phrase.attained_drops.blank": "此富集活性土壤尚未获得掉落物的浓缩。",
   "phrase.attained_drops.vitalized": "富集活力：%s",
