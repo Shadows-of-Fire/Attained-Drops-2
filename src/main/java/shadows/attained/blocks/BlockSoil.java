@@ -14,6 +14,7 @@ import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvents;
+import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.text.ITextComponent;
@@ -55,10 +56,10 @@ public class BlockSoil extends Block implements ITypedBlock {
 
 		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
 			if (this.type == DefaultTypes.NONE) {
-				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"));
+				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"), Util.NIL_UUID);
 				return ActionResultType.SUCCESS;
 			}
-			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getDisplayName()));
+			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getDisplayName()), Util.NIL_UUID);
 			return ActionResultType.SUCCESS;
 		}
 

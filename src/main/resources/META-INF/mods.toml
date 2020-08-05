@@ -23,20 +23,20 @@ A mod for farming mob drops.
 [[dependencies.attained_drops]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[30,)" #mandatory
+    versionRange="[32.0.106,)" #mandatory
     ordering="NONE"
     side="BOTH"
 	
 [[dependencies.attained_drops]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.15,)"
+    versionRange="[1.16.1,)"
     ordering="NONE"
     side="BOTH"
 	
 [[dependencies.attained_drops]]
     modId="placebo"
     mandatory=true
-    versionRange="[3,)"
+    versionRange="[4.1,)"
     ordering="NONE"
     side="BOTH"

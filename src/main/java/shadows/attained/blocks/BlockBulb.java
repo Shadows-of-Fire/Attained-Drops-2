@@ -17,6 +17,8 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
+import net.minecraft.loot.LootContext;
+import net.minecraft.loot.LootParameters;
 import net.minecraft.particles.ParticleTypes;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Hand;
@@ -25,13 +27,11 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.shapes.ISelectionContext;
 import net.minecraft.util.math.shapes.VoxelShape;
 import net.minecraft.util.math.shapes.VoxelShapes;
-import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.IFormattableTextComponent;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.IBlockReader;
 import net.minecraft.world.IWorldReader;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootContext.Builder;
-import net.minecraft.world.storage.loot.LootParameters;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import shadows.attained.AttainedConfig;
@@ -64,7 +64,7 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	}
 
 	@Override
-	public List<ItemStack> getDrops(BlockState state, Builder ctx) {
+	public List<ItemStack> getDrops(BlockState state, LootContext.Builder ctx) {
 		List<ItemStack> drops = new ArrayList<>();
 		ItemStack harvester = ctx.get(LootParameters.TOOL);
 		if (harvester.getItem() == Items.SHEARS || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, harvester) > 0) {
@@ -110,7 +110,7 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	}
 
 	@Override
-	public ITextComponent getNameTextComponent() {
+	public IFormattableTextComponent getName() {
 		if (isCustom()) return new TranslationTextComponent("block.attained_drops.custom_bulb", type.getDrop().getDisplayName());
 		return new TranslationTextComponent(this.getTranslationKey());
 	}

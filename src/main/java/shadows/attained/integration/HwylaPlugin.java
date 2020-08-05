@@ -51,7 +51,7 @@ public class HwylaPlugin implements IWailaPlugin {
 					if (down.getBlock() instanceof BlockSoil) {
 						BlockBulb bulb = PlantingRegistry.BULBS.get(((BlockSoil) down.getBlock()).type);
 						if (bulb == null) return;
-						ITextComponent name = bulb.getNameTextComponent();
+						ITextComponent name = bulb.getName();
 						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growing", name));
 					}
 				}
@@ -101,7 +101,7 @@ public class HwylaPlugin implements IWailaPlugin {
 		@Override
 		public void appendHead(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
 			tooltip.clear();
-			tooltip.add(new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), accessor.getStack().getDisplayName().getFormattedText())));
+			tooltip.add(new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), accessor.getStack().getDisplayName().getString())));
 		}
 
 	}
