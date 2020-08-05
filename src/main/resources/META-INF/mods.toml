@@ -16,6 +16,8 @@ version="${file.jarVersion}" #mandatory
 
 displayName="Attained Drops" #mandatory
 
+license="MIT License" #mandatory
+
 description='''
 A mod for farming mob drops.
 '''
