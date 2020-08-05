@@ -100,13 +100,13 @@ public class BlockPlant extends BushBlock implements IGrowable {
 		if (down instanceof BlockSoil && isMaxAge(state) && world.isAirBlock(pos.up())) {
 			BlockBulb place = PlantingRegistry.BULBS.get(((BlockSoil) down).type);
 			if (place == null) return;
-			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), place.type.getColor(), 1), (ServerWorld) world, pos);
+			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), place.type.getColor(), 1), world, pos);
 			world.setBlockState(pos.up(), place.getDefaultState());
 			int bulbsGrown = state.get(BULBS);
 			if (bulbsGrown > 0 && rand.nextInt(5 - bulbsGrown) == 0) {
 				world.setBlockState(pos.down(), (AttainedConfig.INSTANCE.revertToDirt.get() ? Blocks.DIRT : PlantingRegistry.SOILS.get(DefaultTypes.NONE)).getDefaultState());
 				world.setBlockState(pos, state.with(BULBS, 0));
-				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), (ServerWorld) world, pos);
+				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), world, pos);
 			} else world.setBlockState(pos, state.with(BULBS, bulbsGrown + 1));
 		}
 	}
