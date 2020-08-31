@@ -113,10 +113,10 @@ public class BlockPlant extends BushBlock implements IGrowable {
 
 	@Override
 	@Deprecated
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
 		Block down = world.getBlockState(pos.down()).getBlock();
 		if (down instanceof BlockSoil && PlantingRegistry.BULBS.get(((BlockSoil) down).type) == null) {
-			return down.onUse(down.getDefaultState(), world, pos.down(), player, handIn, hit);
+			return down.onBlockActivated(down.getDefaultState(), world, pos.down(), player, handIn, hit);
 		}
 		return ActionResultType.PASS;
 	}

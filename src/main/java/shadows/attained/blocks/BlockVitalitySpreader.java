@@ -68,7 +68,7 @@ public class BlockVitalitySpreader extends Block {
 	}
 
 	@Override
-	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
+	public void tick(BlockState state, ServerWorld world, BlockPos pos, Random rand) {
 		genNewSoil(world, pos, state, rand);
 		world.getPendingBlockTicks().scheduleTick(pos, this, 40);
 	}

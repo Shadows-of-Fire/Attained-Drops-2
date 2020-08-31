@@ -41,7 +41,7 @@ public class BlockSoil extends Block implements ITypedBlock {
 	}
 
 	@Override
-	public ActionResultType onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
+	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
 		ItemStack stack = player.getHeldItem(hand);
 		IAttainedType type = PlantingRegistry.byStack(stack);
 
@@ -56,10 +56,10 @@ public class BlockSoil extends Block implements ITypedBlock {
 
 		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
 			if (this.type == DefaultTypes.NONE) {
-				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"), Util.NIL_UUID);
+				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"), Util.DUMMY_UUID);
 				return ActionResultType.SUCCESS;
 			}
-			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getDisplayName()), Util.NIL_UUID);
+			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getDisplayName()), Util.DUMMY_UUID);
 			return ActionResultType.SUCCESS;
 		}
 

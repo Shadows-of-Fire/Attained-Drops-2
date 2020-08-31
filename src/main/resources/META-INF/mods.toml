@@ -6,6 +6,8 @@ issueTrackerURL="https://github.com/Shadows-of-Fire/Attained-Drops-2/issues" #op
 
 displayURL="https://minecraft.curseforge.com/projects/attained-drops-2" #optional
 
+license="MIT License" #mandatory
+
 authors="Shadows_of_Fire" #optional
 
 [[mods]] #mandatory
@@ -16,7 +18,6 @@ version="${file.jarVersion}" #mandatory
 
 displayName="Attained Drops" #mandatory
 
-license="MIT License" #mandatory
 
 description='''
 A mod for farming mob drops.
@@ -25,20 +26,20 @@ A mod for farming mob drops.
 [[dependencies.attained_drops]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[32.0.106,)" #mandatory
+    versionRange="[33.0.22,)" #mandatory
     ordering="NONE"
     side="BOTH"
 	
 [[dependencies.attained_drops]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.1,)"
+    versionRange="[1.16.2,)"
     ordering="NONE"
     side="BOTH"
 	
 [[dependencies.attained_drops]]
     modId="placebo"
     mandatory=true
-    versionRange="[4.1,)"
+    versionRange="[4.2,)"
     ordering="NONE"
     side="BOTH"

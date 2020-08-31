@@ -51,7 +51,7 @@ public class HwylaPlugin implements IWailaPlugin {
 					if (down.getBlock() instanceof BlockSoil) {
 						BlockBulb bulb = PlantingRegistry.BULBS.get(((BlockSoil) down.getBlock()).type);
 						if (bulb == null) return;
-						ITextComponent name = bulb.getName();
+						ITextComponent name = bulb.getTranslatedName();
 						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growing", name));
 					}
 				}

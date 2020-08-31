@@ -74,7 +74,7 @@ public class AttainedDrops {
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
 		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof PlayerEntity && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.INSTANCE.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
-			event.getDrops().add(new ItemEntity(event.getEntity().world, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
+			event.getDrops().add(new ItemEntity(event.getEntity().world, event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ(), new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
 		}
 	}
 
