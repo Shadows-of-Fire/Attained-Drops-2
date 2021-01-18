@@ -81,6 +81,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 		return VoxelShapes.empty();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean canGrow(IBlockReader world, BlockPos pos, BlockState state, boolean bool) {
 		int age = getAge(world.getBlockState(pos));
