@@ -79,7 +79,7 @@ public class BlockVitalitySpreader extends Block {
 	}
 
 	private void genNewSoil(World world, BlockPos pos, BlockState state, Random rand) {
-		int radius = AttainedConfig.INSTANCE.spreaderRadius.get();
+		int radius = AttainedConfig.spreaderRadius;
 		BlockPos pos2 = pos.add(MathHelper.nextInt(rand, radius * -1, radius), 0, MathHelper.nextInt(rand, radius * -1, radius));
 		if (world.getBlockState(pos2).getBlock().canSustainPlant(world.getBlockState(pos2), world, pos2, Direction.UP, (IPlantable) Blocks.DANDELION)) {
 			world.setBlockState(pos2, PlantingRegistry.SOILS.get(DefaultTypes.NONE).getDefaultState());

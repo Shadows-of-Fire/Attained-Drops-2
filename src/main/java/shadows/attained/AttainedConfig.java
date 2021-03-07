@@ -1,43 +1,38 @@
 package shadows.attained;
 
-import org.apache.commons.lang3.tuple.Pair;
+import java.util.HashSet;
+import java.util.Set;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.config.ModConfig;
+import shadows.attained.blocks.DefaultTypes;
+import shadows.placebo.config.Configuration;
 
 public class AttainedConfig {
 
-	static final ForgeConfigSpec spec;
-	public static final AttainedConfig INSTANCE;
-	static {
-		final Pair<AttainedConfig, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(AttainedConfig::new);
-		spec = specPair.getRight();
-		INSTANCE = specPair.getLeft();
-	}
+	public static int dropChance = 18;
+	public static boolean allowBonemeal = false;
+	public static int spreaderRadius = 2;
+	public static boolean revertToDirt = true;
+	public static boolean rightClickFarm = true;
+	public static Set<DefaultTypes> disabledBulbs = new HashSet<>();
 
-	public final IntValue dropChance;
-	public final BooleanValue allowBonemeal;
-	public final IntValue spreaderRadius;
-	public final BooleanValue revertToDirt;
-	public final BooleanValue rightClickFarm;
-
-	AttainedConfig(ForgeConfigSpec.Builder build) {
-		build.comment("Server Configuration");
-		build.push("server");
-		dropChance = build.comment("The 1/n chance for life essence to drop from a monster.").defineInRange("Drop Chance", 18, 1, Integer.MAX_VALUE);
-		allowBonemeal = build.comment("If bonemeal works on vitalized plants.").define("Allow Bonemeal", false);
-		spreaderRadius = build.comment("The radius of the Vitality Spreader.").defineInRange("Vitality Spreader Radius", 2, 0, 5);
-		revertToDirt = build.comment("If vitalized soil will revert to dirt (instead of vitalized soil) after growing 1-4 bulbs.").define("Dirt Reversion", true);
-		rightClickFarm = build.comment("If bulbs can be harvested on right click.").define("Simple Harvest", true);
-		build.pop();
-	}
-
-	@SubscribeEvent
-	public static void onLoad(final ModConfig.Loading e) {
-		if (e.getConfig().getModId().equals(AttainedDrops.MODID)) AttainedDrops.LOGGER.info("Loaded config file!");
+	public static void load() {
+		Configuration cfg = new Configuration(AttainedDrops.MODID);
+		dropChance = cfg.getInt("Essence Drop Chance", "general", dropChance, 1, Integer.MAX_VALUE, "The 1/n chance for life essence to drop from a monster.");
+		allowBonemeal = cfg.getBoolean("Allow Bonemeal", "general", allowBonemeal, "If bonemeal works on vitalized plants");
+		spreaderRadius = cfg.getInt("Vitality Spreader Radius", "general", 2, 0, 5, "The radius of the Vitality Spreader.");
+		revertToDirt = cfg.getBoolean("Dirt Reversion", "general", revertToDirt, "If vitalized soil has a chance to revert to dirt on bulb growth.");
+		rightClickFarm = cfg.getBoolean("Right Click Harvest", "general", rightClickFarm, "If bulbs are harvested by a right click.");
+		String[] disabled = cfg.getStringList("Disabled Bulbs", "general", new String[0], "A list of disabled default bulb types.  Names must match the enum types listed at https://github.com/Shadows-of-Fire/Attained-Drops-2/blob/master/src/main/java/shadows/attained/blocks/DefaultTypes.java");
+		for (String s : disabled) {
+			try {
+				DefaultTypes t = DefaultTypes.valueOf(s);
+				if (t != DefaultTypes.NONE) disabledBulbs.add(t);
+			} catch (Exception e) {
+				AttainedDrops.LOGGER.error("Error disabling bulb type " + s + " as it does not exist!");
+				e.printStackTrace();
+			}
+		}
+		if (cfg.hasChanged()) cfg.save();
 	}
 
 }

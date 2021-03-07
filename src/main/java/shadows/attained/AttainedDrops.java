@@ -13,9 +13,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.network.NetworkRegistry;
@@ -60,8 +58,7 @@ public class AttainedDrops {
 	public AttainedDrops() throws Exception {
 		FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
 		MinecraftForge.EVENT_BUS.register(this);
-		ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, AttainedConfig.spec);
-		FMLJavaModLoadingContext.get().getModEventBus().register(AttainedConfig.class);
+		AttainedConfig.load();
 	}
 
 	@SubscribeEvent
@@ -73,7 +70,7 @@ public class AttainedDrops {
 
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof PlayerEntity && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.INSTANCE.dropChance.get() - event.getLootingLevel(), 1)) == 0) {
+		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof PlayerEntity && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.dropChance - event.getLootingLevel(), 1)) == 0) {
 			event.getDrops().add(new ItemEntity(event.getEntity().world, event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ(), new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
 		}
 	}

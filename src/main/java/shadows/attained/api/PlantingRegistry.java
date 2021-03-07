@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.loading.FMLPaths;
 import net.minecraftforge.registries.ForgeRegistries;
+import shadows.attained.AttainedConfig;
 import shadows.attained.AttainedDrops;
 import shadows.attained.blocks.BlockBulb;
 import shadows.attained.blocks.BlockSoil;
@@ -72,15 +73,12 @@ public class PlantingRegistry {
 	}
 
 	public static void load() {
-		for (DefaultTypes t : DefaultTypes.values()) {
-			if (t != DefaultTypes.NONE) {
-				BlockBulb b = new BlockBulb(t);
-				PlantingRegistry.BULBS.put(t, b);
-			}
-		}
 		for (DefaultTypes t : DefaultTypes.VALUES) {
-			BlockSoil b = new BlockSoil(t);
-			PlantingRegistry.SOILS.put(t, b);
+			if (AttainedConfig.disabledBulbs.contains(t)) continue;
+			PlantingRegistry.SOILS.put(t, new BlockSoil(t));
+			if (t != DefaultTypes.NONE) {
+				PlantingRegistry.BULBS.put(t, new BlockBulb(t));
+			}
 		}
 		loadCustomTypes();
 	}

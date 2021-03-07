@@ -64,7 +64,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 
 	@Override
 	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, BlockState state) {
-		return AttainedConfig.INSTANCE.allowBonemeal.get();
+		return AttainedConfig.allowBonemeal;
 	}
 
 	@Override
@@ -105,7 +105,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 			world.setBlockState(pos.up(), place.getDefaultState());
 			int bulbsGrown = state.get(BULBS);
 			if (bulbsGrown > 0 && rand.nextInt(5 - bulbsGrown) == 0) {
-				world.setBlockState(pos.down(), (AttainedConfig.INSTANCE.revertToDirt.get() ? Blocks.DIRT : PlantingRegistry.SOILS.get(DefaultTypes.NONE)).getDefaultState());
+				world.setBlockState(pos.down(), (AttainedConfig.revertToDirt ? Blocks.DIRT : PlantingRegistry.SOILS.get(DefaultTypes.NONE)).getDefaultState());
 				world.setBlockState(pos, state.with(BULBS, 0));
 				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), world, pos);
 			} else world.setBlockState(pos, state.with(BULBS, bulbsGrown + 1));
