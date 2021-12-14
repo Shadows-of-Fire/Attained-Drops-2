@@ -3,24 +3,24 @@ package shadows.attained.blocks;
 import java.util.List;
 import java.util.Locale;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.SoundType;
-import net.minecraft.block.material.Material;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvents;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.BlockRayTraceResult;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.World;
+import net.minecraft.Util;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.SoundType;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Material;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import shadows.attained.AttainedDrops;
@@ -41,38 +41,38 @@ public class BlockSoil extends Block implements ITypedBlock {
 	}
 
 	@Override
-	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
+	public InteractionResult use(BlockState state, Level world, BlockPos pos, Player player, InteractionHand hand, BlockHitResult res) {
 		ItemStack stack = player.getItemInHand(hand);
 		IAttainedType type = PlantingRegistry.byStack(stack);
 
 		if (type != null && this.type == DefaultTypes.NONE) {
 			if (!world.isClientSide) {
 				world.setBlockAndUpdate(pos, PlantingRegistry.SOILS.get(type).defaultBlockState());
-				world.playSound(player, pos, SoundEvents.GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
 				if (!player.isCreative()) stack.shrink(1);
 			}
-			return ActionResultType.CONSUME;
+			world.playSound(player, pos, SoundEvents.GRASS_PLACE, SoundSource.BLOCKS, 0.5F, 1.0F);
+			return InteractionResult.SUCCESS;
 		}
 
-		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isClientSide) {
+		if (hand == InteractionHand.MAIN_HAND && stack.isEmpty() && world.isClientSide) {
 			if (this.type == DefaultTypes.NONE) {
-				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"), Util.NIL_UUID);
-				return ActionResultType.SUCCESS;
+				player.sendMessage(new TranslatableComponent("phrase.attained_drops.blank"), Util.NIL_UUID);
+				return InteractionResult.SUCCESS;
 			}
-			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getHoverName()), Util.NIL_UUID);
-			return ActionResultType.SUCCESS;
+			player.sendMessage(new TranslatableComponent("phrase.attained_drops.vitalized", this.type.getDrop().getHoverName()), Util.NIL_UUID);
+			return InteractionResult.SUCCESS;
 		}
 
-		return ActionResultType.PASS;
+		return InteractionResult.PASS;
 	}
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void appendHoverText(ItemStack stack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, BlockGetter world, List<Component> list, TooltipFlag flag) {
 		if (this.type == DefaultTypes.NONE) {
-			list.add(new TranslationTextComponent("tooltip.attained_drops.unenriched"));
+			list.add(new TranslatableComponent("tooltip.attained_drops.unenriched"));
 		} else {
-			list.add(new TranslationTextComponent("tooltip.attained_drops.enrichedwith", type.getDrop().getHoverName()));
+			list.add(new TranslatableComponent("tooltip.attained_drops.enrichedwith", type.getDrop().getHoverName()));
 		}
 	}
 

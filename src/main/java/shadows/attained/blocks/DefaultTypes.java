@@ -1,9 +1,9 @@
 package shadows.attained.blocks;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.item.DyeColor;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
+import net.minecraft.world.item.DyeColor;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.level.block.Blocks;
 import shadows.attained.api.IAttainedType;
 
 public enum DefaultTypes implements IAttainedType {
@@ -42,7 +42,7 @@ public enum DefaultTypes implements IAttainedType {
 
 	@Override
 	public int getColor() {
-		return color.textureDiffuseColor;
+		return color.getFireworkColor();
 	}
 
 }

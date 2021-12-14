@@ -2,13 +2,13 @@ package shadows.attained.util;
 
 import java.util.function.Supplier;
 
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.network.NetworkEvent.Context;
-import shadows.placebo.util.NetworkUtils;
-import shadows.placebo.util.NetworkUtils.MessageProvider;
+import net.minecraft.core.BlockPos;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraftforge.fmllegacy.network.NetworkEvent.Context;
+import shadows.placebo.network.MessageHelper;
+import shadows.placebo.network.MessageProvider;
 
-public class ParticleMessage extends MessageProvider<ParticleMessage> {
+public class ParticleMessage implements MessageProvider<ParticleMessage> {
 
 	BlockPos pos;
 	int type;
@@ -33,7 +33,7 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 	}
 
 	@Override
-	public ParticleMessage read(PacketBuffer buf) {
+	public ParticleMessage read(FriendlyByteBuf buf) {
 		BlockPos pos = BlockPos.of(buf.readLong());
 		int color = buf.readInt();
 		byte type = buf.readByte();
@@ -41,7 +41,7 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 	}
 
 	@Override
-	public void write(ParticleMessage msg, PacketBuffer buf) {
+	public void write(ParticleMessage msg, FriendlyByteBuf buf) {
 		buf.writeLong(msg.pos.asLong());
 		buf.writeInt(msg.color);
 		buf.writeByte(msg.type);
@@ -49,9 +49,9 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 
 	@Override
 	public void handle(ParticleMessage msg, Supplier<Context> ctx) {
-		NetworkUtils.handlePacket(() -> () -> {
+		MessageHelper.handlePacket(() -> () -> {
 			ParticleHandler.handle(msg);
-		}, ctx.get());
+		}, ctx);
 	}
 
 }

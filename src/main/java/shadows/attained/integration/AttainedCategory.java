@@ -9,9 +9,10 @@ import mezz.jei.api.gui.ingredient.IGuiItemStackGroup;
 import mezz.jei.api.helpers.IGuiHelper;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.category.IRecipeCategory;
-import mezz.jei.util.Translator;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 import shadows.attained.AttainedDrops;
 import shadows.attained.AttainedRegistry;
 import shadows.attained.api.IAttainedType;
@@ -24,13 +25,13 @@ public class AttainedCategory implements IRecipeCategory<IAttainedType> {
 
 	private final IDrawable background;
 	private final IDrawable icon;
-	private final String localizedName;
+	private final Component localizedName;
 
 	public AttainedCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = TEXTURES;
 		background = guiHelper.createDrawable(location, 0, 0, 98, 54);
 		icon = guiHelper.createDrawableIngredient(new ItemStack(AttainedRegistry.SEED));
-		localizedName = Translator.translateToLocal("attained_drops.growing");
+		localizedName = new TranslatableComponent("attained_drops.growing");
 	}
 
 	@Override
@@ -49,7 +50,7 @@ public class AttainedCategory implements IRecipeCategory<IAttainedType> {
 	}
 
 	@Override
-	public String getTitle() {
+	public Component getTitle() {
 		return localizedName;
 	}
 

@@ -3,12 +3,12 @@ package shadows.attained;
 import java.util.ArrayList;
 import java.util.List;
 
-import net.minecraft.block.Block;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderTypeLookup;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -42,8 +42,8 @@ public class AttainedClient {
 			ModelMapRegistry.registerBlockMap(s, sl -> soil);
 			ModelMapRegistry.registerItemMap(s.asItem(), i -> soilI);
 		});
-		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, RenderType.cutout());
-		PlantingRegistry.SOILS.values().forEach(b -> RenderTypeLookup.setRenderLayer(b, RenderType.cutout()));
+		ItemBlockRenderTypes.setRenderLayer(AttainedRegistry.PLANT, RenderType.cutout());
+		PlantingRegistry.SOILS.values().forEach(b -> ItemBlockRenderTypes.setRenderLayer(b, RenderType.cutout()));
 	}
 
 	@SubscribeEvent

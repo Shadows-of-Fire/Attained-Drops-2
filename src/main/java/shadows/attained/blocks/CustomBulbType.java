@@ -2,7 +2,7 @@ package shadows.attained.blocks;
 
 import java.util.function.Supplier;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 import shadows.attained.api.IAttainedType;
 
 public class CustomBulbType implements IAttainedType {

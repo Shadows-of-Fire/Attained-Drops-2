@@ -6,9 +6,9 @@ import mezz.jei.api.constants.VanillaTypes;
 import mezz.jei.api.registration.IRecipeCatalystRegistration;
 import mezz.jei.api.registration.IRecipeCategoryRegistration;
 import mezz.jei.api.registration.IRecipeRegistration;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.network.chat.TranslatableComponent;
 import shadows.attained.AttainedDrops;
 import shadows.attained.AttainedRegistry;
 import shadows.attained.api.PlantingRegistry;
@@ -26,9 +26,9 @@ public class JEIPlugin implements IModPlugin {
 
 	@Override
 	public void registerRecipes(IRecipeRegistration registry) {
-		registry.addIngredientInfo(new ItemStack(AttainedRegistry.LIFE_ESSENCE), VanillaTypes.ITEM, new TranslationTextComponent("jei.attained_drops.desc.essence"));
-		registry.addIngredientInfo(new ItemStack(PlantingRegistry.SOILS.get(DefaultTypes.NONE)), VanillaTypes.ITEM, new TranslationTextComponent("jei.attained_drops.desc.vitalized"));
-		registry.addIngredientInfo(new ItemStack(AttainedRegistry.VITALITY_SPREADER), VanillaTypes.ITEM, new TranslationTextComponent("jei.attained_drops.desc.planter"));
+		registry.addIngredientInfo(new ItemStack(AttainedRegistry.LIFE_ESSENCE), VanillaTypes.ITEM, new TranslatableComponent("jei.attained_drops.desc.essence"));
+		registry.addIngredientInfo(new ItemStack(PlantingRegistry.SOILS.get(DefaultTypes.NONE)), VanillaTypes.ITEM, new TranslatableComponent("jei.attained_drops.desc.vitalized"));
+		registry.addIngredientInfo(new ItemStack(AttainedRegistry.VITALITY_SPREADER), VanillaTypes.ITEM, new TranslatableComponent("jei.attained_drops.desc.planter"));
 		registry.addRecipes(PlantingRegistry.BULBS.keySet(), AttainedCategory.UID);
 	}
 

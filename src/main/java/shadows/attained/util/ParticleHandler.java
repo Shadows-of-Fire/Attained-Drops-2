@@ -4,9 +4,9 @@ import java.util.Random;
 
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.EndRodParticle;
-import net.minecraft.particles.ParticleTypes;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.core.particles.ParticleTypes;
+import net.minecraft.core.BlockPos;
+import net.minecraft.util.Mth;
 
 public class ParticleHandler {
 
@@ -16,7 +16,7 @@ public class ParticleHandler {
 		if (type == 0) {
 			int k = 0;
 			while (k < 30) {
-				double j = 0.8D - MathHelper.clamp(0.5D / ++k, 0D, 0.7D);
+				double j = 0.8D - Mth.clamp(0.5D / ++k, 0D, 0.7D);
 				EndRodParticle p = (EndRodParticle) Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY() + 5.0D, pos.getZ() + 0.5D, 0, -j, 0);
 				p.setColor(msg.color);
 				p.setFadeColor(msg.color);
@@ -29,7 +29,7 @@ public class ParticleHandler {
 				k++;
 				double j = 0.05D;
 				Random rand = Minecraft.getInstance().level.random;
-				EndRodParticle p = (EndRodParticle) Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, MathHelper.nextDouble(rand, -0.1, 0.1), j, MathHelper.nextDouble(rand, -0.1, 0.1));
+				EndRodParticle p = (EndRodParticle) Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.END_ROD, pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D, Mth.nextDouble(rand, -0.1, 0.1), j, Mth.nextDouble(rand, -0.1, 0.1));
 				p.setColor(msg.color);
 				p.setFadeColor(msg.color);
 				Minecraft.getInstance().particleEngine.add(p);

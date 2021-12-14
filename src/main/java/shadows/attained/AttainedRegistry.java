@@ -1,13 +1,13 @@
 package shadows.attained;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
-import net.minecraft.item.BlockItem;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraftforge.event.RegistryEvent.Register;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -53,8 +53,8 @@ public class AttainedRegistry {
 		for (Block b : PlantingRegistry.BULBS.values()) {
 			e.getRegistry().register(new BlockItem(b, props) {
 				@Override
-				public ITextComponent getName(ItemStack s) {
-					return new TranslationTextComponent(b.getDescriptionId());
+				public Component getName(ItemStack s) {
+					return new TranslatableComponent(b.getDescriptionId());
 				};
 			}.setRegistryName(b.getRegistryName()));
 		}
