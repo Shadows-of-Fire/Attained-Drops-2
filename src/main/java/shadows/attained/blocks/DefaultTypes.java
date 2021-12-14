@@ -42,7 +42,7 @@ public enum DefaultTypes implements IAttainedType {
 
 	@Override
 	public int getColor() {
-		return color.colorValue;
+		return color.textureDiffuseColor;
 	}
 
 }

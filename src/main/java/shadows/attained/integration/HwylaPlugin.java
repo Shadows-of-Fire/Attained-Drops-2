@@ -46,12 +46,12 @@ public class HwylaPlugin implements IWailaPlugin {
 				BlockState state = world.getBlockState(pos);
 				Block block = state.getBlock();
 				if (block instanceof BlockPlant) {
-					currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growth", (int) (100 * ((float) state.get(BlockPlant.AGE) / AttainedRegistry.PLANT.getMaxAge())) + "%"));
-					BlockState down = world.getBlockState(pos.down());
+					currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growth", (int) (100 * ((float) state.getValue(BlockPlant.AGE) / AttainedRegistry.PLANT.getMaxAge())) + "%"));
+					BlockState down = world.getBlockState(pos.below());
 					if (down.getBlock() instanceof BlockSoil) {
 						BlockBulb bulb = PlantingRegistry.BULBS.get(((BlockSoil) down.getBlock()).type);
 						if (bulb == null) return;
-						ITextComponent name = bulb.getTranslatedName();
+						ITextComponent name = bulb.getName();
 						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.growing", name));
 					}
 				}
@@ -71,7 +71,7 @@ public class HwylaPlugin implements IWailaPlugin {
 				Block block = state.getBlock();
 				if (block instanceof BlockSoil) {
 					if (((BlockSoil) block).type != DefaultTypes.NONE) {
-						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.enrichedwith", ((BlockSoil) block).type.getDrop().getDisplayName()));
+						currenttip.add(new TranslationTextComponent("tooltip.attained_drops.enrichedwith", ((BlockSoil) block).type.getDrop().getHoverName()));
 					}
 				}
 			}
@@ -89,7 +89,7 @@ public class HwylaPlugin implements IWailaPlugin {
 				BlockState state = world.getBlockState(pos);
 				Block block = state.getBlock();
 				if (block instanceof BlockVitalitySpreader) {
-					currenttip.add(new TranslationTextComponent("tooltip.attained_drops.creatorcharge", state.get(BlockVitalitySpreader.CHARGE)));
+					currenttip.add(new TranslationTextComponent("tooltip.attained_drops.creatorcharge", state.getValue(BlockVitalitySpreader.CHARGE)));
 				}
 			}
 		}
@@ -101,7 +101,7 @@ public class HwylaPlugin implements IWailaPlugin {
 		@Override
 		public void appendHead(List<ITextComponent> tooltip, IDataAccessor accessor, IPluginConfig config) {
 			tooltip.clear();
-			tooltip.add(new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), accessor.getStack().getDisplayName().getString())));
+			tooltip.add(new StringTextComponent(String.format(Waila.CONFIG.get().getFormatting().getBlockName(), accessor.getStack().getHoverName().getString())));
 		}
 
 	}

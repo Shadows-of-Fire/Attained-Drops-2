@@ -41,8 +41,8 @@ import shadows.attained.api.ITypedBlock;
 
 public class BlockBulb extends BushBlock implements ITypedBlock {
 
-	public static final VoxelShape SHAPE = makeCuboidShape(5, 0, 5, 11, 8, 11);
-	public static final Properties PROPS = Properties.create(Material.PLANTS).sound(SoundType.PLANT).hardnessAndResistance(0.4F, 0);
+	public static final VoxelShape SHAPE = box(5, 0, 5, 11, 8, 11);
+	public static final Properties PROPS = Properties.of(Material.PLANT).sound(SoundType.GRASS).strength(0.4F, 0);
 
 	protected final IAttainedType type;
 
@@ -57,34 +57,34 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	public void animateTick(BlockState state, World world, BlockPos pos, Random rand) {
 		if (rand.nextFloat() >= 0.6937F) {
 			int color = type.getColor();
-			EndRodParticle p = (EndRodParticle) Minecraft.getInstance().particles.addParticle(ParticleTypes.END_ROD, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
+			EndRodParticle p = (EndRodParticle) Minecraft.getInstance().particleEngine.createParticle(ParticleTypes.END_ROD, pos.getX() + 1.0D - rand.nextDouble(), pos.getY() + 0.4D, pos.getZ() + 1.0D - rand.nextDouble(), 0, 0.03D, 0);
 			p.setColor(color);
-			p.setColorFade(color);
+			p.setFadeColor(color);
 		}
 	}
 
 	@Override
 	public List<ItemStack> getDrops(BlockState state, LootContext.Builder ctx) {
 		List<ItemStack> drops = new ArrayList<>();
-		ItemStack harvester = ctx.get(LootParameters.TOOL);
-		if (harvester.getItem() == Items.SHEARS || EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, harvester) > 0) {
+		ItemStack harvester = ctx.getOptionalParameter(LootParameters.TOOL);
+		if (harvester.getItem() == Items.SHEARS || EnchantmentHelper.getItemEnchantmentLevel(Enchantments.SILK_TOUCH, harvester) > 0) {
 			drops.add(new ItemStack(this));
 			return drops;
 		}
 		ItemStack drop = type.getDrop().copy();
 		drops.add(drop);
-		int fortune = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, harvester);
+		int fortune = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_FORTUNE, harvester);
 		if (fortune > 0 && RANDOM.nextInt(Math.max(1, 4 - fortune)) == 0) drops.add(drop.copy());
 		return drops;
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
+	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult trace) {
 		if (!AttainedConfig.rightClickFarm) return ActionResultType.PASS;
-		if (!world.isRemote) {
+		if (!world.isClientSide) {
 			ItemStack drop = type.getDrop().copy();
-			if (!player.addItemStackToInventory(drop)) spawnAsEntity(world, pos, drop);
-			world.setBlockState(pos, Blocks.AIR.getDefaultState());
+			if (!player.addItem(drop)) popResource(world, pos, drop);
+			world.setBlockAndUpdate(pos, Blocks.AIR.defaultBlockState());
 		}
 		return ActionResultType.SUCCESS;
 	}
@@ -100,8 +100,8 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	}
 
 	@Override
-	public boolean isValidPosition(BlockState state, IWorldReader world, BlockPos pos) {
-		return !world.isAirBlock(pos.down());
+	public boolean canSurvive(BlockState state, IWorldReader world, BlockPos pos) {
+		return !world.isEmptyBlock(pos.below());
 	}
 
 	@Override
@@ -110,9 +110,9 @@ public class BlockBulb extends BushBlock implements ITypedBlock {
 	}
 
 	@Override
-	public IFormattableTextComponent getTranslatedName() {
-		if (isCustom()) return new TranslationTextComponent("block.attained_drops.custom_bulb", type.getDrop().getDisplayName());
-		return new TranslationTextComponent(this.getTranslationKey());
+	public IFormattableTextComponent getName() {
+		if (isCustom()) return new TranslationTextComponent("block.attained_drops.custom_bulb", type.getDrop().getHoverName());
+		return new TranslationTextComponent(this.getDescriptionId());
 	}
 
 	public boolean isCustom() {

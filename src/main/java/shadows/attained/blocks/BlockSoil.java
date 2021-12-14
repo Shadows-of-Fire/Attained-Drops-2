@@ -30,7 +30,7 @@ import shadows.attained.api.PlantingRegistry;
 
 public class BlockSoil extends Block implements ITypedBlock {
 
-	public static final Properties PROPS = Properties.create(Material.EARTH).sound(SoundType.GROUND).hardnessAndResistance(0.7F, 4);
+	public static final Properties PROPS = Properties.of(Material.DIRT).sound(SoundType.GRAVEL).strength(0.7F, 4);
 
 	public final IAttainedType type;
 
@@ -41,25 +41,25 @@ public class BlockSoil extends Block implements ITypedBlock {
 	}
 
 	@Override
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
-		ItemStack stack = player.getHeldItem(hand);
+	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockRayTraceResult res) {
+		ItemStack stack = player.getItemInHand(hand);
 		IAttainedType type = PlantingRegistry.byStack(stack);
 
 		if (type != null && this.type == DefaultTypes.NONE) {
-			if (!world.isRemote) {
-				world.setBlockState(pos, PlantingRegistry.SOILS.get(type).getDefaultState());
-				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
+			if (!world.isClientSide) {
+				world.setBlockAndUpdate(pos, PlantingRegistry.SOILS.get(type).defaultBlockState());
+				world.playSound(player, pos, SoundEvents.GRASS_PLACE, SoundCategory.BLOCKS, 0.5F, 1.0F);
 				if (!player.isCreative()) stack.shrink(1);
 			}
 			return ActionResultType.CONSUME;
 		}
 
-		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isRemote) {
+		if (hand == Hand.MAIN_HAND && stack.isEmpty() && world.isClientSide) {
 			if (this.type == DefaultTypes.NONE) {
-				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"), Util.DUMMY_UUID);
+				player.sendMessage(new TranslationTextComponent("phrase.attained_drops.blank"), Util.NIL_UUID);
 				return ActionResultType.SUCCESS;
 			}
-			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getDisplayName()), Util.DUMMY_UUID);
+			player.sendMessage(new TranslationTextComponent("phrase.attained_drops.vitalized", this.type.getDrop().getHoverName()), Util.NIL_UUID);
 			return ActionResultType.SUCCESS;
 		}
 
@@ -68,16 +68,16 @@ public class BlockSoil extends Block implements ITypedBlock {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
+	public void appendHoverText(ItemStack stack, IBlockReader world, List<ITextComponent> list, ITooltipFlag flag) {
 		if (this.type == DefaultTypes.NONE) {
 			list.add(new TranslationTextComponent("tooltip.attained_drops.unenriched"));
 		} else {
-			list.add(new TranslationTextComponent("tooltip.attained_drops.enrichedwith", type.getDrop().getDisplayName()));
+			list.add(new TranslationTextComponent("tooltip.attained_drops.enrichedwith", type.getDrop().getHoverName()));
 		}
 	}
 
 	@Override
-	public String getTranslationKey() {
+	public String getDescriptionId() {
 		if (type == DefaultTypes.NONE) return "block.attained_drops.soil";
 		else return "block.attained_drops.enriched.soil";
 	}

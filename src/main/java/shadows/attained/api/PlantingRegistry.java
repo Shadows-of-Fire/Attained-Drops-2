@@ -26,7 +26,7 @@ public class PlantingRegistry {
 
 	public static IAttainedType byStack(ItemStack stack) {
 		for (IAttainedType s : SOILS.keySet()) {
-			if (stack.isItemEqual(s.getDrop())) return s;
+			if (stack.sameItem(s.getDrop())) return s;
 		}
 		return null;
 	}

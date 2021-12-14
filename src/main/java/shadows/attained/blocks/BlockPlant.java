@@ -42,28 +42,28 @@ public class BlockPlant extends BushBlock implements IGrowable {
 
 	public static final IntegerProperty AGE = CropsBlock.AGE;
 	public static final IntegerProperty BULBS = IntegerProperty.create("bulbs", 0, 4);
-	public static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[] { Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 2.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 6.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 14.0D, 13.0D), Block.makeCuboidShape(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D) };
-	public static final Properties PROPS = Properties.create(Material.PLANTS).hardnessAndResistance(0.2F, 0).sound(SoundType.PLANT).tickRandomly();
+	public static final VoxelShape[] SHAPE_BY_AGE = new VoxelShape[] { Block.box(3.0D, 0.0D, 3.0D, 13.0D, 2.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 4.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 6.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 8.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 10.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 12.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 14.0D, 13.0D), Block.box(3.0D, 0.0D, 3.0D, 13.0D, 16.0D, 13.0D) };
+	public static final Properties PROPS = Properties.of(Material.PLANT).strength(0.2F, 0).sound(SoundType.GRASS).randomTicks();
 
 	public BlockPlant() {
 		super(PROPS);
 		setRegistryName(AttainedDrops.MODID, "plant");
-		setDefaultState(stateContainer.getBaseState().with(AGE, 0).with(BULBS, 0));
+		registerDefaultState(stateDefinition.any().setValue(AGE, 0).setValue(BULBS, 0));
 
 	}
 
 	@Override
-	protected boolean isValidGround(BlockState state, IBlockReader world, BlockPos pos) {
+	protected boolean mayPlaceOn(BlockState state, IBlockReader world, BlockPos pos) {
 		return state.getBlock() instanceof BlockSoil;
 	}
 
 	@Override
 	public VoxelShape getShape(BlockState state, IBlockReader world, BlockPos pos, ISelectionContext ctx) {
-		return SHAPE_BY_AGE[state.get(AGE)];
+		return SHAPE_BY_AGE[state.getValue(AGE)];
 	}
 
 	@Override
-	public boolean canUseBonemeal(World world, Random rand, BlockPos pos, BlockState state) {
+	public boolean isBonemealSuccess(World world, Random rand, BlockPos pos, BlockState state) {
 		return AttainedConfig.allowBonemeal;
 	}
 
@@ -83,50 +83,50 @@ public class BlockPlant extends BushBlock implements IGrowable {
 
 	@SuppressWarnings("deprecation")
 	@Override
-	public boolean canGrow(IBlockReader world, BlockPos pos, BlockState state, boolean bool) {
+	public boolean isValidBonemealTarget(IBlockReader world, BlockPos pos, BlockState state, boolean bool) {
 		int age = getAge(world.getBlockState(pos));
-		return age < this.getMaxAge() || age == getMaxAge() && world.getBlockState(pos.up()).isAir(world, pos.up());
+		return age < this.getMaxAge() || age == getMaxAge() && world.getBlockState(pos.above()).isAir(world, pos.above());
 	}
 
 	@Override
-	public void grow(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
-		if (world.isRemote) return;
+	public void performBonemeal(ServerWorld world, Random rand, BlockPos pos, BlockState state) {
+		if (world.isClientSide) return;
 		int age = getAge(state);
 		if (age < getMaxAge()) {
 			setAge(world, pos, getAge(state) + 1);
 			return;
 		}
 
-		Block down = world.getBlockState(pos.down()).getBlock();
-		if (down instanceof BlockSoil && isMaxAge(state) && world.isAirBlock(pos.up())) {
+		Block down = world.getBlockState(pos.below()).getBlock();
+		if (down instanceof BlockSoil && isMaxAge(state) && world.isEmptyBlock(pos.above())) {
 			BlockBulb place = PlantingRegistry.BULBS.get(((BlockSoil) down).type);
 			if (place == null) return;
-			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), place.type.getColor(), 1), world, pos);
-			world.setBlockState(pos.up(), place.getDefaultState());
-			int bulbsGrown = state.get(BULBS);
+			NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.above(), place.type.getColor(), 1), world, pos);
+			world.setBlockAndUpdate(pos.above(), place.defaultBlockState());
+			int bulbsGrown = state.getValue(BULBS);
 			if (bulbsGrown > 0 && rand.nextInt(5 - bulbsGrown) == 0) {
-				world.setBlockState(pos.down(), (AttainedConfig.revertToDirt ? Blocks.DIRT : PlantingRegistry.SOILS.get(DefaultTypes.NONE)).getDefaultState());
-				world.setBlockState(pos, state.with(BULBS, 0));
-				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.up(), DyeColor.RED.colorValue, 2), world, pos);
-			} else world.setBlockState(pos, state.with(BULBS, bulbsGrown + 1));
+				world.setBlockAndUpdate(pos.below(), (AttainedConfig.revertToDirt ? Blocks.DIRT : PlantingRegistry.SOILS.get(DefaultTypes.NONE)).defaultBlockState());
+				world.setBlockAndUpdate(pos, state.setValue(BULBS, 0));
+				NetworkUtils.sendToTracking(AttainedDrops.CHANNEL, new ParticleMessage(pos.above(), DyeColor.RED.textureDiffuseColor, 2), world, pos);
+			} else world.setBlockAndUpdate(pos, state.setValue(BULBS, bulbsGrown + 1));
 		}
 	}
 
 	@Override
 	@Deprecated
-	public ActionResultType onBlockActivated(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
-		Block down = world.getBlockState(pos.down()).getBlock();
+	public ActionResultType use(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand handIn, BlockRayTraceResult hit) {
+		Block down = world.getBlockState(pos.below()).getBlock();
 		if (down instanceof BlockSoil && PlantingRegistry.BULBS.get(((BlockSoil) down).type) == null) {
-			return down.onBlockActivated(down.getDefaultState(), world, pos.down(), player, handIn, hit);
+			return down.use(down.defaultBlockState(), world, pos.below(), player, handIn, hit);
 		}
 		return ActionResultType.PASS;
 	}
 
 	@Override
 	public void randomTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		if (world.rand.nextInt(10) == 0 && canGrow(world, pos, state, true)) grow(world, world.rand, pos, state);
-		else if (world.getBlockState(pos.down()).getBlock() instanceof SnowyDirtBlock && !(world.getBlockState(pos.up()).getBlock() instanceof BlockBulb) && state.get(AGE) > 0) {
-			world.setBlockState(pos, state.with(AGE, state.get(AGE) - 1));
+		if (world.random.nextInt(10) == 0 && isValidBonemealTarget(world, pos, state, true)) performBonemeal(world, world.random, pos, state);
+		else if (world.getBlockState(pos.below()).getBlock() instanceof SnowyDirtBlock && !(world.getBlockState(pos.above()).getBlock() instanceof BlockBulb) && state.getValue(AGE) > 0) {
+			world.setBlockAndUpdate(pos, state.setValue(AGE, state.getValue(AGE) - 1));
 		}
 	}
 
@@ -136,7 +136,7 @@ public class BlockPlant extends BushBlock implements IGrowable {
 	}
 
 	@Override
-	protected void fillStateContainer(Builder<Block, BlockState> builder) {
+	protected void createBlockStateDefinition(Builder<Block, BlockState> builder) {
 		builder.add(AGE).add(BULBS);
 	}
 
@@ -145,19 +145,19 @@ public class BlockPlant extends BushBlock implements IGrowable {
 	}
 
 	public int getAge(BlockState state) {
-		return state.get(AGE);
+		return state.getValue(AGE);
 	}
 
 	private void setAge(World world, BlockPos pos, int age) {
-		world.setBlockState(pos, withAge(age), 2);
+		world.setBlock(pos, withAge(age), 2);
 	}
 
 	public BlockState withAge(int age) {
-		return getDefaultState().with(AGE, age);
+		return defaultBlockState().setValue(AGE, age);
 	}
 
 	public boolean isMaxAge(BlockState state) {
-		return state.get(AGE) == getMaxAge();
+		return state.getValue(AGE) == getMaxAge();
 	}
 
 }

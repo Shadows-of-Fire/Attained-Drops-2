@@ -42,8 +42,8 @@ public class AttainedClient {
 			ModelMapRegistry.registerBlockMap(s, sl -> soil);
 			ModelMapRegistry.registerItemMap(s.asItem(), i -> soilI);
 		});
-		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, RenderType.getCutout());
-		PlantingRegistry.SOILS.values().forEach(b -> RenderTypeLookup.setRenderLayer(b, RenderType.getCutout()));
+		RenderTypeLookup.setRenderLayer(AttainedRegistry.PLANT, RenderType.cutout());
+		PlantingRegistry.SOILS.values().forEach(b -> RenderTypeLookup.setRenderLayer(b, RenderType.cutout()));
 	}
 
 	@SubscribeEvent

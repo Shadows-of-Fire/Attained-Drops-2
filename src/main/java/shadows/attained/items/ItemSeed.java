@@ -30,17 +30,17 @@ public class ItemSeed extends Item {
 	}
 
 	@Override
-	public ActionResultType onItemUse(ItemUseContext ctx) {
-		World world = ctx.getWorld();
-		BlockPos pos = ctx.getPos();
+	public ActionResultType useOn(ItemUseContext ctx) {
+		World world = ctx.getLevel();
+		BlockPos pos = ctx.getClickedPos();
 		PlayerEntity player = ctx.getPlayer();
 		BlockState state = world.getBlockState(pos);
-		if (state.getBlock() instanceof BlockSoil && world.isAirBlock(pos.up())) {
-			ItemStack stack = ctx.getItem();
-			if (player.canPlayerEdit(pos, ctx.getFace(), stack) && ctx.getFace() == Direction.UP) {
-				world.setBlockState(pos.up(), AttainedRegistry.PLANT.getDefaultState());
+		if (state.getBlock() instanceof BlockSoil && world.isEmptyBlock(pos.above())) {
+			ItemStack stack = ctx.getItemInHand();
+			if (player.mayUseItemAt(pos, ctx.getClickedFace(), stack) && ctx.getClickedFace() == Direction.UP) {
+				world.setBlockAndUpdate(pos.above(), AttainedRegistry.PLANT.defaultBlockState());
 				stack.shrink(1);
-				world.playSound(player, pos, SoundEvents.BLOCK_GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 1.0);
+				world.playSound(player, pos, SoundEvents.GRASS_BREAK, SoundCategory.BLOCKS, (float) 0.6, (float) 1.0);
 			}
 			return ActionResultType.SUCCESS;
 		}
@@ -49,7 +49,7 @@ public class ItemSeed extends Item {
 
 	@Override
 	@OnlyIn(Dist.CLIENT)
-	public void addInformation(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag advanced) {
+	public void appendHoverText(ItemStack stack, World world, List<ITextComponent> list, ITooltipFlag advanced) {
 		list.add(new TranslationTextComponent("tooltip.attained_drops.plantvitalized"));
 	}
 

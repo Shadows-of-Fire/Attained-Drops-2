@@ -34,7 +34,7 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 
 	@Override
 	public ParticleMessage read(PacketBuffer buf) {
-		BlockPos pos = BlockPos.fromLong(buf.readLong());
+		BlockPos pos = BlockPos.of(buf.readLong());
 		int color = buf.readInt();
 		byte type = buf.readByte();
 		return new ParticleMessage(pos, color, type);
@@ -42,7 +42,7 @@ public class ParticleMessage extends MessageProvider<ParticleMessage> {
 
 	@Override
 	public void write(ParticleMessage msg, PacketBuffer buf) {
-		buf.writeLong(msg.pos.toLong());
+		buf.writeLong(msg.pos.asLong());
 		buf.writeInt(msg.color);
 		buf.writeByte(msg.type);
 	}

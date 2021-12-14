@@ -1,43 +1,36 @@
 modLoader="javafml" #mandatory
 
-loaderVersion="[28,)" #mandatory (24 is current forge version)
+loaderVersion="[32,)" #mandatory
 
-issueTrackerURL="https://github.com/Shadows-of-Fire/Attained-Drops-2/issues" #optional
-
-displayURL="https://minecraft.curseforge.com/projects/attained-drops-2" #optional
+authors="${author}" #optional
 
 license="MIT License" #mandatory
 
-authors="Shadows_of_Fire" #optional
-
 [[mods]] #mandatory
 
-modId="attained_drops" #mandatory
+modId="${modid}" #mandatory
 
-version="${file.jarVersion}" #mandatory
+version="${version}" #mandatory
 
-displayName="Attained Drops" #mandatory
+displayName="${displayName}" #mandatory
 
+description='''${desc}'''
 
-description='''
-A mod for farming mob drops.
-'''
-
-[[dependencies.attained_drops]] #optional
+[[dependencies.${modid}]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[35.1.36,)" #mandatory
+    versionRange="[${forgeVersion},)" #mandatory
     ordering="NONE"
     side="BOTH"
-	
-[[dependencies.attained_drops]]
+
+[[dependencies.${modid}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.4,)"
+    versionRange="[${mcVersion},)"
     ordering="NONE"
     side="BOTH"
 	
-[[dependencies.attained_drops]]
+[[dependencies.${modid}]]
     modId="placebo"
     mandatory=true
     versionRange="[4.4,)"

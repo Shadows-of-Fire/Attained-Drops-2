@@ -45,7 +45,7 @@ public class AttainedRegistry {
 
 	@SubscribeEvent
 	public static void onItemRegister(Register<Item> e) {
-		Item.Properties props = new Item.Properties().group(AttainedDrops.GROUP);
+		Item.Properties props = new Item.Properties().tab(AttainedDrops.GROUP);
 		e.getRegistry().registerAll(new ItemSeed(props), new Item(props).setRegistryName(AttainedDrops.MODID, "life_essence"));
 		for (Block b : PlantingRegistry.SOILS.values()) {
 			e.getRegistry().register(new BlockItem(b, props).setRegistryName(b.getRegistryName()));
@@ -53,12 +53,12 @@ public class AttainedRegistry {
 		for (Block b : PlantingRegistry.BULBS.values()) {
 			e.getRegistry().register(new BlockItem(b, props) {
 				@Override
-				public ITextComponent getDisplayName(ItemStack s) {
-					return new TranslationTextComponent(b.getTranslationKey());
+				public ITextComponent getName(ItemStack s) {
+					return new TranslationTextComponent(b.getDescriptionId());
 				};
 			}.setRegistryName(b.getRegistryName()));
 		}
-		e.getRegistry().register(new BlockItem(VITALITY_SPREADER, new Item.Properties().group(AttainedDrops.GROUP).defaultMaxDamage(15)).setRegistryName(VITALITY_SPREADER.getRegistryName()));
+		e.getRegistry().register(new BlockItem(VITALITY_SPREADER, new Item.Properties().tab(AttainedDrops.GROUP).defaultDurability(15)).setRegistryName(VITALITY_SPREADER.getRegistryName()));
 	}
 
 }

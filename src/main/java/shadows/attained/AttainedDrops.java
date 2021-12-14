@@ -30,12 +30,12 @@ public class AttainedDrops {
 	public static final Logger LOGGER = LogManager.getLogger(MODID);
 	public static final ItemGroup GROUP = new ItemGroup(MODID) {
 		@Override
-		public ItemStack createIcon() {
+		public ItemStack makeIcon() {
 			return new ItemStack(AttainedRegistry.SEED);
 		}
 
 		@Override
-		public void fill(NonNullList<ItemStack> items) {
+		public void fillItemList(NonNullList<ItemStack> items) {
 			items.add(new ItemStack(AttainedRegistry.SEED));
 			items.add(new ItemStack(AttainedRegistry.LIFE_ESSENCE));
 			items.add(new ItemStack(AttainedRegistry.VITALITY_SPREADER));
@@ -70,8 +70,8 @@ public class AttainedDrops {
 
 	@SubscribeEvent
 	public void onMobDrop(LivingDropsEvent event) {
-		if (event.getEntity() instanceof IMob && event.getSource().getTrueSource() instanceof PlayerEntity && event.getEntity().world.rand.nextInt(Math.max(AttainedConfig.dropChance - event.getLootingLevel(), 1)) == 0) {
-			event.getDrops().add(new ItemEntity(event.getEntity().world, event.getEntity().getPosX(), event.getEntity().getPosY(), event.getEntity().getPosZ(), new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
+		if (event.getEntity() instanceof IMob && event.getSource().getEntity() instanceof PlayerEntity && event.getEntity().level.random.nextInt(Math.max(AttainedConfig.dropChance - event.getLootingLevel(), 1)) == 0) {
+			event.getDrops().add(new ItemEntity(event.getEntity().level, event.getEntity().getX(), event.getEntity().getY(), event.getEntity().getZ(), new ItemStack(AttainedRegistry.LIFE_ESSENCE)));
 		}
 	}
 
