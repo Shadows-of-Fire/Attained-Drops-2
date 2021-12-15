@@ -70,12 +70,12 @@ public class BlockVitalitySpreader extends Block {
 	@Override
 	public void tick(BlockState state, ServerLevel world, BlockPos pos, Random rand) {
 		genNewSoil(world, pos, state, rand);
-		world.getBlockTicks().scheduleTick(pos, this, 40);
+		world.scheduleTick(pos, this, 40);
 	}
 
 	@Override
 	public void setPlacedBy(Level world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack stack) {
-		if (!world.isClientSide) ((ServerLevel) world).getBlockTicks().scheduleTick(pos, this, 40);
+		if (!world.isClientSide) ((ServerLevel) world).scheduleTick(pos, this, 40);
 	}
 
 	private void genNewSoil(Level world, BlockPos pos, BlockState state, Random rand) {
