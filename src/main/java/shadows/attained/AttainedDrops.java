@@ -13,12 +13,14 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.network.NetworkRegistry;
 import net.minecraftforge.network.simple.SimpleChannel;
 import shadows.attained.api.PlantingRegistry;
+import shadows.attained.integration.TOPPlugin;
 import shadows.attained.util.ParticleMessage;
 import shadows.placebo.network.MessageHelper;
 import shadows.placebo.recipe.RecipeHelper;
@@ -66,6 +68,7 @@ public class AttainedDrops {
 		MinecraftForge.EVENT_BUS.register(new AttainedRegistry());
 		MessageHelper.registerMessage(CHANNEL, 0, new ParticleMessage());
 		AttainedRegistry.initRecipes();
+		if (ModList.get().isLoaded("theoneprobe")) TOPPlugin.register();
 	}
 
 	@SubscribeEvent

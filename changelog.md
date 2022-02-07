@@ -1,3 +1,6 @@
+## 9.0.1
+* Added The One Probe support
+
 ## 9.0.0
 * Updated to 1.18.1
 

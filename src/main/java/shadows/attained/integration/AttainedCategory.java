@@ -30,7 +30,7 @@ public class AttainedCategory implements IRecipeCategory<IAttainedType> {
 	public AttainedCategory(IGuiHelper guiHelper) {
 		ResourceLocation location = TEXTURES;
 		background = guiHelper.createDrawable(location, 0, 0, 98, 54);
-		icon = guiHelper.createDrawableIngredient(new ItemStack(AttainedRegistry.SEED));
+		icon = guiHelper.createDrawableIngredient(VanillaTypes.ITEM, new ItemStack(AttainedRegistry.SEED));
 		localizedName = new TranslatableComponent("attained_drops.growing");
 	}
 
